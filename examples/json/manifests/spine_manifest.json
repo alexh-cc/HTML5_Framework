@@ -1,0 +1,20 @@
+{
+  "json_1x": [
+    {
+      "src": "./img/spine/spineboy_@1x.json",
+      "id": "spineboy"
+    }
+  ],
+  "json_2x": [
+    {
+      "src": "./img/spine/spineboy_@2x.json",
+      "id": "spineboy"
+    }
+  ],
+  "json": [
+    {
+      "src": "bones/spineboy_skeleton.json",
+      "id": "spineboy_skeleton"
+    }
+  ]
+}

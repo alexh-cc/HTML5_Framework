@@ -1,0 +1,14 @@
+{
+  "json_1x": [
+    {
+      "src": "particles/particles_@1x.json",
+      "id": "particles"
+    }
+  ],
+  "json_2x": [
+    {
+      "src": "particles/particles_@2x.json",
+      "id": "particles"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "json_1x": [
+    {
+      "src": "dragndrop/vader_@1x.json",
+      "id": "dragndrop"
+    }
+  ],
+  "json_2x": [
+    {
+      "src": "dragndrop/vader_@2x.json",
+      "id": "dragndrop"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "json_1x": [],
+  "json_2x": [],
+  "img_1x": [
+    {
+      "src": "bg_@1x.jpg",
+      "id": "bg"
+    }
+  ],
+  "img_2x": [
+    {
+      "src": "bg_@2x.jpg",
+      "id": "bg"
+    }],
+  "snd_webaudio": [],
+  "snd_sprite": [],
+  "bm_font_1x": [],
+  "bm_font_2x": [],
+  "json": []
+}

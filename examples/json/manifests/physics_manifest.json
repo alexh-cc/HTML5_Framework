@@ -1,0 +1,14 @@
+{
+  "json_1x": [
+    {
+      "src": "physics/blocks_@1x.json",
+      "id": "blocks"
+    }
+  ],
+  "json_2x": [
+    {
+      "src": "physics/blocks_@2x.json",
+      "id": "blocks"
+    }
+  ]
+}

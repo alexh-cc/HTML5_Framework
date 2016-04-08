@@ -1,0 +1,32 @@
+{
+  "libs": [
+    "js/libs/pixi_v3.09.js",
+    "js/libs/pixi-spine.js",
+    "js/libs/p2.js",
+    "js/libs/alex_v3.0.6.source.js",
+    "js/libs/dragonBonesPatched.js",
+    "js/libs/dragonBonesPixi.js",
+    "js/libs/SpineUtils.js",
+    "js/libs/proton-1.0.1.js"
+  ],
+  "files": [
+    "js/game/Game.js",
+    "js/utils/BootStrap.js",
+    "js/game/screens/gameScreens.js",
+    "js/game/screens/ExampleScreen.js",
+    "js/game/screens/TitleScreen.js",
+    "js/game/screens/PhysicsScreen.js",
+    "js/game/screens/FontScreen.js",
+    "js/game/screens/SpineScreen.js",
+    "js/game/screens/ParticleScreen.js",
+    "js/game/screens/DragAndDropScreen.js",
+    "js/game/screens/DragonBonesScreen.js",
+    "js/game/physics/BlockScene.js",
+    "js/game/physics/BodyTypes.js",
+    "js/game/physics/BasicPlatform.js",
+    "js/game/physics/BuildingBlock.js",
+    "js/game/physics/SceneBuilder.js",
+    "js/game/physics/PhysicsBuilder.js",
+    "js/game/physics/UserInput.js"
+  ]
+}

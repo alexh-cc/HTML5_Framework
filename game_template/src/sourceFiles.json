@@ -1,0 +1,20 @@
+{
+  "libs": [
+    "js/libs/pixi_v3.09.js",
+    "js/libs/alex_v3.0.6.source.js"
+  ],
+  "files": [
+    "js/game/Game.js",
+    "js/utils/BootStrap.js",
+    "js/game/screens/gameScreens.js",
+    "js/game/titlescreen/TitleScreen.js",
+    "js/game/titlescreen/TitleScene.js",
+    "js/game/titlescreen/TitleBuilder.js",
+    "js/game/menuscreen/MenuScreen.js",
+    "js/game/menuscreen/MenuScene.js",
+    "js/game/menuscreen/MenuBuilder.js",
+    "js/game/gamescreen/GameScreen.js",
+    "js/game/gamescreen/GameScene.js",
+    "js/game/gamescreen/GameBuilder.js"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "bm_font_1x": [
+    {
+      "src": "./font/VAGRoundedCyrLT_@1x.xml",
+      "id": "VAGRounded"
+    }
+  ],
+  "bm_font_2x": [
+    {
+      "src": "./font/VAGRoundedCyrLT_@2x.xml",
+      "id": "VAGRounded"
+    }
+  ]
+}

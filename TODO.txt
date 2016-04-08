@@ -1,0 +1,51 @@
+
+- update to pixi v4
+	- https://github.com/pixijs/pixi.js/tree/dev
+
+- spine sprites - multiple atlas support
+
+- spine sprite - finish it - some methods are empty
+
+- could have an easier way of just specifying classes for core components, if they were stored in a keyed object.
+    - this would prevent having to override entire function in order to use custom sound, stage, etc
+
+- add bitmapdata and bitmap classes like phaser
+
+- make system os version future proof for ios
+
+- UML map
+
+- remove version hand coding from Game template
+
+- make the name spaces and folder structure match
+
+- restore any relevant pixi mods
+	- Text numlines
+
+- make a better way to link screens to manifests - through game config json
+	 >> see DarkAscent for an example of this
+
+- loaders
+	- don't use callback objects
+
+- grunt stuff -----------------------
+
+- have a separate release log from changelog - could be manual
+
+- jshint - a lot of work
+
+- get gameId from package json - only works if compiling the code
+- this is a game template task
+- assign game id to html title
+
+- yuidoc?
+
+----------------------------------------------------------------------------
+
+//NOTE - pixi fix - perhaps do a pull request - need to pull pixi via ssh
+line 17846 - in Object.defineProperties(Texture.prototype, {
+
+	if (!this.trim && !this.rotate && (frame.x + frame.width > this.baseTexture.realWidth || frame.y + frame.height > this.baseTexture.realHeight))
+                {
+                    throw new Error('Texture Error: frame does not fit inside the base Texture dimensions ' + this);
+                }

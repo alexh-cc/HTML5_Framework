@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Game</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="js/game_shell.js"></script>
+	<script>
+		//define script list
+		game_shell.config.files = [
+					"js/framework.min.js",
+					"js/game.min.js"
+				];
+		// ********************************************
+        //
+        var boundLoad = function () {
+            game_shell.loadScripts.call(game_shell);
+        };
+        if (!window.addEventListener) {
+            window.attachEvent("onload", boundLoad);
+        } else {
+            window.addEventListener("load", boundLoad, false);
+        }
+	</script>
+    <style type="text/css">
+         body {
+            margin:0;
+            background-color:#000000;
+            -webkit-tap-highlight-color: rbga(255, 255, 255, 0);
+            -webkit-user-select: none;
+            -ms-touch-action: none;
+            touch-action: none;
+        }
+        #game {
+            width:100%;
+            height:100%;
+        }
+        #rotate{
+            background-image: url(img/rotate.jpg);
+            width:100%;
+            height:100%;
+            background-size: contain;
+            position: absolute;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+	<!-- -->
+	<div id="game"></div>
+	<!-- -->
+	<div id="rotate"></div>
+    <!---->
+</body>
+</html>

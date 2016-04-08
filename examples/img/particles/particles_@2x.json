@@ -1,0 +1,21 @@
+{"frames": {
+
+"menu_particle.png":
+{
+	"frame": {"x":2,"y":2,"w":40,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":42},
+	"sourceSize": {"w":40,"h":42},
+	"pivot": {"x":0.4875,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "particles_@2x.png",
+	"format": "RGBA8888",
+	"size": {"w":44,"h":46},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:9c670b0690cc1060e3c0a10b6b44fb82:ed4072ec6d0f4de6a398d80307fbae0e:2e080534b79e7c366b6d0974815b65d3$"
+}
+}

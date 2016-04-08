@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>GAME TEMPLATE</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="js/libs/stats.min.js"></script>
+	<script src="js/utils/game_shell.js"></script>
+	<script>
+
+    //load scripts
+	if (!window.addEventListener) {
+	    window.attachEvent("onload", start);
+    } else {
+        window.addEventListener("load", function(){
+            initStats();
+            start();
+        }, false);
+    }
+
+//    game_shell.config.WEB_GL_ENABLED = false;
+    game_shell.config.VIEW_LOG = false;
+
+    /*
+    *
+    */
+    function start(){
+        // - load script list from json
+        var loader = new XMLHttpRequest();
+        loader.onreadystatechange = function(){
+            if (this.readyState === 4 && this.status === 200) {      
+                var jsonData = JSON.parse(this.responseText);
+
+                game_shell.config.files = jsonData.libs.concat(jsonData.files);
+                if(game_shell.config.VIEW_LOG) game_shell.config.files[game_shell.config.files.length] = "js/libs/console-log-viewer.js";
+                game_shell.loadScripts();
+            }
+        };
+        loader.open("GET", 'sourceFiles.json', true);
+        loader.send(null);
+    }
+
+    // ** MR DOOB STATS ** //
+    var stats = null;
+    function initStats(){
+        stats = new Stats();
+        stats.setMode(0); // 0: fps, 1: ms    
+        var style = stats.domElement.style;
+        style.position = 'absolute';
+        style.left = style.top = '0px';// Align top-left
+        document.body.appendChild( stats.domElement );
+    }
+	</script>
+    <style type="text/css">
+        body {
+            margin:0;
+            background-color:#333333;
+            -webkit-tap-highlight-color: rbga(255, 255, 255, 0);
+            -webkit-user-select: none;
+            -ms-touch-action: none;
+        }
+        #game {
+            width:100%;
+            height:100%;
+        }
+        #rotate{
+            background-image: url(img/rotate.jpg);
+            width:100%;
+            height:100%;
+            background-size: contain;
+            position: absolute;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+        }
+		/*@font-face {
+			font-family: 'sofachromeregular';
+			src: url('./font/sofachrome_rg-webfont.eot');
+			src: url('./font/sofachrome_rg-webfont.eot?#iefix') format('embedded-opentype'),
+			url('./font/sofachrome_rg-webfont.woff2') format('woff2'),
+			url('./font/sofachrome_rg-webfont.woff') format('woff'),
+			url('./font/sofachrome_rg-webfont.ttf') format('truetype'),
+			url('./font/sofachrome_rg-webfont.svg#sofachromeregular') format('svg');
+			font-weight: normal;
+			font-style: normal;
+		}
+        #font1 {
+			font-family: 'sofachromeregular';
+			position: absolute;
+			top: 100px;
+			left: -1000px;
+        }*/
+    </style>
+</head>
+<body>
+	<!-- -->
+	<div id="game"></div>
+	<!-- -->
+	<div id="rotate"></div>
+    <!-- hidden field to make the font load!-->
+    <!--<p id="font1">sofachromeregular</p>-->
+	<!---->
+</body>
+</html>

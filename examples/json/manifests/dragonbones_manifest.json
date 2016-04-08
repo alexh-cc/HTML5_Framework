@@ -1,0 +1,20 @@
+{
+  "json_1x": [
+    {
+      "src": "./img/dragonbones/robot_@1x.json",
+      "id": "robot"
+    }
+  ],
+  "json_2x": [
+    {
+      "src": "./img/dragonbones/robot_@2x.json",
+      "id": "robot"
+    }
+  ],
+  "json": [
+    {
+      "src": "bones/robot_skeleton.json",
+      "id": "robot_skeleton"
+    }
+  ]
+}
