@@ -1,4 +1,4 @@
-alex.game.HitTest = {
+cc.core.game.HitTest = {
     intersects: function(Object1, Object2){
         var overlap = this._intersection(Object1, Object2);
         return overlap > 0;

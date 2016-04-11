@@ -4,8 +4,8 @@
  * @param p_repeat {number} total number of ticks
  * @constructor
  */
-alex.utils.Timer = function(p_interval, p_repeat){
-	alex.utils.EventDispatcher.call(this);
+cc.core.utils.Timer = function(p_interval, p_repeat){
+	cc.core.utils.EventDispatcher.call(this);
 	//*******************************
 	this.interval = p_interval || 1000;//default to once per second	
 	if(typeof p_repeat != "undefined"){
@@ -30,13 +30,13 @@ alex.utils.Timer = function(p_interval, p_repeat){
 		//the end!
 	};
 };
-alex.utils.Timer.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.utils.Timer.prototype.constructor = alex.utils.Timer;
+cc.core.utils.Timer.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.utils.Timer.prototype.constructor = cc.core.utils.Timer;
 
 /**
  *
  */
-alex.utils.Timer.prototype.start = function(){
+cc.core.utils.Timer.prototype.start = function(){
 	this.running = true;
 	this.currentTime = 0;
 	this.tickCount = 0;
@@ -45,21 +45,21 @@ alex.utils.Timer.prototype.start = function(){
 /**
  *
  */
-alex.utils.Timer.prototype.stop = function(){
+cc.core.utils.Timer.prototype.stop = function(){
 	this.running = false;
 };
 
 /**
  *
  */
-alex.utils.Timer.prototype.resume = function(){
+cc.core.utils.Timer.prototype.resume = function(){
 	this.running = true;
 };
 
 /**
  *
  */
-alex.utils.Timer.prototype.reset = function(){
+cc.core.utils.Timer.prototype.reset = function(){
 	this.running = false;
 	this.currentTime = 0;
 	this.tickCount = 0;
@@ -68,7 +68,7 @@ alex.utils.Timer.prototype.reset = function(){
 /**
  *
  */
-Object.defineProperties(alex.utils.Timer.prototype, {
+Object.defineProperties(cc.core.utils.Timer.prototype, {
     isComplete: {
         get: function () {
             return this.tickCount === this.repeat;
@@ -85,7 +85,7 @@ Object.defineProperties(alex.utils.Timer.prototype, {
  * update loop
  * @param elapsed
  */
-alex.utils.Timer.prototype.update = function(elapsed){
+cc.core.utils.Timer.prototype.update = function(elapsed){
 	if(this.running){
 		this.currentTime += elapsed;
 		if(this.currentTime > this.interval){
@@ -98,7 +98,7 @@ alex.utils.Timer.prototype.update = function(elapsed){
 /**
  * 
  */
-alex.utils.Timer.prototype.tick = function(){
+cc.core.utils.Timer.prototype.tick = function(){
 	this.currentTime -= this.interval;
 	this.tickCount++;
 	//
@@ -120,8 +120,8 @@ alex.utils.Timer.prototype.tick = function(){
 /**
  * 
  */
-alex.utils.Timer.prototype.dispose = function(){
+cc.core.utils.Timer.prototype.dispose = function(){
 	this.onTimer = null;
 	this.onTimerComplete = null;
-	alex.utils.EventDispatcher.prototype.dispose.call(this);
+	cc.core.utils.EventDispatcher.prototype.dispose.call(this);
 };

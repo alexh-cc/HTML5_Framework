@@ -3,20 +3,20 @@
  */
 
 // JSON
-alex.load.JSONLoadState = function(){
+cc.core.load.JSONLoadState = function(){
     this.bulkLoader = null;
     this.jsonCache = null;
     this.numLoaded = 0;
     this.numTotal = 0;
 };
 
-alex.load.JSONLoadState.prototype.init = function(config){
+cc.core.load.JSONLoadState.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
     this.jsonLoaded = this._jsonLoaded.bind(this);
 };
 
 
-alex.load.JSONLoadState.prototype.unload = function(ids){
+cc.core.load.JSONLoadState.prototype.unload = function(ids){
     var i, id, n = ids.length;
     for(i = 0; i < n; i++){
         id = ids[i];
@@ -24,9 +24,9 @@ alex.load.JSONLoadState.prototype.unload = function(ids){
     }
 };
 
-alex.load.JSONLoadState.prototype.load = function(){
+cc.core.load.JSONLoadState.prototype.load = function(){
     var self = this;
-    this.queue = new alex.load.JsonQueue();
+    this.queue = new cc.core.load.JsonQueue();
     this.queue.on("complete", function(){
         self.bulkLoader.sequence.next();
     });
@@ -35,7 +35,7 @@ alex.load.JSONLoadState.prototype.load = function(){
 
 };
 
-alex.load.JSONLoadState.prototype._jsonLoaded = function(event){
+cc.core.load.JSONLoadState.prototype._jsonLoaded = function(event){
     var filePath = event.url;
     var assetData = this.bulkLoader.urls.getAssetData(filePath);
     //store the jsonData on the assetData
@@ -53,11 +53,11 @@ alex.load.JSONLoadState.prototype._jsonLoaded = function(event){
 };
 
 //progress event
-alex.load.JSONLoadState.prototype.jsonProgress = function(numLoaded, total){
+cc.core.load.JSONLoadState.prototype.jsonProgress = function(numLoaded, total){
     this.bulkLoader.jsonLoaded(numLoaded / total);
 };
 
-alex.load.JSONLoadState.prototype.toString = function(){
+cc.core.load.JSONLoadState.prototype.toString = function(){
     return "[JSONLoadState]";
 };
 
@@ -67,7 +67,7 @@ alex.load.JSONLoadState.prototype.toString = function(){
  * @param jsonData
  * @param jsonFilePath
  */
-alex.load.JSONLoadState.prototype.addImageToQueue = function(id, jsonData, jsonFilePath){
+cc.core.load.JSONLoadState.prototype.addImageToQueue = function(id, jsonData, jsonFilePath){
     var imgFilename = jsonData.meta.image;
     var imgManifest = this.bulkLoader.imgManifest;
     var n = imgManifest.length;

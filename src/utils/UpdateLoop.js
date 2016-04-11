@@ -3,7 +3,7 @@
  * @param fps
  * @constructor
  */
-alex.utils.UpdateLoop = function(fps){
+cc.core.utils.UpdateLoop = function(fps){
 	this.gameLoopId = -1;//interval id
 	this.fps = fps || 60;
 	this.interval = 1000/this.fps;//60 fps
@@ -17,7 +17,7 @@ alex.utils.UpdateLoop = function(fps){
 /**
  *
  */
-alex.utils.UpdateLoop.prototype.start = function(){
+cc.core.utils.UpdateLoop.prototype.start = function(){
     clearInterval(this.gameLoopId);
     this.currentTime = Date.now();
     this.gameLoopId = setInterval(this.gameLoop, this.interval);
@@ -26,7 +26,7 @@ alex.utils.UpdateLoop.prototype.start = function(){
 /**
  *
  */
-alex.utils.UpdateLoop.prototype.stop = function(){
+cc.core.utils.UpdateLoop.prototype.stop = function(){
     clearInterval(this.gameLoopId);
 };
 
@@ -34,7 +34,7 @@ alex.utils.UpdateLoop.prototype.stop = function(){
  *
  * @param p_time
  */
-alex.utils.UpdateLoop.prototype.updateGame = function(p_time){
+cc.core.utils.UpdateLoop.prototype.updateGame = function(p_time){
     //override this
 };
 
@@ -42,7 +42,7 @@ alex.utils.UpdateLoop.prototype.updateGame = function(p_time){
  * 
  * @private
  */
-alex.utils.UpdateLoop.prototype._gameLoop = function(){
+cc.core.utils.UpdateLoop.prototype._gameLoop = function(){
 	var newTime = Date.now();
     var elapsed = newTime - this.currentTime;
     this.currentTime = newTime;

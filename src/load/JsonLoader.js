@@ -1,16 +1,16 @@
 //
-alex.load.JsonLoader = function(url){
-	alex.utils.EventDispatcher.call(this);
+cc.core.load.JsonLoader = function(url){
+	cc.core.utils.EventDispatcher.call(this);
 	this.url = url;
 	this.id = null;
 };
-alex.load.JsonLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.JsonLoader.prototype.constructor = alex.load.JsonLoader;
+cc.core.load.JsonLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.JsonLoader.prototype.constructor = cc.core.load.JsonLoader;
 
 /**
  * This will begin loading the JSON file
  */
-alex.load.JsonLoader.prototype.load = function(){
+cc.core.load.JsonLoader.prototype.load = function(){
 	this.ajaxRequest = new PIXI.AjaxRequest();
 	var scope = this;
 	this.ajaxRequest.onreadystatechange = function() {
@@ -24,7 +24,7 @@ alex.load.JsonLoader.prototype.load = function(){
 
 /**
  */
-alex.load.JsonLoader.prototype.onJSONLoaded = function(){
+cc.core.load.JsonLoader.prototype.onJSONLoaded = function(){
 	if (this.ajaxRequest.readyState === 4) {
         if(this.ajaxRequest.status === 200){
             this.responseText = this.ajaxRequest.responseText;//also store the plain text... needed for spine

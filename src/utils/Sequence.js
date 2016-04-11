@@ -4,7 +4,7 @@
  * @param randomise
  * @constructor
  */
-alex.utils.Sequence = function(stuff, randomise){
+cc.core.utils.Sequence = function(stuff, randomise){
 	this.list = [];
 	if(stuff){
 		this.add(stuff, randomise);
@@ -15,7 +15,7 @@ alex.utils.Sequence = function(stuff, randomise){
  * @param stuff
  * @param randomise
  */
-alex.utils.Sequence.prototype.add = function(stuff, randomise){
+cc.core.utils.Sequence.prototype.add = function(stuff, randomise){
 	if(Array.isArray(stuff)){
 		var i, n = stuff.length;
 		for(i =0; i < n;i++){
@@ -30,7 +30,7 @@ alex.utils.Sequence.prototype.add = function(stuff, randomise){
  *
  * @param stuff
  */
-alex.utils.Sequence.prototype.remove = function(stuff){
+cc.core.utils.Sequence.prototype.remove = function(stuff){
 	var index;
 	if(Array.isArray(stuff)){
 		var i, n = stuff.length, item;
@@ -47,14 +47,14 @@ alex.utils.Sequence.prototype.remove = function(stuff){
 /**
  *
  */
-alex.utils.Sequence.prototype.randomise = function(){
-	alex.utils.Randomise.randomise(this.list);
+cc.core.utils.Sequence.prototype.randomise = function(){
+	cc.core.utils.Randomise.randomise(this.list);
 };
 /**
  *
  * @returns {*}
  */
-alex.utils.Sequence.prototype.next = function(){
+cc.core.utils.Sequence.prototype.next = function(){
 	var item = null;
 	if(this.list.length > 0){
 		item = this.list.shift();
@@ -65,7 +65,7 @@ alex.utils.Sequence.prototype.next = function(){
 /**
  *
  */
-Object.defineProperty(alex.utils.Sequence.prototype, 'length', {
+Object.defineProperty(cc.core.utils.Sequence.prototype, 'length', {
 	get: function(){
 		return this.list.length;
 	}

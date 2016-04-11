@@ -2,7 +2,7 @@
  * @class FontLoadState
  * @constructor
  */
-alex.load.FontLoadState = function(){
+cc.core.load.FontLoadState = function(){
     this.bulkLoader = null;
     this.loadedFonts = [];
     this.resolution = 1;
@@ -12,14 +12,14 @@ alex.load.FontLoadState = function(){
  *
  * @param config
  */
-alex.load.FontLoadState.prototype.init = function(config){
+cc.core.load.FontLoadState.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
 /**
  *
  */
-alex.load.FontLoadState.prototype.unload = function(){
+cc.core.load.FontLoadState.prototype.unload = function(){
     var i, n = this.loadedFonts.length;
     for(i = 0; i < n; i++){
         this.removeFont(this.loadedFonts[i]);
@@ -30,7 +30,7 @@ alex.load.FontLoadState.prototype.unload = function(){
  * @method removeFont
  * @param fontName
  */
-alex.load.FontLoadState.prototype.removeFont = function(fontName){
+cc.core.load.FontLoadState.prototype.removeFont = function(fontName){
     var fontCache = PIXI.extras.BitmapText.fonts;
     //validate!
     if(fontCache.hasOwnProperty(fontName)){
@@ -48,7 +48,7 @@ alex.load.FontLoadState.prototype.removeFont = function(fontName){
 /**
  * @method load
  */
-alex.load.FontLoadState.prototype.load = function(){
+cc.core.load.FontLoadState.prototype.load = function(){
     var files = this.bulkLoader.fontManifest;
     var n = files.length;
     if(n === 0){
@@ -63,7 +63,7 @@ alex.load.FontLoadState.prototype.load = function(){
         var self = this;
         for(var i = 0; i < n;i++){
             dataItem = files[i];
-            loader = new alex.load.BitmapFontLoader(dataItem.src, this.resolution);
+            loader = new cc.core.load.BitmapFontLoader(dataItem.src, this.resolution);
             loader.on('loaded', function(event){
                 numLoaded++;
                 bulkLoader.fontLoaded(numLoaded / n);

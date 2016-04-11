@@ -3,7 +3,7 @@
  * @class GameLoop
  * @constructor
  */
-alex.game.GameLoop = function(){
+cc.core.game.GameLoop = function(){
     this.gameObjects = [];
     this.itemsToRemove = [];//items to remove
     this.cameraCulling = false;
@@ -13,34 +13,34 @@ alex.game.GameLoop = function(){
 };
 
 //
-alex.game.GameLoop.prototype.init = function(config){
+cc.core.game.GameLoop.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
-alex.game.GameLoop.prototype.add = function(item){
+cc.core.game.GameLoop.prototype.add = function(item){
     var i = this.gameObjects.length;
     this.gameObjects[i] = item;
     return i;
 };
 
-alex.game.GameLoop.prototype.remove = function(item){
+cc.core.game.GameLoop.prototype.remove = function(item){
     this.itemsToRemove[this.itemsToRemove.length] = item;
 };
 
-alex.game.GameLoop.prototype.start = function(){
+cc.core.game.GameLoop.prototype.start = function(){
     this.isPaused = false;
 };
 
-alex.game.GameLoop.prototype.stop = function(){
+cc.core.game.GameLoop.prototype.stop = function(){
     this.isPaused = true;
 };
 
-alex.game.GameLoop.prototype.pause = function(bool){
+cc.core.game.GameLoop.prototype.pause = function(bool){
     this.isPaused = bool;
 };
 
 //
-alex.game.GameLoop.prototype.update = function(p_delta){
+cc.core.game.GameLoop.prototype.update = function(p_delta){
     if(!this.isPaused){
          //****************************
         //move game objects
@@ -59,7 +59,7 @@ alex.game.GameLoop.prototype.update = function(p_delta){
 /*
  * move game objects
  */
-alex.game.GameLoop.prototype.updateGameObjects = function(p_delta){
+cc.core.game.GameLoop.prototype.updateGameObjects = function(p_delta){
     //**********************************
     var i, n = this.gameObjects.length, obj;
     //**************************************
@@ -76,7 +76,7 @@ alex.game.GameLoop.prototype.updateGameObjects = function(p_delta){
 /*
  * bounds check
  */
-alex.game.GameLoop.prototype.postUpdate = function(p_delta){
+cc.core.game.GameLoop.prototype.postUpdate = function(p_delta){
     //**************************************
     //**********************************
     var i, n = this.itemsToRemove.length, obj, index;
@@ -105,7 +105,7 @@ alex.game.GameLoop.prototype.postUpdate = function(p_delta){
 /*
  * write all game co-ords to their display objects
  */
-alex.game.GameLoop.prototype.drawGameObjects = function(){
+cc.core.game.GameLoop.prototype.drawGameObjects = function(){
     var i, obj, n = this.gameObjects.length;
     for (i = 0; i < n; i++) {
         obj = this.gameObjects[i];
@@ -117,7 +117,7 @@ alex.game.GameLoop.prototype.drawGameObjects = function(){
 /*
  * 
  */
-alex.game.GameLoop.prototype.getGameObject = function(id){
+cc.core.game.GameLoop.prototype.getGameObject = function(id){
     var i, obj, n = this.gameObjects.length, target = null;
     for (i = 0; i < n; i++) {
         obj = this.gameObjects[i];

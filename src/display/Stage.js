@@ -5,16 +5,16 @@
  * Time: 8:59 AM
  * To change this template use File | Settings | File Templates.
  */
-alex.display.Stage = function(){  
+cc.core.display.Stage = function(){  
     this.centerV = true;//whether to vertically align
-    this.scaleModes = alex.settings.SCALE_MODES;
+    this.scaleModes = cc.core.settings.SCALE_MODES;
 };
 
 /**
  *
  * @param config
  */
-alex.display.Stage.prototype.init = function(config){
+cc.core.display.Stage.prototype.init = function(config){
 
     this.forceCanvas = config.forceCanvas;
 
@@ -31,7 +31,7 @@ alex.display.Stage.prototype.init = function(config){
  *
  * @param config
  */
-alex.display.Stage.prototype.createRenderer = function(config){
+cc.core.display.Stage.prototype.createRenderer = function(config){
     /*
     * @param [options] {object} The optional renderer parameters
     * @param [options.resolution=1] {number} the resolution of the renderer retina would be 2
@@ -60,14 +60,14 @@ alex.display.Stage.prototype.createRenderer = function(config){
  * content holder - centered
  * @param config
  */
-alex.display.Stage.prototype.createHolder = function(config){
+cc.core.display.Stage.prototype.createHolder = function(config){
     this.content = new PIXI.Container();
     this.content.x = config.width * 0.5;
     this.stage.addChild(this.content);
 };
 
 //TODO - rename to render?
-alex.display.Stage.prototype.draw = function(){
+cc.core.display.Stage.prototype.draw = function(){
     this.renderer.render(this.stage);
 };
 
@@ -75,7 +75,7 @@ alex.display.Stage.prototype.draw = function(){
  *
  * @param settings
  */
-alex.display.Stage.prototype.resize = function(settings){
+cc.core.display.Stage.prototype.resize = function(settings){
     var resolution = this.renderer.resolution;
     var pixelW = settings.pixelWidth / resolution;
     var pixelH = settings.pixelHeight / resolution;
@@ -101,7 +101,7 @@ alex.display.Stage.prototype.resize = function(settings){
 /**
  *
  */
-alex.display.Stage.prototype.addToDOM = function(){
+cc.core.display.Stage.prototype.addToDOM = function(){
     // add the renderer view element to the DOM
     var view = this.renderer.view;
     //get the parent div

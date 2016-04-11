@@ -2,7 +2,7 @@
  * @class RenderLoop
  * @constructor
  */
-alex.utils.RenderLoop = function(){
+cc.core.utils.RenderLoop = function(){
     this.currentTime = 0;
     this.requestId = -1;
     this.stage = null;
@@ -13,7 +13,7 @@ alex.utils.RenderLoop = function(){
  *
  * @param p_config
  */
-alex.utils.RenderLoop.prototype.init = function(p_config){
+cc.core.utils.RenderLoop.prototype.init = function(p_config){
     this.stage = p_config.stage;
     this.screenMgr = p_config.screenMgr;
     //************************************************
@@ -29,7 +29,7 @@ alex.utils.RenderLoop.prototype.init = function(p_config){
 /**
  *
  */
-alex.utils.RenderLoop.prototype._defaultRender = function(){
+cc.core.utils.RenderLoop.prototype._defaultRender = function(){
     var newTime = Date.now(), 
         elapsed = newTime - this.currentTime;
         this.currentTime = newTime;
@@ -42,7 +42,7 @@ alex.utils.RenderLoop.prototype._defaultRender = function(){
 /**
  *
  */
-alex.utils.RenderLoop.prototype._statsRender = function(){
+cc.core.utils.RenderLoop.prototype._statsRender = function(){
     stats.begin();
     var newTime = Date.now(), 
         elapsed = newTime - this.currentTime;
@@ -57,7 +57,7 @@ alex.utils.RenderLoop.prototype._statsRender = function(){
 /**
  *
  */
-alex.utils.RenderLoop.prototype.start = function(){
+cc.core.utils.RenderLoop.prototype.start = function(){
     this.currentTime = Date.now();
     this.render();
 };
@@ -65,6 +65,6 @@ alex.utils.RenderLoop.prototype.start = function(){
 /**
  *
  */
-alex.utils.RenderLoop.prototype.stop = function(){
+cc.core.utils.RenderLoop.prototype.stop = function(){
     cancelAnimationFrame(this.requestId);
 };

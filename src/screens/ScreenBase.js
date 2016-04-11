@@ -3,7 +3,7 @@
  * @param config
  * @constructor
  */
-alex.screens.ScreenBase = function(config){
+cc.core.screens.ScreenBase = function(config){
 	PIXI.Container.call(this);
 	//these vars all come from config
     this.screenW = 0; this.screenH = 0;
@@ -15,25 +15,25 @@ alex.screens.ScreenBase = function(config){
     //get screenW, screenH, defaultW, defaultH - actual screen width in points
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
     //
-    alex.utils.UpdateList.prototype.mixin(this);
+    cc.core.utils.UpdateList.prototype.mixin(this);
     //add a delayedAction by default!
-    this.delayedAction = new alex.utils.DelayedAction();
+    this.delayedAction = new cc.core.utils.DelayedAction();
     this.addUpdateItem(this.delayedAction);
 };
-alex.screens.ScreenBase.prototype = Object.create(PIXI.Container.prototype);
-alex.screens.ScreenBase.prototype.constructor = alex.screens.ScreenBase;
+cc.core.screens.ScreenBase.prototype = Object.create(PIXI.Container.prototype);
+cc.core.screens.ScreenBase.prototype.constructor = cc.core.screens.ScreenBase;
 
 /**
  * set up screen content
  */
-alex.screens.ScreenBase.prototype.run = function(){};
+cc.core.screens.ScreenBase.prototype.run = function(){};
 
 /**
  *
  * @param p_w
  * @param p_h
  */
-alex.screens.ScreenBase.prototype.resize = function(p_w, p_h){
+cc.core.screens.ScreenBase.prototype.resize = function(p_w, p_h){
     this.screenW = p_w;
     this.screenH = p_h;
 };
@@ -41,7 +41,7 @@ alex.screens.ScreenBase.prototype.resize = function(p_w, p_h){
 /**
  *
  */
-alex.screens.ScreenBase.prototype.getSceneConfig  = function(){
+cc.core.screens.ScreenBase.prototype.getSceneConfig  = function(){
     return {
         screenW: this.screenW, screenH: this.screenH,
         defaultW: this.defaultW, defaultH: this.defaultH,
@@ -54,7 +54,7 @@ alex.screens.ScreenBase.prototype.getSceneConfig  = function(){
 /**
  * @param SceneClass {class}
  */
-alex.screens.ScreenBase.prototype.createScene  = function(SceneClass){
+cc.core.screens.ScreenBase.prototype.createScene  = function(SceneClass){
     var scene = new SceneClass();
     scene.init(this.getSceneConfig());
     this.addChild(scene.root);
@@ -71,7 +71,7 @@ alex.screens.ScreenBase.prototype.createScene  = function(SceneClass){
  * @param callback
  * @param p_ms
  */
-alex.screens.ScreenBase.prototype.delay = function(callback, p_ms){
+cc.core.screens.ScreenBase.prototype.delay = function(callback, p_ms){
     this.delayedAction.delay(callback, p_ms);
 };
 
@@ -79,13 +79,13 @@ alex.screens.ScreenBase.prototype.delay = function(callback, p_ms){
  * use this to run dragonBones content or anything needing to run off RAF
  * @param delta
  */
-alex.screens.ScreenBase.prototype.render = function(delta){};
+cc.core.screens.ScreenBase.prototype.render = function(delta){};
 
 /**
  *
  * @param p_screenId
  */
-alex.screens.ScreenBase.prototype.newScreen = function(p_screenId){
+cc.core.screens.ScreenBase.prototype.newScreen = function(p_screenId){
     var event;
     if(typeof p_screenId === 'string'){
         event = {type: "new_screen", screenId: p_screenId};
@@ -99,7 +99,7 @@ alex.screens.ScreenBase.prototype.newScreen = function(p_screenId){
 /**
  *
  */
-alex.screens.ScreenBase.prototype.dispose = function(){
+cc.core.screens.ScreenBase.prototype.dispose = function(){
 	//remove self!
 	this.removeFromParent();
 	//destroy screen content

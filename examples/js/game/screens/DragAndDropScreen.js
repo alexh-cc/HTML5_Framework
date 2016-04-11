@@ -22,13 +22,13 @@ game_shell.screens.DragAndDropScreen.prototype.run = function () {
 
 /**
  *
- * @returns {alex.game.DragSprite}
+ * @returns {cc.core.game.DragSprite}
  */
 game_shell.screens.DragAndDropScreen.prototype.createItem = function(){
 
     var useClickAndStick = !game_shell.system.isMobile;
 
-    var item = new alex.game.DragSprite();
+    var item = new cc.core.game.DragSprite();
     item.init({
         texture: PIXI.utils.TextureCache['vader.png'],
         autoEnable: true,

@@ -1,15 +1,15 @@
-alex.load.JsonQueue = function(){
-	alex.utils.EventDispatcher.call(this);
+cc.core.load.JsonQueue = function(){
+	cc.core.utils.EventDispatcher.call(this);
 	this.queue = [];//an array
 	this.results = {};
 };
-alex.load.JsonQueue.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.JsonQueue.prototype.constructor = alex.load.JsonQueue;
+cc.core.load.JsonQueue.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.JsonQueue.prototype.constructor = cc.core.load.JsonQueue;
 
 /*
 manifest is a list of objects with name and path 
 */
-alex.load.JsonQueue.prototype.load = function(p_manifest){
+cc.core.load.JsonQueue.prototype.load = function(p_manifest){
 	this.queue = this.queue.concat(p_manifest);
 	this.numTotal = this.queue.length;
 	this.numLoaded = 0;
@@ -18,7 +18,7 @@ alex.load.JsonQueue.prototype.load = function(p_manifest){
 	this.loadNext();
 };
 
-alex.load.JsonQueue.prototype.loadNext = function(){
+cc.core.load.JsonQueue.prototype.loadNext = function(){
 	if(this.queue.length > 0){
 		// - don't load the list backwards!
 		//use shift!
@@ -26,7 +26,7 @@ alex.load.JsonQueue.prototype.loadNext = function(){
 		var id = obj.id, src = obj.src;
 		this.results[id] = null;
 		//
-		var loader = new alex.load.JsonLoader(src);
+		var loader = new cc.core.load.JsonLoader(src);
 		loader.id = id;
 		loader.on("loaded",this.boundCallback);
 		loader.load();
@@ -37,8 +37,8 @@ alex.load.JsonQueue.prototype.loadNext = function(){
 	}	
 };
 
-alex.load.JsonQueue.prototype._jsonLoaded = function(p_evt){
-	//console.log("alex.utils.JsonQueue.prototype.onJsonLoaded: " + p_evt)
+cc.core.load.JsonQueue.prototype._jsonLoaded = function(p_evt){
+	//console.log("cc.core.utils.JsonQueue.prototype.onJsonLoaded: " + p_evt)
 	var loader = p_evt.target;
 	var jsonData = loader.jsonData;
 	var id = loader.id;

@@ -302,7 +302,7 @@ TWEEN.Tween = function ( object ) {
 	};
 
 	//************************************
-	//alex - added this to support pausing
+	//cc.core.- added this to support pausing
 	this.restart = function(pause_duration){
 		_startTime += pause_duration;
 	};

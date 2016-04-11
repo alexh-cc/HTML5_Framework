@@ -2,7 +2,7 @@
  * @class FullscreenMgr
  * @constructor
  */
-alex.utils.FullscreenMgr = function(){
+cc.core.utils.FullscreenMgr = function(){
     this.canvas = null;
     this.isMobile = false;
     this.fullScreenState = false;//just for debugging
@@ -16,7 +16,7 @@ alex.utils.FullscreenMgr = function(){
  * @method init
  * @param config
  */
-alex.utils.FullscreenMgr.prototype.init = function(config){
+cc.core.utils.FullscreenMgr.prototype.init = function(config){
     this.canvas = config.canvas;//element
     this.isMobile = config.isMobile;//
     this.isAvailable = this.checkAvailable();
@@ -28,7 +28,7 @@ alex.utils.FullscreenMgr.prototype.init = function(config){
  * @method activate
  * @param state
  */
-alex.utils.FullscreenMgr.prototype.activate = function(state){
+cc.core.utils.FullscreenMgr.prototype.activate = function(state){
     this.fullScreenState = state;
     this.canvas.removeEventListener("click", this.goFullscreen);
     this.canvas.removeEventListener("touchstart", this.goFullscreen);
@@ -43,7 +43,7 @@ alex.utils.FullscreenMgr.prototype.activate = function(state){
  * @method _goFullscreen
  * @private
  */
-alex.utils.FullscreenMgr.prototype._goFullscreen = function(){
+cc.core.utils.FullscreenMgr.prototype._goFullscreen = function(){
     var gameDiv = document.documentElement;
     if (gameDiv.requestFullscreen) {
         gameDiv.requestFullscreen();
@@ -61,7 +61,7 @@ alex.utils.FullscreenMgr.prototype._goFullscreen = function(){
 /**
  * @method reactivate
  */
-alex.utils.FullscreenMgr.prototype.reactivate = function(){
+cc.core.utils.FullscreenMgr.prototype.reactivate = function(){
     this.activate(!this.isFullScreen);
 };
 
@@ -69,7 +69,7 @@ alex.utils.FullscreenMgr.prototype.reactivate = function(){
  * @method checkAvailable
  * @returns {*}
  */
-alex.utils.FullscreenMgr.prototype.checkAvailable = function(){
+cc.core.utils.FullscreenMgr.prototype.checkAvailable = function(){
     var doc = document.documentElement;
     //this is only for iframes
     doc.allowfullscreen = true;
@@ -116,7 +116,7 @@ alex.utils.FullscreenMgr.prototype.checkAvailable = function(){
  * @param event
  * @private
  */
-alex.utils.FullscreenMgr.prototype._fullscreenChanged = function(event){
+cc.core.utils.FullscreenMgr.prototype._fullscreenChanged = function(event){
     var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
     this.isFullScreen = fullscreenElement !== null && typeof fullscreenElement != "undefined";
     console.log("FullscreenMg -> fullscreenChanged -- isFullScreen: " + this.isFullScreen);
@@ -131,7 +131,7 @@ alex.utils.FullscreenMgr.prototype._fullscreenChanged = function(event){
  * @method fullscreenError
  * @param event
  */
-alex.utils.FullscreenMgr.prototype.fullscreenError = function(event){
+cc.core.utils.FullscreenMgr.prototype.fullscreenError = function(event){
     console.log("* !!!! fullscreenError !!! * " + event);
     console.log("* event.message: " + event.message);
     this.fullscreenChanged(null);

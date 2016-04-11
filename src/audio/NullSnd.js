@@ -7,7 +7,7 @@
  */
 
 //null object for completely disabled sound...
-alex.audio.SndNone = function(){
+cc.core.audio.SndNone = function(){
     this.mute = function(b){ };
     this.muteGroup = function(grp,b){ };
     this.muteAllGroups = function(b){ };

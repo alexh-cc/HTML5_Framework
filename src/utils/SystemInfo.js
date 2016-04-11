@@ -2,7 +2,7 @@
  *
  * @constructor
  */
-alex.utils.SystemInfo = function(){
+cc.core.utils.SystemInfo = function(){
     this.browser = -1;//identify browser type
     this.os = -1;//operating system
     this.device = -1;//device type (desktop or mobile)
@@ -43,7 +43,7 @@ alex.utils.SystemInfo = function(){
 /**
  *
  */
-alex.utils.SystemInfo.prototype.run = function(){
+cc.core.utils.SystemInfo.prototype.run = function(){
     this._checkDevice();
     this._checkAudio();
 };
@@ -52,7 +52,7 @@ alex.utils.SystemInfo.prototype.run = function(){
  * user agent sniffing
  * @private
  */
-alex.utils.SystemInfo.prototype._checkDevice = function(){
+cc.core.utils.SystemInfo.prototype._checkDevice = function(){
     var systemString = navigator.userAgent;
     if (systemString.length > 0) {
         //reg exp
@@ -148,7 +148,7 @@ alex.utils.SystemInfo.prototype._checkDevice = function(){
  * check audio support
  * @private
  */
-alex.utils.SystemInfo.prototype._checkAudio = function(){
+cc.core.utils.SystemInfo.prototype._checkAudio = function(){
     //*****************************        
     //var canPlay = 'probably';
     //var canPlayOgg = Modernizr.audio.ogg;    
@@ -186,7 +186,7 @@ alex.utils.SystemInfo.prototype._checkAudio = function(){
 // helper getters
 //********************************
 
-Object.defineProperties(alex.utils.SystemInfo.prototype, {
+Object.defineProperties(cc.core.utils.SystemInfo.prototype, {
     isAndroidStock: {
         get: function() {
             return this.browser === this.browserAndroidStock;

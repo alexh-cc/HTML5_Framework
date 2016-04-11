@@ -5,8 +5,8 @@
  * Time: 1:31 PM
  * To change this template use File | Settings | File Templates.
  */
-alex.motion.ScreenShaker = function(p_target){
-    alex.utils.EventDispatcher.call(this);
+cc.core.motion.ScreenShaker = function(p_target){
+    cc.core.utils.EventDispatcher.call(this);
     var time = 0;
     this.rootPt = new PIXI.Point();
     this.target = p_target;
@@ -60,5 +60,5 @@ alex.motion.ScreenShaker = function(p_target){
     };
 
 };
-alex.motion.ScreenShaker.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.motion.ScreenShaker.prototype.constructor = alex.motion.ScreenShaker;
+cc.core.motion.ScreenShaker.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.motion.ScreenShaker.prototype.constructor = cc.core.motion.ScreenShaker;

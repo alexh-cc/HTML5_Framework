@@ -3,7 +3,7 @@
  * @class SceneBuilder
  * @constructor
  */
-alex.screens.SceneBuilder = function(){
+cc.core.screens.SceneBuilder = function(){
     this.scene = null;
     this.root = null;
     this.screenW = 0;
@@ -15,12 +15,12 @@ alex.screens.SceneBuilder = function(){
  * @method init
  * @param config
  */
-alex.screens.SceneBuilder.prototype.init = function(config) {
+cc.core.screens.SceneBuilder.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
     //
     this.scene.root = new PIXI.Container();
-    this.scene.timeout = new alex.utils.DelayedAction();
-    this.scene.updateList = this.updateList = new alex.utils.UpdateList();
+    this.scene.timeout = new cc.core.utils.DelayedAction();
+    this.scene.updateList = this.updateList = new cc.core.utils.UpdateList();
     //add screen to update
     this.updateList.add(this.scene);
 };

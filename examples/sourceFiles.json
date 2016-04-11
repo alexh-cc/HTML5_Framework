@@ -3,7 +3,7 @@
     "js/libs/pixi_v3.09.js",
     "js/libs/pixi-spine.js",
     "js/libs/p2.js",
-    "js/libs/alex_v3.0.6.source.js",
+    "js/libs/cc_core_v3.0.6.source.js",
     "js/libs/dragonBonesPatched.js",
     "js/libs/dragonBonesPixi.js",
     "js/libs/SpineUtils.js",

@@ -3,14 +3,14 @@
  * @constructor
  */
 game_shell.physics.BuildingBlock = function () {
-    alex.game.GameObject.call(this);
+    cc.core.game.GameObject.call(this);
 
     this.type = game_shell.physics.BodyTypes.BLOCK;
 
     this.radius = 1;
 
 };
-game_shell.physics.BuildingBlock.prototype = Object.create(alex.game.GameObject.prototype);
+game_shell.physics.BuildingBlock.prototype = Object.create(cc.core.game.GameObject.prototype);
 game_shell.physics.BuildingBlock.prototype.constructor = game_shell.physics.BuildingBlock;
 
 /**

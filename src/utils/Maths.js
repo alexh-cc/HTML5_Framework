@@ -1,7 +1,7 @@
 /**
  * Collection of useful maths functions for dealing with vectors, etc
  */
-alex.utils.Maths = {
+cc.core.utils.Maths = {
 
     /**
      * @method rotate

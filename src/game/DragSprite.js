@@ -2,20 +2,20 @@
  * @class DragSprite
  * @constructor
  */
-alex.game.DragSprite = function(){
+cc.core.game.DragSprite = function(){
     this.useClickAndStick = false;
     this.minSize = 60;//TODO - configure this with devicePixelRatio?
     this.y = 0;
     this.x = 0;
     this.autoEnable = true;
 };
-alex.game.DragSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.game.DragSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  *
  * @param config
  */
-alex.game.DragSprite.prototype.init = function(config){
+cc.core.game.DragSprite.prototype.init = function(config){
 
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 
@@ -52,7 +52,7 @@ alex.game.DragSprite.prototype.init = function(config){
 /**
  * this is where it all happens
  */
-alex.game.DragSprite.prototype.initDrag = function(){
+cc.core.game.DragSprite.prototype.initDrag = function(){
     var pt = new PIXI.Point(), global = new PIXI.Point(), dragOffset = new PIXI.Point();
     var root = this.root, self = this, modeDefault = 1, modeClick = 2;//dragging = 0,
     var pressTime = 0, useClickAndStick = this.useClickAndStick;
@@ -131,14 +131,14 @@ alex.game.DragSprite.prototype.initDrag = function(){
  *
  * @param bool
  */
-alex.game.DragSprite.prototype.enable = function(bool){
+cc.core.game.DragSprite.prototype.enable = function(bool){
     this.root.interactive = bool;
     this.root.buttonMode = bool;
 };
 /**
  *
  */
-alex.game.DragSprite.prototype.updateRect = function(){
+cc.core.game.DragSprite.prototype.updateRect = function(){
     this.rect.x = this.root.x - (this.rect.width * 0.5);
     this.rect.y = this.root.y - (this.rect.height * 0.5);
 };
@@ -146,7 +146,7 @@ alex.game.DragSprite.prototype.updateRect = function(){
 /**
  *
  */
-alex.game.DragSprite.prototype.dropped = function(){
+cc.core.game.DragSprite.prototype.dropped = function(){
     this.updateRect();
     this.emit({type: 'dropped', rect: this.rect});
 };
@@ -154,7 +154,7 @@ alex.game.DragSprite.prototype.dropped = function(){
 /**
  *
  */
-alex.game.DragSprite.prototype.toFront = function(){
+cc.core.game.DragSprite.prototype.toFront = function(){
     var p = this.root.parent;
     this.root.removeFromParent();
     p.addChild(this.root);
@@ -164,7 +164,7 @@ alex.game.DragSprite.prototype.toFront = function(){
  *
  * @param pt
  */
-alex.game.DragSprite.prototype.setStart = function(pt){
+cc.core.game.DragSprite.prototype.setStart = function(pt){
     this.startPt.x = pt.x;
     this.startPt.y = pt.y;
     this.root.x = pt.x;

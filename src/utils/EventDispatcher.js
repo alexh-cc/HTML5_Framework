@@ -2,24 +2,24 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-alex.utils.EventDispatcher = function () {}
+cc.core.utils.EventDispatcher = function () {}
 
-alex.utils.EventDispatcher.prototype = {
+cc.core.utils.EventDispatcher.prototype = {
 
-	constructor: alex.utils.EventDispatcher,
+	constructor: cc.core.utils.EventDispatcher,
 
 	apply: function ( object ) {
 
-		object.addEventListener = alex.utils.EventDispatcher.prototype.addEventListener;
-		object.on = alex.utils.EventDispatcher.prototype.addEventListener;
-		object.hasEventListener = alex.utils.EventDispatcher.prototype.hasEventListener;
-		object.has = alex.utils.EventDispatcher.prototype.hasEventListener;
-		object.removeEventListener = alex.utils.EventDispatcher.prototype.removeEventListener;
-		object.off = alex.utils.EventDispatcher.prototype.removeEventListener;
-		object.removeEventListeners = alex.utils.EventDispatcher.prototype.removeEventListeners;
-		object.offAll = alex.utils.EventDispatcher.prototype.removeEventListeners;
-		object.dispatchEvent = alex.utils.EventDispatcher.prototype.dispatchEvent;
-		object.emit = alex.utils.EventDispatcher.prototype.dispatchEvent;
+		object.addEventListener = cc.core.utils.EventDispatcher.prototype.addEventListener;
+		object.on = cc.core.utils.EventDispatcher.prototype.addEventListener;
+		object.hasEventListener = cc.core.utils.EventDispatcher.prototype.hasEventListener;
+		object.has = cc.core.utils.EventDispatcher.prototype.hasEventListener;
+		object.removeEventListener = cc.core.utils.EventDispatcher.prototype.removeEventListener;
+		object.off = cc.core.utils.EventDispatcher.prototype.removeEventListener;
+		object.removeEventListeners = cc.core.utils.EventDispatcher.prototype.removeEventListeners;
+		object.offAll = cc.core.utils.EventDispatcher.prototype.removeEventListeners;
+		object.dispatchEvent = cc.core.utils.EventDispatcher.prototype.dispatchEvent;
+		object.emit = cc.core.utils.EventDispatcher.prototype.dispatchEvent;
 
 	},
 
@@ -116,8 +116,8 @@ alex.utils.EventDispatcher.prototype = {
 	}
 };
 //terser syntax...
-alex.utils.EventDispatcher.prototype.on = alex.utils.EventDispatcher.prototype.addEventListener;
-alex.utils.EventDispatcher.prototype.emit = alex.utils.EventDispatcher.prototype.dispatchEvent;
-alex.utils.EventDispatcher.prototype.has = alex.utils.EventDispatcher.prototype.hasEventListener;
-alex.utils.EventDispatcher.prototype.off = alex.utils.EventDispatcher.prototype.removeEventListener;
-alex.utils.EventDispatcher.prototype.offAll = alex.utils.EventDispatcher.prototype.removeEventListeners;
+cc.core.utils.EventDispatcher.prototype.on = cc.core.utils.EventDispatcher.prototype.addEventListener;
+cc.core.utils.EventDispatcher.prototype.emit = cc.core.utils.EventDispatcher.prototype.dispatchEvent;
+cc.core.utils.EventDispatcher.prototype.has = cc.core.utils.EventDispatcher.prototype.hasEventListener;
+cc.core.utils.EventDispatcher.prototype.off = cc.core.utils.EventDispatcher.prototype.removeEventListener;
+cc.core.utils.EventDispatcher.prototype.offAll = cc.core.utils.EventDispatcher.prototype.removeEventListeners;

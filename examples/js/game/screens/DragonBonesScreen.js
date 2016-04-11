@@ -94,7 +94,7 @@ game_shell.screens.DragonBonesScreen.prototype.createBonesSprite = function (y) 
 
 
 game_shell.screens.DragonBonesScreen.prototype.createTestButton = function () {
-    var q = new alex.display.Quad(30, 30);
+    var q = new cc.core.display.Quad(30, 30);
     q.x = -100;
     q.y = -100;
     this.addChild(q);

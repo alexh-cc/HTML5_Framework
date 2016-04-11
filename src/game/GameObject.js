@@ -3,7 +3,7 @@
  * @param config
  * @constructor
  */
-alex.game.GameObject = function(config){
+cc.core.game.GameObject = function(config){
     this.body = null;
     this.shape = null;
     this.graphics = null;
@@ -20,12 +20,12 @@ alex.game.GameObject = function(config){
 
     this.frame = new PIXI.Rectangle();//AABB
 };
-alex.game.GameObject.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.game.GameObject.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  * @method createMultiShape
  */
-alex.game.GameObject.prototype.createMultiShape = function(config, isSensor){
+cc.core.game.GameObject.prototype.createMultiShape = function(config, isSensor){
     var x = config.x / this.scaling,
         y = config.y / this.scaling;
     //passing no mass value caused this to default to static body type
@@ -54,7 +54,7 @@ alex.game.GameObject.prototype.createMultiShape = function(config, isSensor){
 /**
  * @method createRectangle
  */
-alex.game.GameObject.prototype.createRectangle = function(config){
+cc.core.game.GameObject.prototype.createRectangle = function(config){
     var w = config.width / this.scaling,
         h = config.height / this.scaling,
         x = config.x / this.scaling,
@@ -76,7 +76,7 @@ alex.game.GameObject.prototype.createRectangle = function(config){
 /**
  * @method createCircle
  */
-alex.game.GameObject.prototype.createCircle = function(config){
+cc.core.game.GameObject.prototype.createCircle = function(config){
     var diameter = config.diameter / this.scaling,
         x = config.x / this.scaling,
         y = config.y / this.scaling;
@@ -97,7 +97,7 @@ alex.game.GameObject.prototype.createCircle = function(config){
  * @param config
  * @returns {null}
  */
-alex.game.GameObject.prototype.createPolygon = function (config) {
+cc.core.game.GameObject.prototype.createPolygon = function (config) {
     this.body = new p2.Body({
         position: [0, 0]
     });
@@ -115,7 +115,7 @@ alex.game.GameObject.prototype.createPolygon = function (config) {
     //uh-oh, they need to be anti clockwise!
     // - check whether clockwise
 
-    var isClockwise = alex.utils.Maths.isClockwise(vertices);
+    var isClockwise = cc.core.utils.Maths.isClockwise(vertices);
     if(isClockwise){
         vertices.reverse();
     }
@@ -131,7 +131,7 @@ alex.game.GameObject.prototype.createPolygon = function (config) {
 /**
  * @method draw
  */
-alex.game.GameObject.prototype.draw = function(force){
+cc.core.game.GameObject.prototype.draw = function(force){
     if(!this.graphics) return;
     if(!this.needsDraw && !force) return;
     var x = this.graphics.position.x = -(this.body.position[0] * this.scaling);
@@ -146,7 +146,7 @@ alex.game.GameObject.prototype.draw = function(force){
  * @method parse
  * @param config
  */
-alex.game.GameObject.prototype.parse = function(config){
+cc.core.game.GameObject.prototype.parse = function(config){
     this.resolution = config.resolution;
     this.setPosition(config);
     this.body.angle = (config.angle) || 0;
@@ -164,7 +164,7 @@ alex.game.GameObject.prototype.parse = function(config){
 /**
  * @method makeSprite
  */
-alex.game.GameObject.prototype.makeSprite = function(image){
+cc.core.game.GameObject.prototype.makeSprite = function(image){
     return new PIXI.Sprite(PIXI.utils.TextureCache[image]);
 };
 
@@ -172,7 +172,7 @@ alex.game.GameObject.prototype.makeSprite = function(image){
  * @method updateFrame
  * @returns {Object}
  */
-alex.game.GameObject.prototype.updateFrame = function(){
+cc.core.game.GameObject.prototype.updateFrame = function(){
     //hmmm... how to get the x & y?
     //var bounds = this.graphics.getLocalBounds();
     var bounds = this.graphics.getBounds();
@@ -196,7 +196,7 @@ alex.game.GameObject.prototype.updateFrame = function(){
 /**
  * @method 
  */
-alex.game.GameObject.prototype.setPosition = function(pt){
+cc.core.game.GameObject.prototype.setPosition = function(pt){
     this.body.position[0] = (pt.x / this.scaling);// || 0;
     this.body.position[1] = (pt.y / this.scaling);// || 0;
 };
@@ -204,7 +204,7 @@ alex.game.GameObject.prototype.setPosition = function(pt){
 /**
  * @method 
  */
-Object.defineProperties(alex.game.GameObject.prototype, {
+Object.defineProperties(cc.core.game.GameObject.prototype, {
     x: {
         get: function(){
             return this.body.position[0] * this.scaling;
@@ -258,9 +258,9 @@ Object.defineProperties(alex.game.GameObject.prototype, {
 // *****************************************************************
 // stubs
 
-alex.game.GameObject.prototype.update = function(time){ };
+cc.core.game.GameObject.prototype.update = function(time){ };
 
-alex.game.GameObject.prototype.preUpdate = function(time){ };
+cc.core.game.GameObject.prototype.preUpdate = function(time){ };
 
 // *****************************************************************
 
@@ -268,7 +268,7 @@ alex.game.GameObject.prototype.preUpdate = function(time){ };
  * draws multiple shapes, each with a different graphcis object
  * @method debugGraphics
  */
-alex.game.GameObject.prototype.debugGraphics = function(shapes, positions, parent){
+cc.core.game.GameObject.prototype.debugGraphics = function(shapes, positions, parent){
     var holder = parent || new PIXI.Container();
     var i, n = shapes.length, shape, gfx, position;
     for( i= 0; i < n; i++){
@@ -283,7 +283,7 @@ alex.game.GameObject.prototype.debugGraphics = function(shapes, positions, paren
     return holder;
 };
 
-alex.game.GameObject.prototype.debugCircle = function(shape){
+cc.core.game.GameObject.prototype.debugCircle = function(shape){
     var graphics = new PIXI.Graphics();
     var color = 0xff0000, fillAlpha =0.4;
     graphics.lineStyle(2, color);
@@ -299,7 +299,7 @@ alex.game.GameObject.prototype.debugCircle = function(shape){
  * creates a single graphics rect corresponding to a given box
  * @method graphicsRect
  */
-alex.game.GameObject.prototype.graphicsRect = function(boxShape){
+cc.core.game.GameObject.prototype.graphicsRect = function(boxShape){
     var graphics = new PIXI.Graphics();
     var color = 0xff0000, fillAlpha =0.4;
     graphics.lineStyle(2, color);
@@ -316,7 +316,7 @@ alex.game.GameObject.prototype.graphicsRect = function(boxShape){
  * creates a single graphics rect for singe shape items
  * @method debugRect
  */
-alex.game.GameObject.prototype.debugRect = function(shape){
+cc.core.game.GameObject.prototype.debugRect = function(shape){
     if(!shape) shape = this.shape;
     var gfx = this.graphicsRect(shape);
     gfx.x = -(this.body.position[0] * this.scaling);
@@ -325,8 +325,8 @@ alex.game.GameObject.prototype.debugRect = function(shape){
     return gfx;
 };
 
-alex.game.GameObject.prototype.debugFrame = function(){
-    var q = new alex.display.Quad();
+cc.core.game.GameObject.prototype.debugFrame = function(){
+    var q = new cc.core.display.Quad();
     q.fromRect(this.frame);
     q.alpha = 0.5;
     return q;

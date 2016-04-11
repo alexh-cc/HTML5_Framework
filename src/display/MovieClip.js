@@ -3,10 +3,10 @@
  * @param textures
  * @constructor
  */
-alex.display.MovieClip = function(textures) {
+cc.core.display.MovieClip = function(textures) {
     PIXI.Sprite.call(this, textures[0]);
     //make it dispatch events
-    // alex.utils.EventDispatcher.prototype.apply(this);
+    // cc.core.utils.EventDispatcher.prototype.apply(this);
     //
     this.textures = textures;
     this.eventComplete = "complete";//{type:"complete"};
@@ -21,15 +21,15 @@ alex.display.MovieClip = function(textures) {
 
     this.setDuration();
 };
-alex.display.MovieClip.prototype = Object.create( PIXI.Sprite.prototype );
-alex.display.MovieClip.prototype.constructor = alex.display.MovieClip;
+cc.core.display.MovieClip.prototype = Object.create( PIXI.Sprite.prototype );
+cc.core.display.MovieClip.prototype.constructor = cc.core.display.MovieClip;
 
 /**
  * @method gotoAndPlay
  * @param frameNumber
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.gotoAndPlay = function(frameNumber) {
+cc.core.display.MovieClip.prototype.gotoAndPlay = function(frameNumber) {
     this.gotoAndStop(frameNumber);
     this.playing = true;
     return this;
@@ -38,9 +38,9 @@ alex.display.MovieClip.prototype.gotoAndPlay = function(frameNumber) {
 /**
  * @method gotoAndStop
  * @param frameNumber
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.gotoAndStop = function(frameNumber) {
+cc.core.display.MovieClip.prototype.gotoAndStop = function(frameNumber) {
     this.playing = false;
     this.currentTime = frameNumber * (1000 / this._fps);
     this.currentFrame = frameNumber;
@@ -52,18 +52,18 @@ alex.display.MovieClip.prototype.gotoAndStop = function(frameNumber) {
 
 /**
  *
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.stop = function()  {
+cc.core.display.MovieClip.prototype.stop = function()  {
     this.playing = false;
     return this;
 };
 
 /**
  *
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.play = function() {
+cc.core.display.MovieClip.prototype.play = function() {
     this.playing = true;
     return this;
 };
@@ -71,9 +71,9 @@ alex.display.MovieClip.prototype.play = function() {
 /**
  *
  * @param fps
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.setFPS = function(fps) {
+cc.core.display.MovieClip.prototype.setFPS = function(fps) {
     this._fps = fps;
     this.setDuration();
     return this;
@@ -82,15 +82,15 @@ alex.display.MovieClip.prototype.setFPS = function(fps) {
 /**
  *
  */
-alex.display.MovieClip.prototype.updateTransform = function()  {
+cc.core.display.MovieClip.prototype.updateTransform = function()  {
     PIXI.Sprite.prototype.updateTransform.call(this);
 };
 
 /**
  *
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.setDuration = function(){
+cc.core.display.MovieClip.prototype.setDuration = function(){
     var l = this.textures.length;
     this.duration = (1000 / this._fps) * l;
     this.lastFrame = l - 1;
@@ -101,7 +101,7 @@ alex.display.MovieClip.prototype.setDuration = function(){
  *
  * @param elapsed
  */
-alex.display.MovieClip.prototype.update = function(elapsed){//milliseconds
+cc.core.display.MovieClip.prototype.update = function(elapsed){//milliseconds
     if(this.playing){
         this.currentTime += elapsed;
         if(this.currentTime > this.duration){
@@ -130,7 +130,7 @@ alex.display.MovieClip.prototype.update = function(elapsed){//milliseconds
 /**
  *
  */
-Object.defineProperties(alex.display.MovieClip.prototype, {
+Object.defineProperties(cc.core.display.MovieClip.prototype, {
     totalFrames: {
         get: function() {
             return this.textures.length;

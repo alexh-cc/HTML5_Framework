@@ -1,5 +1,5 @@
-alex.load.BulkLoader = function(){
-	alex.utils.EventDispatcher.call(this);
+cc.core.load.BulkLoader = function(){
+	cc.core.utils.EventDispatcher.call(this);
 
     this.resolution = 1;
     //reference to game_shell.json
@@ -15,14 +15,14 @@ alex.load.BulkLoader = function(){
 
 };
 //*******************************
-alex.load.BulkLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.BulkLoader.prototype.constructor = alex.load.BulkLoader;
+cc.core.load.BulkLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.BulkLoader.prototype.constructor = cc.core.load.BulkLoader;
 
 /**
  *
  * @param config
  */
-alex.load.BulkLoader.prototype.init = function(config){
+cc.core.load.BulkLoader.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 
     this.webAudio = this.settings.WEB_AUDIO_ENABLED && this.system.webAudio;//bool
@@ -30,7 +30,7 @@ alex.load.BulkLoader.prototype.init = function(config){
     //**************************************
     //loaders
     //**************************************
-    alex.load.soundLoader = new alex.audio.SoundLoader();
+    cc.core.load.soundLoader = new cc.core.audio.SoundLoader();
     //**************************************
     //load states
     //**************************************
@@ -43,17 +43,17 @@ alex.load.BulkLoader.prototype.init = function(config){
     //**************************************
     // Sequence control (Switch statement)
     //**************************************
-    this.sequence = new alex.load.LoadingSequence(this, this.webAudio);
+    this.sequence = new cc.core.load.LoadingSequence(this, this.webAudio);
 
     //**************************************
     // url lookup component
     //**************************************
-    this.urls = new alex.utils.UrlLookup();//use for id lookup
+    this.urls = new cc.core.utils.UrlLookup();//use for id lookup
 
     //**************************************
     // OVERALL PROGRESS
     //**************************************
-    this.progressTracker = new alex.load.ProgressTracker(this.webAudio);
+    this.progressTracker = new cc.core.load.ProgressTracker(this.webAudio);
 };
 
 
@@ -64,7 +64,7 @@ alex.load.BulkLoader.prototype.init = function(config){
  * @param type
  * @returns {*}
  */
-alex.load.BulkLoader.prototype.addFile = function(filepath, id, type){
+cc.core.load.BulkLoader.prototype.addFile = function(filepath, id, type){
     var manifest = this.getManifestByExtension(filepath);
     var item = null;
     if(manifest !== null){
@@ -81,7 +81,7 @@ alex.load.BulkLoader.prototype.addFile = function(filepath, id, type){
     return item;//return then can modify if necessary
 };
 
-alex.load.BulkLoader.prototype.getManifest = function(){
+cc.core.load.BulkLoader.prototype.getManifest = function(){
     return this.loadManifest.manifest;
 };
 
@@ -91,7 +91,7 @@ alex.load.BulkLoader.prototype.getManifest = function(){
  * @param file
  * @returns {*}
  */
-alex.load.BulkLoader.prototype.getManifestByExtension = function(file){
+cc.core.load.BulkLoader.prototype.getManifestByExtension = function(file){
     //choose appropriate manifest
     var ext = file.match(/\.(\w+)$/)[0];
     var manifest = null;
@@ -123,7 +123,7 @@ alex.load.BulkLoader.prototype.getManifestByExtension = function(file){
  * @param file
  * @returns {boolean}
  */
-alex.load.BulkLoader.prototype.contains = function(file){
+cc.core.load.BulkLoader.prototype.contains = function(file){
     var manifest = this.getManifestByExtension(file);
     var item = null, i, n = manifest.length, itemFound = false;
     for(i = 0; i < n; i++){
@@ -143,7 +143,7 @@ alex.load.BulkLoader.prototype.contains = function(file){
  * @param fileType
  * @returns {boolean}
  */
-alex.load.BulkLoader.prototype.containsId = function(id, fileType){
+cc.core.load.BulkLoader.prototype.containsId = function(id, fileType){
     var manifest = this.getManifestByExtension(fileType);
     var item = null, i, n = manifest.length, itemFound = false;
     for(i = 0; i < n; i++){
@@ -160,7 +160,7 @@ alex.load.BulkLoader.prototype.containsId = function(id, fileType){
 //**************************************
 // START LOAD
 //**************************************
-alex.load.BulkLoader.prototype.load = function(manifestPath){
+cc.core.load.BulkLoader.prototype.load = function(manifestPath){
     this.manifestPath = manifestPath;
     this.progressTracker.reset();
     this.sequence.reset();
@@ -170,28 +170,28 @@ alex.load.BulkLoader.prototype.load = function(manifestPath){
 /**
  *
  */
-alex.load.BulkLoader.prototype.loadProgress = function(){
+cc.core.load.BulkLoader.prototype.loadProgress = function(){
     var overallProgress = this.progressTracker.overallProgress();
     //TODO - event reuse
     this.emit({type:"progress", value: overallProgress});
 };
 
-alex.load.BulkLoader.prototype.fontLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.fontLoaded = function(percent){
     this.progressTracker.progressFonts = percent;
     this.loadProgress();
 };
 
-alex.load.BulkLoader.prototype.imageLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.imageLoaded = function(percent){
     this.progressTracker.progressImages = percent;
     this.loadProgress();
 };
 
-alex.load.BulkLoader.prototype.jsonLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.jsonLoaded = function(percent){
     this.progressTracker.progressJSON = percent;
     this.loadProgress();
 };
 
-alex.load.BulkLoader.prototype.audioLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.audioLoaded = function(percent){
     this.progressTracker.progressSounds = percent;
     this.loadProgress();
 };
@@ -199,7 +199,7 @@ alex.load.BulkLoader.prototype.audioLoaded = function(percent){
 /**
  * pass sounds over to sound manager
  */
-alex.load.BulkLoader.prototype.addSounds = function(){
+cc.core.load.BulkLoader.prototype.addSounds = function(){
     var soundData = {};
     if(this.webAudio){
         //get the loaded sound assets
@@ -211,7 +211,7 @@ alex.load.BulkLoader.prototype.addSounds = function(){
         soundData.autoplay = true;
         soundData.sprites = (manifestData.sprites)? manifestData.sprites : null;
         soundData.src = null;
-        if(manifestData.src) soundData.src = alex.settings.SND_DIR + manifestData.src;       
+        if(manifestData.src) soundData.src = cc.core.settings.SND_DIR + manifestData.src;       
         game_shell.snd.addSounds(soundData);
     }
 };
@@ -219,7 +219,7 @@ alex.load.BulkLoader.prototype.addSounds = function(){
 /**
  *
  */
-alex.load.BulkLoader.prototype.loadComplete = function(){
+cc.core.load.BulkLoader.prototype.loadComplete = function(){
 
     this.addSounds();
 
@@ -232,14 +232,14 @@ alex.load.BulkLoader.prototype.loadComplete = function(){
 // UN-LOAD
 //**************************************
         
-alex.load.BulkLoader.prototype.unload = function(){
+cc.core.load.BulkLoader.prototype.unload = function(){
     // - get the manifest json data
     var jsonData = this.loadManifest.manifest;
     if(jsonData){
         // - unload the images
         this.imageLoad.unload(this.getIds(this.imgManifest));
         // - unload the sounds
-        alex.load.soundLoader.unload(this.getIds(this.webAudioManifest));
+        cc.core.load.soundLoader.unload(this.getIds(this.webAudioManifest));
         // - unload the fonts
         this.fontLoad.unload();
         // - unload the json
@@ -260,7 +260,7 @@ alex.load.BulkLoader.prototype.unload = function(){
  * @param data
  * @returns {Array}
  */
-alex.load.BulkLoader.prototype.getIds = function(data){
+cc.core.load.BulkLoader.prototype.getIds = function(data){
     var ids = [];
     var n = data.length, i, item;
     for(i =0; i < n; i++){
@@ -277,10 +277,10 @@ alex.load.BulkLoader.prototype.getIds = function(data){
 
 /**
  *
- * @returns {alex.load.FontLoadState}
+ * @returns {cc.core.load.FontLoadState}
  */
-alex.load.BulkLoader.prototype.createFontLoad = function(){
-    var fontLoad = new alex.load.FontLoadState();
+cc.core.load.BulkLoader.prototype.createFontLoad = function(){
+    var fontLoad = new cc.core.load.FontLoadState();
     fontLoad.init({
         resolution: this.resolution,
         bulkLoader: this
@@ -290,23 +290,23 @@ alex.load.BulkLoader.prototype.createFontLoad = function(){
 
 /**
  *
- * @returns {alex.load.AudioLoadState}
+ * @returns {cc.core.load.AudioLoadState}
  */
-alex.load.BulkLoader.prototype.createAudioLoad = function(){
-    var audioLoad = new alex.load.AudioLoadState();
+cc.core.load.BulkLoader.prototype.createAudioLoad = function(){
+    var audioLoad = new cc.core.load.AudioLoadState();
     audioLoad.init({
         bulkLoader: this,
-        soundLoader: alex.load.soundLoader
+        soundLoader: cc.core.load.soundLoader
     });
     return audioLoad;
 };
 
 /**
  *
- * @returns {alex.load.ImageLoadState}
+ * @returns {cc.core.load.ImageLoadState}
  */
-alex.load.BulkLoader.prototype.createImageLoad = function(){
-    var imageLoad = new alex.load.ImageLoadState(this);
+cc.core.load.BulkLoader.prototype.createImageLoad = function(){
+    var imageLoad = new cc.core.load.ImageLoadState(this);
     imageLoad.init({
         resolution: this.resolution,
         bulkLoader: this
@@ -316,10 +316,10 @@ alex.load.BulkLoader.prototype.createImageLoad = function(){
 
 /**
  *
- * @returns {alex.load.LoadManifest}
+ * @returns {cc.core.load.LoadManifest}
  */
-alex.load.BulkLoader.prototype.createLoadManifest = function(){
-    var loadManifest = new alex.load.LoadManifest();
+cc.core.load.BulkLoader.prototype.createLoadManifest = function(){
+    var loadManifest = new cc.core.load.LoadManifest();
     loadManifest.init({
         resolution: this.resolution,
         bulkLoader: this
@@ -329,10 +329,10 @@ alex.load.BulkLoader.prototype.createLoadManifest = function(){
 
 /**
  *
- * @returns {alex.load.JSONLoadState}
+ * @returns {cc.core.load.JSONLoadState}
  */
-alex.load.BulkLoader.prototype.createJsonLoad = function(){
-    var loader = new alex.load.JSONLoadState();
+cc.core.load.BulkLoader.prototype.createJsonLoad = function(){
+    var loader = new cc.core.load.JSONLoadState();
     loader.init({
         resolution: this.resolution,
         bulkLoader: this,

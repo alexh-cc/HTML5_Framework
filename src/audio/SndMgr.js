@@ -2,23 +2,23 @@
  * @class SndMgr
  * @constructor
  */
-alex.audio.SndMgr = function(){
+cc.core.audio.SndMgr = function(){
     //use null object pattern here to begin with...
-    this.snd = new alex.audio.SndNone();
-    this.audioModes = alex.audio.AudioModes;
+    this.snd = new cc.core.audio.SndNone();
+    this.audioModes = cc.core.audio.AudioModes;
     this.audioType = null;
     //
     this.mode = -1; //no mode
     this.isMuted = false;
 
-    this.updateList = new alex.utils.UpdateList();
+    this.updateList = new cc.core.utils.UpdateList();
 };
 
 /**
  *
  * @type {{NONE: number, WEB_AUDIO: number, AUDIO_SPRITE: number, MUSIC_LOOP: number}}
  */
-alex.audio.AudioModes = {
+cc.core.audio.AudioModes = {
     NONE: 0,//no sound
     WEB_AUDIO: 1,// web audio sound
     AUDIO_SPRITE: 2,//html5 audio tag sfx
@@ -30,7 +30,7 @@ alex.audio.AudioModes = {
  * @param config
  * @returns {number|*}
  */
-alex.audio.SndMgr.prototype.init = function(config){
+cc.core.audio.SndMgr.prototype.init = function(config){
     this.audioType = config.audioType;
     this.isMuted = config.isMuted;
     var isIOS = config.isIOS;
@@ -40,7 +40,7 @@ alex.audio.SndMgr.prototype.init = function(config){
     if(!audioEnabled){
         //Null object
         this.initNone();
-    } else if(webAudioEnabled && alex.utils.system.webAudio){
+    } else if(webAudioEnabled && cc.core.utils.system.webAudio){
         // web audio
         this.createWebAudio(config);
         if(!isIOS) this.prepare();
@@ -68,7 +68,7 @@ alex.audio.SndMgr.prototype.init = function(config){
  * TODO - where is this called from? ScreenMgr.addSounds?
  * @param data
  */
-alex.audio.SndMgr.prototype.addSounds = function(data){
+cc.core.audio.SndMgr.prototype.addSounds = function(data){
     if(this.webAudio){
         this.snd.addSounds(data);
     } else {
@@ -99,8 +99,8 @@ alex.audio.SndMgr.prototype.addSounds = function(data){
  *
  * @param config
  */
-alex.audio.SndMgr.prototype.createWebAudio = function(config){
-    this.snd = new alex.audio.WebAudioMgr(config);
+cc.core.audio.SndMgr.prototype.createWebAudio = function(config){
+    this.snd = new cc.core.audio.WebAudioMgr(config);
     this.mode = this.audioModes.WEB_AUDIO;
 };
 
@@ -108,12 +108,12 @@ alex.audio.SndMgr.prototype.createWebAudio = function(config){
  *
  * @param config
  */
-alex.audio.SndMgr.prototype.createAudioSprite = function(config){
+cc.core.audio.SndMgr.prototype.createAudioSprite = function(config){
     //kill previous
     if(this.snd){
         this.snd.dispose();
     }
-    this.snd = new alex.audio.SndSprite(config);
+    this.snd = new cc.core.audio.SndSprite(config);
     this.mode = this.audioModes.AUDIO_SPRITE;
 };
 
@@ -121,12 +121,12 @@ alex.audio.SndMgr.prototype.createAudioSprite = function(config){
  *
  * @param config
  */
-alex.audio.SndMgr.prototype.createAudioLoop = function(config){
+cc.core.audio.SndMgr.prototype.createAudioLoop = function(config){
     //kill previous
     if(this.snd){
         this.snd.dispose();
     }
-    this.snd = new alex.audio.MusicLoop();
+    this.snd = new cc.core.audio.MusicLoop();
     this.snd.init(config);
     this.mode = this.audioModes.MUSIC_LOOP;
 };
@@ -139,7 +139,7 @@ alex.audio.SndMgr.prototype.createAudioLoop = function(config){
  *
  * @param p_b
  */
-alex.audio.SndMgr.prototype.pause = function(p_b){
+cc.core.audio.SndMgr.prototype.pause = function(p_b){
     this.snd.pause(p_b);
 };
 
@@ -149,7 +149,7 @@ alex.audio.SndMgr.prototype.pause = function(p_b){
  * @param p_vol
  * @param p_loop
  */
-alex.audio.SndMgr.prototype.play = function(p_id, p_vol, p_loop){
+cc.core.audio.SndMgr.prototype.play = function(p_id, p_vol, p_loop){
     return this.snd.play(p_id, p_vol, p_loop);
 };
 
@@ -157,12 +157,12 @@ alex.audio.SndMgr.prototype.play = function(p_id, p_vol, p_loop){
  *
  * @param id
  */
-alex.audio.SndMgr.prototype.stop = function(id){ this.snd.stop(id); };
+cc.core.audio.SndMgr.prototype.stop = function(id){ this.snd.stop(id); };
 
 /**
  *
  */
-alex.audio.SndMgr.prototype.stopAll = function(){ this.snd.stopAll(); };
+cc.core.audio.SndMgr.prototype.stopAll = function(){ this.snd.stopAll(); };
 
 /**
  *
@@ -172,7 +172,7 @@ alex.audio.SndMgr.prototype.stopAll = function(){ this.snd.stopAll(); };
  * @param p_loop
  * @returns {*}
  */
-alex.audio.SndMgr.prototype.playWithDelay = function(p_id, p_delay, p_vol, p_loop){
+cc.core.audio.SndMgr.prototype.playWithDelay = function(p_id, p_delay, p_vol, p_loop){
     var snd = this.snd;
     return new TWEEN.Tween({w:0}).to({w:1}, p_delay).onComplete(function(){
         snd.play(p_id, p_vol, p_loop);
@@ -184,7 +184,7 @@ alex.audio.SndMgr.prototype.playWithDelay = function(p_id, p_delay, p_vol, p_loo
  * @param id
  * @returns {boolean}
  */
-alex.audio.SndMgr.prototype.isPlaying = function(id){
+cc.core.audio.SndMgr.prototype.isPlaying = function(id){
     if(this.webAudio){
         return this.snd.isPlaying(id);
     } else {
@@ -194,7 +194,7 @@ alex.audio.SndMgr.prototype.isPlaying = function(id){
 /*
  * used for sound sprite so it can detect end of sounds
  */
-alex.audio.SndMgr.prototype.update = function(delta){ 
+cc.core.audio.SndMgr.prototype.update = function(delta){ 
     this.updateList.update(delta);
     this.snd.update(delta); 
 };
@@ -207,7 +207,7 @@ alex.audio.SndMgr.prototype.update = function(delta){
  * @param id
  * @param time
  */
-alex.audio.SndMgr.prototype.fadeOut = function(id, time){
+cc.core.audio.SndMgr.prototype.fadeOut = function(id, time){
     if(this.webAudio) {
         this.snd.fadeOut(id, time);
     }
@@ -218,7 +218,7 @@ alex.audio.SndMgr.prototype.fadeOut = function(id, time){
  * @param id
  * @param time
  */
-alex.audio.SndMgr.prototype.fadeIn = function(id, time){
+cc.core.audio.SndMgr.prototype.fadeIn = function(id, time){
     if(this.webAudio) {
         this.snd.fadeIn(id, time);
     } else {
@@ -230,7 +230,7 @@ alex.audio.SndMgr.prototype.fadeIn = function(id, time){
  *
  * @param bool
  */
-alex.audio.SndMgr.prototype.mute = function(bool){
+cc.core.audio.SndMgr.prototype.mute = function(bool){
     this.isMuted = bool;
     this.snd.mute(bool);
 };
@@ -240,7 +240,7 @@ alex.audio.SndMgr.prototype.mute = function(bool){
  * @param grp
  * @param bool
  */
-alex.audio.SndMgr.prototype.muteGroup = function(grp, bool){
+cc.core.audio.SndMgr.prototype.muteGroup = function(grp, bool){
     this.snd.muteGroup(grp, bool);
 };
 
@@ -248,7 +248,7 @@ alex.audio.SndMgr.prototype.muteGroup = function(grp, bool){
  *
  * @param groupId
  */
-alex.audio.SndMgr.prototype.isGroupMuted = function(groupId){
+cc.core.audio.SndMgr.prototype.isGroupMuted = function(groupId){
     return this.snd.isGroupMuted(groupId);
 };
 
@@ -256,14 +256,14 @@ alex.audio.SndMgr.prototype.isGroupMuted = function(groupId){
  *
  * @param bool
  */
-alex.audio.SndMgr.prototype.muteAllGroups = function(bool){
+cc.core.audio.SndMgr.prototype.muteAllGroups = function(bool){
     this.snd.muteAllGroups(bool);
 };
 
 /**
  * on ios need to fire up in response to a touch event
  */
-alex.audio.SndMgr.prototype.prepare = function(){
+cc.core.audio.SndMgr.prototype.prepare = function(){
     if(this.webAudio){
         this.snd.wakeAudioSystem();
     } else {
@@ -280,7 +280,7 @@ alex.audio.SndMgr.prototype.prepare = function(){
  *
  * @param data
  */
-alex.audio.SndMgr.prototype.removeSounds = function(data){
+cc.core.audio.SndMgr.prototype.removeSounds = function(data){
     if(this.webAudio && data){
         this.snd.removeSounds(data);
     } else {
@@ -291,7 +291,7 @@ alex.audio.SndMgr.prototype.removeSounds = function(data){
 /**
  *
  */
-alex.audio.SndMgr.prototype.purge = function(){
+cc.core.audio.SndMgr.prototype.purge = function(){
     if(this.webAudio){
         this.snd.purge();
     } else {
@@ -305,23 +305,23 @@ alex.audio.SndMgr.prototype.purge = function(){
 /**
  *
  */
-alex.audio.SndMgr.prototype.initNone = function(){
+cc.core.audio.SndMgr.prototype.initNone = function(){
     if(this.snd){
         this.snd.dispose();
     }
     this.mode = this.audioModes.NONE;
-    this.snd = new alex.audio.SndNone();
+    this.snd = new cc.core.audio.SndNone();
 };
 
 //**********************************************
 // CHECK
 //**********************************************
 //this is redundant since start with null object!
-alex.audio.SndMgr.prototype.checkReady = function(){
+cc.core.audio.SndMgr.prototype.checkReady = function(){
     return this.snd !== null;
 };
 
-Object.defineProperties(alex.audio.SndMgr.prototype, {
+Object.defineProperties(cc.core.audio.SndMgr.prototype, {
     isReady: {
         get: function() {
             return this.checkReady();//snd !== null;
@@ -329,7 +329,7 @@ Object.defineProperties(alex.audio.SndMgr.prototype, {
     },
     webAudio: {
         get: function() {
-            return this.mode === alex.audio.AudioModes.WEB_AUDIO;
+            return this.mode === cc.core.audio.AudioModes.WEB_AUDIO;
         }
     }
 });

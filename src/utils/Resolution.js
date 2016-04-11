@@ -2,7 +2,7 @@
  * @class Resolution
  * @constructor
  */
-alex.utils.Resolution = function(){
+cc.core.utils.Resolution = function(){
 	//resolution can be 1, 2 or 4
 	//@1x = non-retina phone -> 480 x 320
 	//@2x = retina phone or non-retina tablet -> ipad 1 (1024 x 768), iphone 4 (960 x 640), iPhone 5 (1136 x 640)
@@ -12,13 +12,13 @@ alex.utils.Resolution = function(){
 	//should just be called 'shorter edge'
 	//and what this refers to as width
 	//should just be called 'longer edge'
-	this.minHeight2 = alex.settings.RES_2_MIN_H || 320;//640;
+	this.minHeight2 = cc.core.settings.RES_2_MIN_H || 320;//640;
 	this.minHeight4 = this.minHeight2 * 2;//640;//1280;
 	//widths are for targetting ipad
-	this.minWidth2 = alex.settings.RES_2_MIN_W || 512;//1024;//
+	this.minWidth2 = cc.core.settings.RES_2_MIN_W || 512;//1024;//
 	this.minWidth4 = this.minWidth2 * 2;//1024;//2048;
 
-	this.maxResolution = alex.settings.MAX_RESOLUTON;
+	this.maxResolution = cc.core.settings.MAX_RESOLUTON;
 
 	this.pixelRatio = window.devicePixelRatio || 1;
 };
@@ -27,7 +27,7 @@ alex.utils.Resolution = function(){
  * @method init
  * @param config
  */
-alex.utils.Resolution.prototype.init = function(config){
+cc.core.utils.Resolution.prototype.init = function(config){
 	this.forceResolution = config.forceResolution;//normally force 2 for desktop maybe... or hack the minResolution2 to 321
 	//this.renderer = config.renderer || {};
 	if(this.forceResolution > -1) this.resolution = this.forceResolution;
@@ -36,7 +36,7 @@ alex.utils.Resolution.prototype.init = function(config){
 /**
  * set resolution by comparing shortest screen edge to baseline
  */
-alex.utils.Resolution.prototype.setByHeight = function(){
+cc.core.utils.Resolution.prototype.setByHeight = function(){
 	//NOTE - this can't this use viewport values, runs before viewport is created - but why?
 	if(this.forceResolution > -1){
 		this.resolution = this.forceResolution;
@@ -61,7 +61,7 @@ alex.utils.Resolution.prototype.setByHeight = function(){
 /**
  * set resolution by comparing longest screen edge to baseline
  */
-alex.utils.Resolution.prototype.setByWidth = function(){
+cc.core.utils.Resolution.prototype.setByWidth = function(){
 	//NOTE - this can't this use viewport values, runs before viewport is created - but why?
 	if(this.forceResolution > -1){
 		this.resolution = this.forceResolution;

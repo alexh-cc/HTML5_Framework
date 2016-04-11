@@ -10,7 +10,7 @@ game_shell.menu.MenuScene = function () {
     this.screenW = 0;
     this.screenH = 0;
 };
-game_shell.menu.MenuScene.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+game_shell.menu.MenuScene.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  *

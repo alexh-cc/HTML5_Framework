@@ -2,7 +2,7 @@
  *
  * @constructor
  */
-alex.utils.SpineUtils = function () {
+cc.core.utils.SpineUtils = function () {
     this.jsonCache = null;
     this.imageLoader = null;
     this.spine = null;
@@ -12,7 +12,7 @@ alex.utils.SpineUtils = function () {
  *
  * @param config
  */
-alex.utils.SpineUtils.prototype.init = function (config) {
+cc.core.utils.SpineUtils.prototype.init = function (config) {
     this.jsonCache = config.jsonCache;
     this.imageLoader = config.imageLoader;
 
@@ -43,7 +43,7 @@ Object.defineProperty(PIXI, 'AnimCache', {
  * @param p_animScale
  * @returns {*|PIXI.spine.Spine}
  */
-alex.utils.SpineUtils.prototype.createSpineSprite = function (spineJsonId, atlasId, p_animScale) {
+cc.core.utils.SpineUtils.prototype.createSpineSprite = function (spineJsonId, atlasId, p_animScale) {
     if (!PIXI.AnimCache.hasOwnProperty(spineJsonId)) {
         if (Array.isArray(atlasId)) {
             this.createMultiAtlasSprite(spineJsonId, atlasId, p_animScale);
@@ -64,7 +64,7 @@ alex.utils.SpineUtils.prototype.createSpineSprite = function (spineJsonId, atlas
  * @param atlasId
  * @param p_animScale
  */
-alex.utils.SpineUtils.prototype.createSingleAtlasSprite = function (spineJsonId, atlasId, p_animScale) {
+cc.core.utils.SpineUtils.prototype.createSingleAtlasSprite = function (spineJsonId, atlasId, p_animScale) {
     var dataString = this.generateSingleAtlas(spineJsonId, atlasId);
 
     //need texturepath
@@ -94,7 +94,7 @@ alex.utils.SpineUtils.prototype.createSingleAtlasSprite = function (spineJsonId,
  * @param atlasIdList
  * @param p_animScale
  */
-alex.utils.SpineUtils.prototype.createMultiAtlasSprite = function (spineJsonId, atlasIdList, p_animScale) {
+cc.core.utils.SpineUtils.prototype.createMultiAtlasSprite = function (spineJsonId, atlasIdList, p_animScale) {
     var dataString = this.generateMultiAtlas(spineJsonId, atlasIdList);
 
     //TODO - work out how to fix this... need a base url for each one
@@ -126,7 +126,7 @@ alex.utils.SpineUtils.prototype.createMultiAtlasSprite = function (spineJsonId, 
  * @param atlasIdList
  * @returns {string}
  */
-alex.utils.SpineUtils.prototype.generateMultiAtlas = function (spineJsonId, atlasIdList) {
+cc.core.utils.SpineUtils.prototype.generateMultiAtlas = function (spineJsonId, atlasIdList) {
     var dataString = '';
     var i, atlasId, n = atlasIdList.length;
     for (i = 0; i < n; i++) {
@@ -143,7 +143,7 @@ alex.utils.SpineUtils.prototype.generateMultiAtlas = function (spineJsonId, atla
  * @param atlasId
  * @param isMulti
  */
-alex.utils.SpineUtils.prototype.generateSingleAtlas = function (spineJsonId, atlasId, isMulti) {
+cc.core.utils.SpineUtils.prototype.generateSingleAtlas = function (spineJsonId, atlasId, isMulti) {
     var spineJsonData = this.jsonCache[spineJsonId];
     // *************************************************
     //get the atlas json
@@ -168,7 +168,7 @@ alex.utils.SpineUtils.prototype.generateSingleAtlas = function (spineJsonId, atl
  * @param isMulti
  * @returns {string}
  */
-alex.utils.SpineUtils.prototype.generateSpineAtlas = function (parts, atlasJson, isMulti) {
+cc.core.utils.SpineUtils.prototype.generateSpineAtlas = function (parts, atlasJson, isMulti) {
     var imageName = atlasJson.meta.image;
     var spineAtlas = "\n" + imageName + "\nformat: RGBA8888\nfilter: Linear,Linear\nrepeat: none\n";
     var indent = '  ';
@@ -214,7 +214,7 @@ alex.utils.SpineUtils.prototype.generateSpineAtlas = function (parts, atlasJson,
  * @param inputParts
  * @returns {*|Array}
  */
-alex.utils.SpineUtils.prototype.getPartNames = function (itemHash, inputParts) {
+cc.core.utils.SpineUtils.prototype.getPartNames = function (itemHash, inputParts) {
     var parts = inputParts || [];
     for (var s1 in itemHash) {
         var item = itemHash[s1];
@@ -232,7 +232,7 @@ alex.utils.SpineUtils.prototype.getPartNames = function (itemHash, inputParts) {
  * @param atlasId
  * @returns {string}
  */
-alex.utils.SpineUtils.prototype.getBaseURL = function(atlasId){
+cc.core.utils.SpineUtils.prototype.getBaseURL = function(atlasId){
     var baseTexture = this.getBaseTextureForAtlas(atlasId);
     var imgSrc = baseTexture.source.src;
     var end = imgSrc.lastIndexOf('/') + 1;
@@ -244,7 +244,7 @@ alex.utils.SpineUtils.prototype.getBaseURL = function(atlasId){
  * @param imgName
  * @returns {*}
  */
-alex.utils.SpineUtils.prototype.getBaseTextureByFileName = function (imgName) {
+cc.core.utils.SpineUtils.prototype.getBaseTextureByFileName = function (imgName) {
     var baseTexture = null;
     // - should be passing in the full path here, not just the name!!!!
     var imgSrc = game_shell.loader.urls.pathForFile(imgName);
@@ -262,7 +262,7 @@ alex.utils.SpineUtils.prototype.getBaseTextureByFileName = function (imgName) {
  * @param atlasId
  * @returns {*}
  */
-alex.utils.SpineUtils.prototype.getBaseTextureForAtlas = function (atlasId) {
+cc.core.utils.SpineUtils.prototype.getBaseTextureForAtlas = function (atlasId) {
     var atlasJson = this.jsonCache[atlasId];
     //get a base texture of the whole atlas
     var imgName = atlasJson.meta.image;
@@ -272,7 +272,7 @@ alex.utils.SpineUtils.prototype.getBaseTextureForAtlas = function (atlasId) {
 /**
  *
  */
-alex.utils.SpineUtils.prototype.purge = function () {
+cc.core.utils.SpineUtils.prototype.purge = function () {
 
     //TODO - spine.atlas has a dispose method
 
@@ -298,7 +298,7 @@ game_shell.SpineSprite = function(){
     this.trackIndex = 0;
     this.eventComplete = {type: 'complete', timeline: null};
 };
-game_shell.SpineSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+game_shell.SpineSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  *

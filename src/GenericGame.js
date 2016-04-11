@@ -2,57 +2,57 @@
  * mixin to handle generic game init
  * @constructor
  */
-alex.GenericGame = function () {
+cc.core.GenericGame = function () {
 
     //*************************************
     //set div color
     //*************************************
-    this.gameDiv = alex.GenericGame.prototype.setGameDiv.call(this, 'game');
+    this.gameDiv = cc.core.GenericGame.prototype.setGameDiv.call(this, 'game');
     //*************************************
     // system analysis
     //*************************************
-    this.system = alex.GenericGame.prototype.createSystemInfo.call(this);
+    this.system = cc.core.GenericGame.prototype.createSystemInfo.call(this);
     //*************************************
     //create a central event queue
-    this.eventQueue = alex.GenericGame.prototype.createEventQueue.call(this);
+    this.eventQueue = cc.core.GenericGame.prototype.createEventQueue.call(this);
     //*************************************
-    this.resolutionController = alex.GenericGame.prototype.initResolution.call(this);//<- do this before creating viewport!
+    this.resolutionController = cc.core.GenericGame.prototype.initResolution.call(this);//<- do this before creating viewport!
     //*************************************
-    this.viewport = alex.GenericGame.prototype.createViewport.call(this);
+    this.viewport = cc.core.GenericGame.prototype.createViewport.call(this);
     //*************************************
     // create pixi stage instance
     //*************************************
-    this.stage = alex.GenericGame.prototype.createStage.call(this, alex.settings);
+    this.stage = cc.core.GenericGame.prototype.createStage.call(this, cc.core.settings);
     //*************************************
     //instantiate sound manager
-    this.snd = alex.GenericGame.prototype.createSoundManager.call(this);
+    this.snd = cc.core.GenericGame.prototype.createSoundManager.call(this);
     //*************************************
     // create screen manager
     //*************************************
-    this.screenMgr = alex.GenericGame.prototype.createScreenManager.call(this);
+    this.screenMgr = cc.core.GenericGame.prototype.createScreenManager.call(this);
     //*************************************
     // create the render loop
     //*************************************
-    this.renderLoop = alex.GenericGame.prototype.createRenderLoop.call(this);
+    this.renderLoop = cc.core.GenericGame.prototype.createRenderLoop.call(this);
     //*************************************
     //have a global updateList instance for things that need to run independently of screens
-    this.updateList = new alex.utils.UpdateList();
+    this.updateList = new cc.core.utils.UpdateList();
     //have a global timeout
-    this.timeout = new alex.utils.DelayedAction();
+    this.timeout = new cc.core.utils.DelayedAction();
     this.updateList.add(this.timeout);
     //*************************************
-    this.updateLoop = alex.GenericGame.prototype.createUpdateLoop.call(this);
+    this.updateLoop = cc.core.GenericGame.prototype.createUpdateLoop.call(this);
     //*************************************
     // game pause handling
     //*************************************
-    this.pauseController = alex.GenericGame.prototype.createPauseController.call(this);
+    this.pauseController = cc.core.GenericGame.prototype.createPauseController.call(this);
     //*************************************
     // full screen handling
     //*************************************
-    this.fullscreen = alex.GenericGame.prototype.createFullscreenManager.call(this);
+    this.fullscreen = cc.core.GenericGame.prototype.createFullscreenManager.call(this);
     //*************************************
     //create loader
-    this.loader = alex.GenericGame.prototype.createLoader.call(this);
+    this.loader = cc.core.GenericGame.prototype.createLoader.call(this);
     //*************************************
     //invoke callback - for customisation
     if (typeof this.onReady === "function") this.onReady();
@@ -60,7 +60,7 @@ alex.GenericGame = function () {
     //invoke resize
     this.viewport.resize();
     //*************************************
-    alex.GenericGame.prototype.begin.call(this);
+    cc.core.GenericGame.prototype.begin.call(this);
     //************************************************
     this.getURL = function (id) {
         return this.loader.urls.getURL(id);
@@ -69,17 +69,17 @@ alex.GenericGame = function () {
 
 /**
  *
- * @returns {alex.load.BulkLoader}
+ * @returns {cc.core.load.BulkLoader}
  */
-alex.GenericGame.prototype.createLoader = function () {
-    var loader = new alex.load.BulkLoader();
+cc.core.GenericGame.prototype.createLoader = function () {
+    var loader = new cc.core.load.BulkLoader();
     loader.init({
         resolution: this.resolution,
         system: this.system,
-        settings: alex.settings,
+        settings: cc.core.settings,
         jsonCache: this.json,
         audioType: this.system.audioType,
-        audioFolder: alex.settings.SND_DIR
+        audioFolder: cc.core.settings.SND_DIR
     });
     return loader;
 };
@@ -88,7 +88,7 @@ alex.GenericGame.prototype.createLoader = function () {
  * @method updateGame
  * @param delta
  */
-alex.GenericGame.prototype.updateGame = function (delta) {
+cc.core.GenericGame.prototype.updateGame = function (delta) {
     //update tweens
     TWEEN.update(this.updateLoop.currentTime);
     //the global update list
@@ -108,7 +108,7 @@ alex.GenericGame.prototype.updateGame = function (delta) {
 /**
  * @method start
  */
-alex.GenericGame.prototype.begin = function () {
+cc.core.GenericGame.prototype.begin = function () {
     this.updateLoop.start();
     //kick off the render loop
     this.renderLoop.start();
@@ -119,57 +119,57 @@ alex.GenericGame.prototype.begin = function () {
  * @param name
  * @returns {Element}
  */
-alex.GenericGame.prototype.setGameDiv = function (name) {
+cc.core.GenericGame.prototype.setGameDiv = function (name) {
     var gameDiv = document.getElementById(name);
-    gameDiv.style.backgroundColor = alex.settings.BG_COLOR;
+    gameDiv.style.backgroundColor = cc.core.settings.BG_COLOR;
     return gameDiv;
 };
 
 /**
  * @method createEventQueue
- * @returns {alex.utils.EventQueue}
+ * @returns {cc.core.utils.EventQueue}
  */
-alex.GenericGame.prototype.createEventQueue = function () {
-    var eventQueue = new alex.utils.EventQueue();
+cc.core.GenericGame.prototype.createEventQueue = function () {
+    var eventQueue = new cc.core.utils.EventQueue();
     eventQueue.on("game_event", this.onGameEvent.bind(this));
     return eventQueue;
 };
 
 /**
  * @method createScreenManager
- * @returns {alex.screens.ScreenMgr}
+ * @returns {cc.core.screens.ScreenMgr}
  */
-alex.GenericGame.prototype.createScreenManager = function () {
-    var screenMgr = new alex.screens.ScreenMgr();//
+cc.core.GenericGame.prototype.createScreenManager = function () {
+    var screenMgr = new cc.core.screens.ScreenMgr();//
     screenMgr.init({
         stage: this.stage, 
         snd: this.snd, 
         eventQueue: this.eventQueue, 
         resolution: this.resolution, 
-        settings: alex.settings
+        settings: cc.core.settings
     });
     return screenMgr;
 };
 
 /**
  * @method createSystemInfo
- * @returns {alex.utils.SystemInfo}
+ * @returns {cc.core.utils.SystemInfo}
  */
-alex.GenericGame.prototype.createSystemInfo = function () {
-    var system = new alex.utils.SystemInfo();
+cc.core.GenericGame.prototype.createSystemInfo = function () {
+    var system = new cc.core.utils.SystemInfo();
     system.run(true);
     //allow overriding the audio type with mp3
-    if (alex.settings.AUDIO_TYPE) system.audioType = alex.settings.AUDIO_TYPE;
-    alex.utils.system = system;//for legacy reasons, store here too
+    if (cc.core.settings.AUDIO_TYPE) system.audioType = cc.core.settings.AUDIO_TYPE;
+    cc.core.utils.system = system;//for legacy reasons, store here too
     return system;
 };
 
 /**
  * @method createPauseGame
- * @returns {alex.utils.PauseController}
+ * @returns {cc.core.utils.PauseController}
  */
-alex.GenericGame.prototype.createPauseController = function () {
-    var pauseController = new alex.utils.PauseController();
+cc.core.GenericGame.prototype.createPauseController = function () {
+    var pauseController = new cc.core.utils.PauseController();
     pauseController.init({
         updateLoop: this.updateLoop,
         renderLoop: this.renderLoop,
@@ -180,20 +180,20 @@ alex.GenericGame.prototype.createPauseController = function () {
 
 /**
  * @method createFullscreenManager
- * @returns {alex.utils.FullscreenMgr}
+ * @returns {cc.core.utils.FullscreenMgr}
  */
-alex.GenericGame.prototype.createFullscreenManager = function () {
+cc.core.GenericGame.prototype.createFullscreenManager = function () {
     var fullscreenMgr = null;
-    if (alex.utils.system.isMobile) {
+    if (cc.core.utils.system.isMobile) {
         window.scrollTo(0, 1); //can't use fullscreen API here, only on user interaction!
     }
-    if (alex.settings.FULLSCREEN_ENABLED) {
-        var disabledOnDesktop = alex.utils.system.isDesktop && !alex.settings.DESKTOP_FULLSCREEN;
+    if (cc.core.settings.FULLSCREEN_ENABLED) {
+        var disabledOnDesktop = cc.core.utils.system.isDesktop && !cc.core.settings.DESKTOP_FULLSCREEN;
         if (!disabledOnDesktop) {
-            fullscreenMgr = new alex.utils.FullscreenMgr();
+            fullscreenMgr = new cc.core.utils.FullscreenMgr();
             fullscreenMgr.init({
                 canvas: this.stage.renderer.view,
-                isMobile: alex.utils.system.isMobile
+                isMobile: cc.core.utils.system.isMobile
             });
         }
     }
@@ -202,10 +202,10 @@ alex.GenericGame.prototype.createFullscreenManager = function () {
 
 /**
  * @method createRenderLoop
- * @returns {alex.utils.RenderLoop}
+ * @returns {cc.core.utils.RenderLoop}
  */
-alex.GenericGame.prototype.createRenderLoop = function () {
-    var renderLoop = new alex.utils.RenderLoop();
+cc.core.GenericGame.prototype.createRenderLoop = function () {
+    var renderLoop = new cc.core.utils.RenderLoop();
     renderLoop.init({
         stage: this.stage,
         screenMgr: this.screenMgr,
@@ -217,10 +217,10 @@ alex.GenericGame.prototype.createRenderLoop = function () {
 /**
  * @method createStage
  * @param config
- * @returns {alex.display.Stage}
+ * @returns {cc.core.display.Stage}
  */
-alex.GenericGame.prototype.createStage = function (config) {
-    var stage = new alex.display.Stage();
+cc.core.GenericGame.prototype.createStage = function (config) {
+    var stage = new cc.core.display.Stage();
     stage.init({
         width: config.STAGE_W,
         height: config.STAGE_H,
@@ -235,32 +235,32 @@ alex.GenericGame.prototype.createStage = function (config) {
 
 /**
  * @method createUpdateLoop
- * @returns {alex.utils.UpdateLoop}
+ * @returns {cc.core.utils.UpdateLoop}
  */
-alex.GenericGame.prototype.createUpdateLoop = function () {
+cc.core.GenericGame.prototype.createUpdateLoop = function () {
     //run loop controller component that uses setInterval to run an update loop
-    var updateLoop = new alex.utils.UpdateLoop();
-    updateLoop.updateGame = alex.GenericGame.prototype.updateGame.bind(this);
+    var updateLoop = new cc.core.utils.UpdateLoop();
+    updateLoop.updateGame = cc.core.GenericGame.prototype.updateGame.bind(this);
     return updateLoop;
 };
 
 /**
  * @method initResolution
- * @returns {alex.utils.Resolution}
+ * @returns {cc.core.utils.Resolution}
  */
-alex.GenericGame.prototype.initResolution = function () {
-    var resolutionController = new alex.utils.Resolution();
-    var forceResolution = alex.GenericGame.prototype.checkForceResolution(this.config);
+cc.core.GenericGame.prototype.initResolution = function () {
+    var resolutionController = new cc.core.utils.Resolution();
+    var forceResolution = cc.core.GenericGame.prototype.checkForceResolution(this.config);
     resolutionController.init({
         forceResolution: forceResolution
     });
-    if (alex.settings.SCALE_MODE === 2) {
+    if (cc.core.settings.SCALE_MODE === 2) {
         //match width
-        alex.settings.setIpad();
+        cc.core.settings.setIpad();
         resolutionController.setByWidth();
     } else {
         //match height
-        alex.settings.setIphone();
+        cc.core.settings.setIphone();
         resolutionController.setByHeight();
     }
     return resolutionController;
@@ -269,9 +269,9 @@ alex.GenericGame.prototype.initResolution = function () {
 /**
  * under some conditions a specific resolution may be forced
  */
-alex.GenericGame.prototype.checkForceResolution = function(config){
+cc.core.GenericGame.prototype.checkForceResolution = function(config){
     var forceResolution = config.RESOLUTION || -1;
-    var system = alex.utils.system, version = system.osVersion;
+    var system = cc.core.utils.system, version = system.osVersion;
     if (system.isAndroid && version < 4 ||
         system.isAndroidStock) {
         //always force resolution 1 for these older systems
@@ -282,11 +282,11 @@ alex.GenericGame.prototype.checkForceResolution = function(config){
 
 /**
  * @method createSoundManager
- * @returns {alex.audio.SndMgr}
+ * @returns {cc.core.audio.SndMgr}
  */
-alex.GenericGame.prototype.createSoundManager = function () {
-    var sndMgr = new alex.audio.SndMgr();
-    var sndConfig = alex.GenericGame.prototype.getSoundConfig();
+cc.core.GenericGame.prototype.createSoundManager = function () {
+    var sndMgr = new cc.core.audio.SndMgr();
+    var sndConfig = cc.core.GenericGame.prototype.getSoundConfig();
     sndMgr.init(sndConfig);
     return sndMgr;
 };
@@ -295,9 +295,9 @@ alex.GenericGame.prototype.createSoundManager = function () {
  *
  * @returns {Object}
  */
-alex.GenericGame.prototype.getSoundConfig = function(){
-    var settings = alex.settings,
-        system = alex.utils.system;
+cc.core.GenericGame.prototype.getSoundConfig = function(){
+    var settings = cc.core.settings,
+        system = cc.core.utils.system;
     return {
         isIOS: system.isIOS,
         audioType: system.audioType,
@@ -309,14 +309,14 @@ alex.GenericGame.prototype.getSoundConfig = function(){
 
 /**
  * @method createViewport
- * @returns {alex.utils.Viewport}
+ * @returns {cc.core.utils.Viewport}
  */
-alex.GenericGame.prototype.createViewport = function () {
-    var settings = alex.settings;
+cc.core.GenericGame.prototype.createViewport = function () {
+    var settings = cc.core.settings;
     //scaleMode
     var scaleMode = settings.SCALE_MODE || 1;
-    var isMobile = alex.utils.system.isMobile;
-    var viewport = new alex.utils.Viewport();
+    var isMobile = cc.core.utils.system.isMobile;
+    var viewport = new cc.core.utils.Viewport();
     viewport.init({
         //don't bother showing please rotate screen on desktop!
         CHECK_ORIENTATION: settings.CHECK_ORIENTATION && isMobile,

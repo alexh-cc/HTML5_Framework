@@ -2,33 +2,33 @@
  * @class Viewport
  * @constructor
  */
-alex.utils.Viewport = function(){
-    alex.utils.EventDispatcher.call(this);
+cc.core.utils.Viewport = function(){
+    cc.core.utils.EventDispatcher.call(this);
 
-    this.PORTRAIT = alex.settings.ORIENTATION_PORTRAIT;
-    this.LANDSCAPE = alex.settings.ORIENTATION_LANDSCAPE;
+    this.PORTRAIT = cc.core.settings.ORIENTATION_PORTRAIT;
+    this.LANDSCAPE = cc.core.settings.ORIENTATION_LANDSCAPE;
 
-    this.scaleModes = alex.settings.SCALE_MODES;
+    this.scaleModes = cc.core.settings.SCALE_MODES;
 
     this.settings = null;
 
-    this.resize = alex.utils.Viewport.prototype.resize.bind(this);
+    this.resize = cc.core.utils.Viewport.prototype.resize.bind(this);
 };
-alex.utils.Viewport.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.utils.Viewport.prototype.constructor = alex.utils.Viewport;
+cc.core.utils.Viewport.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.utils.Viewport.prototype.constructor = cc.core.utils.Viewport;
 
 
 //iframe modes:
 //IFRAME_MODE_1 -> measure the parent window
 //IFRAME_MODE_2 -> measure the iframe window (default)
-alex.utils.Viewport.prototype.IFRAME_MODE_1 = 1;
-alex.utils.Viewport.prototype.IFRAME_MODE_2 = 2;
+cc.core.utils.Viewport.prototype.IFRAME_MODE_1 = 1;
+cc.core.utils.Viewport.prototype.IFRAME_MODE_2 = 2;
 
 /**
  * @method init
  * @param config
  */
-alex.utils.Viewport.prototype.init = function(config){
+cc.core.utils.Viewport.prototype.init = function(config){
     //flags
     this.CHECK_ORIENTATION = config.CHECK_ORIENTATION;
     this.DESKTOP_RESIZE = config.DESKTOP_RESIZE;
@@ -60,7 +60,7 @@ alex.utils.Viewport.prototype.init = function(config){
 /**
  *
  */
-alex.utils.Viewport.prototype.initResize = function(){
+cc.core.utils.Viewport.prototype.initResize = function(){
     window.addEventListener('resize', this.resize, false);
     window.addEventListener('orientationchange', this.resize, false);
 };
@@ -68,7 +68,7 @@ alex.utils.Viewport.prototype.initResize = function(){
 /**
  *
  */
-alex.utils.Viewport.prototype.resize = function(){
+cc.core.utils.Viewport.prototype.resize = function(){
     this.eventResize.settings = this.getSize();
     this.emit(this.eventResize);
 };
@@ -77,7 +77,7 @@ alex.utils.Viewport.prototype.resize = function(){
  *
  * @param mode
  */
-alex.utils.Viewport.prototype.setScaleMode = function(mode){
+cc.core.utils.Viewport.prototype.setScaleMode = function(mode){
     this.settings.scaleMode = mode;
     //console.log('setScaleMode: ' + mode);
     //choose the aspect handler
@@ -95,7 +95,7 @@ alex.utils.Viewport.prototype.setScaleMode = function(mode){
  * enable choosing scaleMode (match height, match width, etc)
  * @param config
  */
-alex.utils.Viewport.prototype.createSettings = function(config){
+cc.core.utils.Viewport.prototype.createSettings = function(config){
     var settings = {};
     settings.windowWidth = -1;
     settings.windowHeight = -1;
@@ -123,7 +123,7 @@ alex.utils.Viewport.prototype.createSettings = function(config){
  *
  * @returns {Object || null}
  */
-alex.utils.Viewport.prototype.getSize = function(){
+cc.core.utils.Viewport.prototype.getSize = function(){
     //***********************************************
     //show landscape only image on rotation...!
     var dimensions = this.checkWindowSize();
@@ -140,7 +140,7 @@ alex.utils.Viewport.prototype.getSize = function(){
 /**
  * @method checkWindowSize
  */
-alex.utils.Viewport.prototype.checkWindowSize = function(){
+cc.core.utils.Viewport.prototype.checkWindowSize = function(){
     var dstW, dstH;
     try{
         dstW = window.innerWidth;
@@ -175,7 +175,7 @@ alex.utils.Viewport.prototype.checkWindowSize = function(){
 /**
  *
  */
-alex.utils.Viewport.prototype.restoreDefaults = function(){
+cc.core.utils.Viewport.prototype.restoreDefaults = function(){
     this.settings.pixelWidth = this.DEFAULT_W;
     this.settings.pointWidth = this.DEFAULT_W;
     this.settings.windowWidth = this.DEFAULT_W;
@@ -195,7 +195,7 @@ alex.utils.Viewport.prototype.restoreDefaults = function(){
  * @param dstW
  * @param dstH
  */
-alex.utils.Viewport.prototype._matchWidth = function(dstW, dstH){
+cc.core.utils.Viewport.prototype._matchWidth = function(dstW, dstH){
     var fullW = this.DEFAULT_W,
         fullH = this.DEFAULT_H;
     //
@@ -274,7 +274,7 @@ alex.utils.Viewport.prototype._matchWidth = function(dstW, dstH){
  * @param dstH
  * @private
  */
-alex.utils.Viewport.prototype._matchHeight = function(dstW, dstH){       
+cc.core.utils.Viewport.prototype._matchHeight = function(dstW, dstH){       
     var fullW = this.DEFAULT_W,
         fullH = this.DEFAULT_H;
     //
@@ -342,7 +342,7 @@ alex.utils.Viewport.prototype._matchHeight = function(dstW, dstH){
  * @param hh
  * @returns {boolean}
  */
-alex.utils.Viewport.prototype.checkRotation = function(ww, hh){
+cc.core.utils.Viewport.prototype.checkRotation = function(ww, hh){
     var showRotate = false;
     if (this.CHECK_ORIENTATION){
         if(this.settings.orientation === this.settings.ORIENTATION_LANDSCAPE && hh > ww){
@@ -368,7 +368,7 @@ alex.utils.Viewport.prototype.checkRotation = function(ww, hh){
 /**
  *
  */
-Object.defineProperties(alex.utils.Viewport.prototype, {
+Object.defineProperties(cc.core.utils.Viewport.prototype, {
         height: {
             get: function(){
                 return this.settings.height;

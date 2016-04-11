@@ -7,7 +7,7 @@
  * @param p_bulkLoader
  * @constructor
  */
-alex.load.AudioLoadState = function(){
+cc.core.load.AudioLoadState = function(){
     this.bulkLoader = null;
     this.soundLoader = null;
 };
@@ -16,14 +16,14 @@ alex.load.AudioLoadState = function(){
  *
  * @param config
  */
-alex.load.AudioLoadState.prototype.init = function(config){
+cc.core.load.AudioLoadState.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
 /**
  *
  */
-alex.load.AudioLoadState.prototype.load = function(){
+cc.core.load.AudioLoadState.prototype.load = function(){
     var bulkLoader = this.bulkLoader;
     var soundLoader = this.soundLoader;
     //allow having no sounds

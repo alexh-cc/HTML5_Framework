@@ -3,16 +3,16 @@
  * @param config
  * @constructor
  */
-alex.screens.LoadScreen = function(config){
-	alex.screens.ScreenBase.call(this, config);
+cc.core.screens.LoadScreen = function(config){
+	cc.core.screens.ScreenBase.call(this, config);
 };
-alex.screens.LoadScreen.prototype = Object.create(alex.screens.ScreenBase.prototype);
-alex.screens.LoadScreen.prototype.constructor = alex.screens.LoadScreen;
+cc.core.screens.LoadScreen.prototype = Object.create(cc.core.screens.ScreenBase.prototype);
+cc.core.screens.LoadScreen.prototype.constructor = cc.core.screens.LoadScreen;
 
 /**
  *
  */
-alex.screens.LoadScreen.prototype.run  = function(){
+cc.core.screens.LoadScreen.prototype.run  = function(){
     this.loadBar = this.createBar();
 
     //NOTE - loader events are automatically removed on complete
@@ -30,7 +30,7 @@ alex.screens.LoadScreen.prototype.run  = function(){
 /**
  *
  */
-alex.screens.LoadScreen.prototype.fadeOut = function(){
+cc.core.screens.LoadScreen.prototype.fadeOut = function(){
     var self = this;
     new TWEEN.Tween(this.loadBar)
             .to({alpha: 0}, 500)
@@ -42,11 +42,11 @@ alex.screens.LoadScreen.prototype.fadeOut = function(){
 
 /**
  *
- * @returns {alex.ui.LoadBar}
+ * @returns {cc.core.ui.LoadBar}
  */
-alex.screens.LoadScreen.prototype.createBar = function(){
+cc.core.screens.LoadScreen.prototype.createBar = function(){
     var w = 200, h = 30;
-    var loadBar = new alex.ui.LoadBar(w, h, 0x000000, 0xffffff);
+    var loadBar = new cc.core.ui.LoadBar(w, h, 0x000000, 0xffffff);
     loadBar.pivot.x = w * 0.5; loadBar.pivot.y = h * 0.5;
     this.addChild(loadBar);
     return loadBar;

@@ -2,7 +2,7 @@
  * @class ParticleBase
  * @constructor
  */
-alex.game.ParticleBase = function(){
+cc.core.game.ParticleBase = function(){
     this.root = null;
     this.texture = null;
     this.life = 3;
@@ -17,7 +17,7 @@ alex.game.ParticleBase = function(){
  *
  * @param config
  */
-alex.game.ParticleBase.prototype.init = function(config){
+cc.core.game.ParticleBase.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 
     this.emitter = this.createEmitter();
@@ -35,7 +35,7 @@ alex.game.ParticleBase.prototype.init = function(config){
 /**
  *
  */
-alex.game.ParticleBase.prototype.dispose = function(){
+cc.core.game.ParticleBase.prototype.dispose = function(){
     if(this.proton) this.proton.destroy();
     this.proton = null;
 };
@@ -46,7 +46,7 @@ alex.game.ParticleBase.prototype.dispose = function(){
  * @param py
  * @param duration
  */
-alex.game.ParticleBase.prototype.fire = function(px, py, duration){
+cc.core.game.ParticleBase.prototype.fire = function(px, py, duration){
     var time = duration || 0.5;
     this.move(px,py);
     this.emit(time);
@@ -57,7 +57,7 @@ alex.game.ParticleBase.prototype.fire = function(px, py, duration){
  * @param px
  * @param py
  */
-alex.game.ParticleBase.prototype.move = function(px,py){
+cc.core.game.ParticleBase.prototype.move = function(px,py){
     this.emitter.p.x = px || 0;
     this.emitter.p.y = py || 0;
 };
@@ -66,7 +66,7 @@ alex.game.ParticleBase.prototype.move = function(px,py){
  *
  * @param p_time
  */
-alex.game.ParticleBase.prototype.update = function(p_time){
+cc.core.game.ParticleBase.prototype.update = function(p_time){
     this.proton.update(p_time);
 };
 
@@ -74,7 +74,7 @@ alex.game.ParticleBase.prototype.update = function(p_time){
  *
  * @param p_secs
  */
-alex.game.ParticleBase.prototype.emit = function(p_secs){
+cc.core.game.ParticleBase.prototype.emit = function(p_secs){
     var secs = p_secs || Infinity;
     this.emitter.emit(secs);
 };
@@ -83,7 +83,7 @@ alex.game.ParticleBase.prototype.emit = function(p_secs){
  *
  * @param andRemove
  */
-alex.game.ParticleBase.prototype.stop = function(andRemove){
+cc.core.game.ParticleBase.prototype.stop = function(andRemove){
     this.emitter.stopEmit();
     if(andRemove){
         this.emitter.removeAllParticles();
@@ -93,7 +93,7 @@ alex.game.ParticleBase.prototype.stop = function(andRemove){
 /**
  * a single emission burst
  */
-alex.game.ParticleBase.prototype.burst = function(){
+cc.core.game.ParticleBase.prototype.burst = function(){
     this.emitter.emit(0.2);
 };
 
@@ -101,7 +101,7 @@ alex.game.ParticleBase.prototype.burst = function(){
  *
  * @param radians
  */
-alex.game.ParticleBase.prototype.rotate = function(radians){
+cc.core.game.ParticleBase.prototype.rotate = function(radians){
     var degrees = ((radians * this.deg) % 360) - 180;
     this.emitter.velocity.thaPan.a = degrees;
 };
@@ -110,7 +110,7 @@ alex.game.ParticleBase.prototype.rotate = function(radians){
  *
  * @returns {Proton.BehaviourEmitter}
  */
-alex.game.ParticleBase.prototype.createEmitter = function() {
+cc.core.game.ParticleBase.prototype.createEmitter = function() {
     var texture = this.texture;
     //
     var vx = (this.life * 0.5), vy = this.life;
@@ -140,7 +140,7 @@ alex.game.ParticleBase.prototype.createEmitter = function() {
  * @param particleSprite
  * @param particle
  */
-alex.game.ParticleBase.prototype.transformSprite = function(particleSprite, particle) {
+cc.core.game.ParticleBase.prototype.transformSprite = function(particleSprite, particle) {
     particleSprite.x = particle.p.x;
     particleSprite.y = particle.p.y;
     particleSprite.scale.x = particle.scale;
@@ -155,7 +155,7 @@ alex.game.ParticleBase.prototype.transformSprite = function(particleSprite, part
  * @returns {Array}
  * @private
  */
-alex.game.ParticleBase.prototype._createPool = function(size) {
+cc.core.game.ParticleBase.prototype._createPool = function(size) {
     var _spritePool = [];
     var sp, tx = this.texture;
     while (size > 0) {
@@ -172,7 +172,7 @@ alex.game.ParticleBase.prototype._createPool = function(size) {
 /**
  *
  */
-alex.game.ParticleBase.prototype.createRenderer = function() {
+cc.core.game.ParticleBase.prototype.createRenderer = function() {
     var renderer = new Proton.Renderer('other', this.proton);
     //renderer.onProtonUpdate = function() { };
     var self = this;
@@ -193,7 +193,7 @@ alex.game.ParticleBase.prototype.createRenderer = function() {
  *
  * @returns {Pixi.Sprite}
  */
-alex.game.ParticleBase.prototype.nextSprite = function() {
+cc.core.game.ParticleBase.prototype.nextSprite = function() {
     var sp = this._spritePool.shift();
     this._spritePool[this._spritePool.length] = sp;
     return sp;
@@ -203,7 +203,7 @@ alex.game.ParticleBase.prototype.nextSprite = function() {
  *
  * @constructor
  */
-alex.game.NullParticles = function(){
+cc.core.game.NullParticles = function(){
     //************************************************
     this.dispose = function(){ };
     //

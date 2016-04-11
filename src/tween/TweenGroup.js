@@ -1,9 +1,9 @@
-alex.utils.TweenGroup = function(){
-	alex.utils.UpdateList.call(this);
+cc.core.utils.TweenGroup = function(){
+	cc.core.utils.UpdateList.call(this);
 };
-alex.utils.TweenGroup.prototype = Object.create(alex.utils.UpdateList.prototype);
+cc.core.utils.TweenGroup.prototype = Object.create(cc.core.utils.UpdateList.prototype);
 
-alex.utils.TweenGroup.prototype.update = function(p_delta){
+cc.core.utils.TweenGroup.prototype.update = function(p_delta){
     var n = this.updateItems.length;
     var item, isComplete;
     for(var i = n-1; i > -1; i--){

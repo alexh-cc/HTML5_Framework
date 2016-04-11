@@ -219,7 +219,7 @@ game_shell.game.UserInput.prototype.addListeners = function(){
  *
  */
 game_shell.game.UserInput.prototype.createTouchLayer = function(){
-    var layer = new alex.display.Quad(this.screenW, this.screenH, 0xffcc00);
+    var layer = new cc.core.display.Quad(this.screenW, this.screenH, 0xffcc00);
     layer.x = this.screenW * -0.5;
     layer.y = this.screenH * -0.5;
     layer.alpha = 0;

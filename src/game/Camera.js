@@ -1,4 +1,4 @@
-alex.game.Camera = function(){
+cc.core.game.Camera = function(){
     this.maxY = 0;
     this.minY = 0;
     this.maxX = 0;
@@ -13,8 +13,8 @@ alex.game.Camera = function(){
     */
     this.target = null;
 };
-alex.game.Camera.prototype = Object.create(alex.game.HitTest);
-alex.game.Camera.prototype.constructor = alex.game.Camera;
+cc.core.game.Camera.prototype = Object.create(cc.core.game.HitTest);
+cc.core.game.Camera.prototype.constructor = cc.core.game.Camera;
 
 /*
 
@@ -24,7 +24,7 @@ alex.game.Camera.prototype.constructor = alex.game.Camera;
  config.bgW <- width of background in points
 
  */
-alex.game.Camera.prototype.init = function(config){
+cc.core.game.Camera.prototype.init = function(config){
     //
     this.oldX = -100;
     this.defaultTrackX = this.trackX = 0;
@@ -48,29 +48,29 @@ alex.game.Camera.prototype.init = function(config){
     }
 };
 
-alex.game.Camera.prototype.reset = function(){
+cc.core.game.Camera.prototype.reset = function(){
     this.trackX = this.defaultTrackX;
     this.trackY = this.defaultTrackY;
 };
 
 //default is to just move x
-alex.game.Camera.prototype._update = function(delta){
+cc.core.game.Camera.prototype._update = function(delta){
     this.move(this.target.x);
 };
 
 //default is to just move x
-alex.game.Camera.prototype.move = function(px){
+cc.core.game.Camera.prototype.move = function(px){
     if (px !== this.oldX) {
         this.oldX = px;
         this.scrollX(px + this.trackX);
     }
 };
 
-alex.game.Camera.prototype._updateBoth = function(delta){
+cc.core.game.Camera.prototype._updateBoth = function(delta){
     this.moveBoth(this.target);
 };
 
-alex.game.Camera.prototype.moveBoth = function(pt){
+cc.core.game.Camera.prototype.moveBoth = function(pt){
     if (pt.x !== this.oldX) {
         this.oldX = pt.x;
         this.scrollX(pt.x + this.trackX);
@@ -81,7 +81,7 @@ alex.game.Camera.prototype.moveBoth = function(pt){
     }
 };
 
-alex.game.Camera.prototype.scrollX = function(px) {
+cc.core.game.Camera.prototype.scrollX = function(px) {
     //console.log('px: ' + px)
     if(px > this.maxX){
         px = this.maxX;
@@ -95,7 +95,7 @@ alex.game.Camera.prototype.scrollX = function(px) {
     this.viewport.x = px - (this.viewport.width * 0.5);
 };
 
-alex.game.Camera.prototype.scrollY = function(py) {
+cc.core.game.Camera.prototype.scrollY = function(py) {
     //console.log('px: ' + px)
     if(py > this.maxY){
         py = this.maxY;
@@ -110,7 +110,7 @@ alex.game.Camera.prototype.scrollY = function(py) {
 };
 
 
-alex.game.Camera.prototype._frameCheckPoint = function(x, y){
+cc.core.game.Camera.prototype._frameCheckPoint = function(x, y){
     if(this.moveY){
         var inX = (x > this.viewport.x && x < this.viewport.x + this.viewport.width);
         if(!inX) return false;
@@ -121,7 +121,7 @@ alex.game.Camera.prototype._frameCheckPoint = function(x, y){
     }    
 };
 
-alex.game.Camera.prototype._frameCheckRect = function(rect){
+cc.core.game.Camera.prototype._frameCheckRect = function(rect){
     if(this.moveY){
         return this.intersects(rect, this.viewport);
     } else {
@@ -131,10 +131,10 @@ alex.game.Camera.prototype._frameCheckRect = function(rect){
 };
 
 
-alex.game.Camera.prototype.getX = function(){
+cc.core.game.Camera.prototype.getX = function(){
     return this.scene.pivot.x;
 };
 
-alex.game.Camera.prototype.getY = function(){
+cc.core.game.Camera.prototype.getY = function(){
     return this.scene.pivot.y;
 };

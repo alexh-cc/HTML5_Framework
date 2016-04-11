@@ -1,9 +1,9 @@
-alex.screens.TitleScreen = function(config){
-	alex.screens.ScreenBase.call(this, config);
+cc.core.screens.TitleScreen = function(config){
+	cc.core.screens.ScreenBase.call(this, config);
 };
-alex.screens.TitleScreen.prototype = Object.create(alex.screens.ScreenBase.prototype);
-alex.screens.TitleScreen.prototype.constructor = alex.screens.TitleScreen;
+cc.core.screens.TitleScreen.prototype = Object.create(cc.core.screens.ScreenBase.prototype);
+cc.core.screens.TitleScreen.prototype.constructor = cc.core.screens.TitleScreen;
 //
-alex.screens.TitleScreen.prototype.run  = function(){
+cc.core.screens.TitleScreen.prototype.run  = function(){
     //your code goes here
 };

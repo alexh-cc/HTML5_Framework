@@ -3,7 +3,7 @@
 // json -> image -> sound -> end
 //or
 //json -> image -> end (if no web audio)
-alex.load.LoadingSequence = function(p_loader, webAudio){
+cc.core.load.LoadingSequence = function(p_loader, webAudio){
 
     this.loader = p_loader;
     this.webAudio = webAudio;
@@ -13,12 +13,12 @@ alex.load.LoadingSequence = function(p_loader, webAudio){
 
 };
 
-alex.load.LoadingSequence.prototype.reset = function(){
+cc.core.load.LoadingSequence.prototype.reset = function(){
     this.currentState = null;
 };
 
 
-alex.load.LoadingSequence.prototype.next = function(){
+cc.core.load.LoadingSequence.prototype.next = function(){
     switch(this.currentState){
         case null:
             this.currentState = this.loader.loadManifest;

@@ -62,11 +62,11 @@ var game_shell = (function() {
      */
     this.init = function(){
         //parse the config object
-        alex.settings.copy(this.config);
+        cc.core.settings.copy(this.config);
         //call screen event to customize stuff
         this.onGameEvent({msg:"scripts_loaded"});
         //mixin game stuff
-        alex.GenericGame.call(this);
+        cc.core.GenericGame.call(this);
     };
     // HOOK FOR EXTERNAL APIs
     this.onGameEvent = function(event){};

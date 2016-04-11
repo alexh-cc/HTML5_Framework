@@ -2,7 +2,7 @@
  -- example usage:
 
 game_shell.screens.TitleScreen.prototype.startPulse  = function(){
-    this.pulse = new alex.motion.Pulsar();
+    this.pulse = new cc.core.motion.Pulsar();
     this.pulse.init({
         scale: this.startBtn.scale,
         autostart: true
@@ -11,7 +11,7 @@ game_shell.screens.TitleScreen.prototype.startPulse  = function(){
 };
 
 */
-alex.motion.Pulsar = function(config){
+cc.core.motion.Pulsar = function(config){
 	if(typeof config !== 'undefined'){
 		this.init(config);
 	}
@@ -25,7 +25,7 @@ alex.motion.Pulsar = function(config){
 	config.autostart - default false
 	config.rate - default = 0.002
 */
-alex.motion.Pulsar.prototype.init = function(config){
+cc.core.motion.Pulsar.prototype.init = function(config){
 	//just reference the scale object directly, not store the sprite...
 	this.target = config.target;//actually could be useful to store the sprite too...
 	if(config.hasOwnProperty('target')){
@@ -45,19 +45,19 @@ alex.motion.Pulsar.prototype.init = function(config){
 	this.count = (startScale === this.maxScale)? 0 : Math.PI;
 };
 
-alex.motion.Pulsar.prototype.start = function(){
+cc.core.motion.Pulsar.prototype.start = function(){
 	this.active = true;
 };
 
-alex.motion.Pulsar.prototype.stop = function(){
+cc.core.motion.Pulsar.prototype.stop = function(){
 	this.active = false;
 };
 
-alex.motion.Pulsar.prototype.reset = function(){
+cc.core.motion.Pulsar.prototype.reset = function(){
 	this.count = 0;
 };
 
-alex.motion.Pulsar.prototype.update = function(delta){
+cc.core.motion.Pulsar.prototype.update = function(delta){
 	if(this.active){
 		this.count += delta * this.rate;
 		var sin = Math.sin(this.count);

@@ -1,4 +1,4 @@
-alex.display.Quad = function(p_w, p_h, p_color, p_alpha){
+cc.core.display.Quad = function(p_w, p_h, p_color, p_alpha){
 	PIXI.Graphics.call(this);
 	//set defaults
 	if(typeof p_color === "undefined") p_color = 0xFF0000;
@@ -23,10 +23,10 @@ alex.display.Quad = function(p_w, p_h, p_color, p_alpha){
     this.hitArea = new PIXI.Rectangle(0, 0, this._width, this._height);
 
 };
-alex.display.Quad.prototype = Object.create( PIXI.Graphics.prototype );
-alex.display.Quad.prototype.constructor = alex.display.Quad;
+cc.core.display.Quad.prototype = Object.create( PIXI.Graphics.prototype );
+cc.core.display.Quad.prototype.constructor = cc.core.display.Quad;
 
-alex.display.Quad.prototype.fromRect = function(rect){
+cc.core.display.Quad.prototype.fromRect = function(rect){
     this._width = this.hitArea.width = rect.width;
     this._height = this.hitArea.height = rect.height;
     this.x = rect.x;
@@ -35,14 +35,14 @@ alex.display.Quad.prototype.fromRect = function(rect){
     this.drawQuad();
 };
 
-alex.display.Quad.prototype.drawQuad = function(){
+cc.core.display.Quad.prototype.drawQuad = function(){
     this.clear();
     this.beginFill(this.tint);
     this.drawRect(0, 0, this._width, this._height);
     this.endFill();
 };
 
-Object.defineProperties(alex.display.Quad.prototype, {
+Object.defineProperties(cc.core.display.Quad.prototype, {
     width: {
         get: function() {
             return  this._width;

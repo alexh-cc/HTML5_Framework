@@ -2,7 +2,7 @@
  * @class LoadManifest
  * @constructor
  */
-alex.load.LoadManifest = function(){
+cc.core.load.LoadManifest = function(){
     this.bulkLoader = null;
     //
     this.resolution = 1;
@@ -16,7 +16,7 @@ alex.load.LoadManifest = function(){
  *
  * @param config
  */
-alex.load.LoadManifest.prototype.init = function(config){
+cc.core.load.LoadManifest.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
     this.resolution = this.bulkLoader.resolution;
     this.audioType = this.bulkLoader.audioType;
@@ -26,9 +26,9 @@ alex.load.LoadManifest.prototype.init = function(config){
 /**
  * load the manifest json file
  */
-alex.load.LoadManifest.prototype.load = function(){
+cc.core.load.LoadManifest.prototype.load = function(){
     var path = this.bulkLoader.manifestPath;
-    var loader = new alex.load.JsonLoader(path);
+    var loader = new cc.core.load.JsonLoader(path);
     var self = this;
     loader.on("loaded",function(event){
         var jsonData = event.data;
@@ -58,7 +58,7 @@ alex.load.LoadManifest.prototype.load = function(){
  *
  * @param p_data
  */
-alex.load.LoadManifest.prototype.parseConfig = function(p_data){
+cc.core.load.LoadManifest.prototype.parseConfig = function(p_data){
     //NOTE - this is no longer compatible with hd / sd format!
     this.manifest = p_data;
 
@@ -72,19 +72,19 @@ alex.load.LoadManifest.prototype.parseConfig = function(p_data){
     // revert to hd / sd if res version not found...
     bulkLoader.jsonManifest = this.getManifestSection('json_', res, fallback);
     //fix the paths of the atlas json - to image dir!
-    this.setRoot(bulkLoader.jsonManifest, alex.settings.IMG_DIR);
+    this.setRoot(bulkLoader.jsonManifest, cc.core.settings.IMG_DIR);
     //
     bulkLoader.imgManifest = this.getManifestSection('img_', res, fallback);
     bulkLoader.fontManifest = this.getManifestSection('bm_font_', res, fallback);
 
     //get it to load non resolutionified json too
     if(this.manifest.hasOwnProperty("json")){
-        this.setRoot(this.manifest.json, alex.settings.JSON_DIR);//fix json root
+        this.setRoot(this.manifest.json, cc.core.settings.JSON_DIR);//fix json root
         bulkLoader.jsonManifest = bulkLoader.jsonManifest.concat(this.manifest.json);
     }
     //fix the other paths
-    bulkLoader.imgManifest = this.setRoot(bulkLoader.imgManifest, alex.settings.IMG_DIR);
-    bulkLoader.fontManifest = this.setRoot(bulkLoader.fontManifest, alex.settings.FONT_DIR);
+    bulkLoader.imgManifest = this.setRoot(bulkLoader.imgManifest, cc.core.settings.IMG_DIR);
+    bulkLoader.fontManifest = this.setRoot(bulkLoader.fontManifest, cc.core.settings.FONT_DIR);
 
 
     bulkLoader.urls.storeLookup(bulkLoader.jsonManifest);
@@ -102,7 +102,7 @@ alex.load.LoadManifest.prototype.parseConfig = function(p_data){
  * @param root
  * @returns {*}
  */
-alex.load.LoadManifest.prototype.setRoot = function(list, root){
+cc.core.load.LoadManifest.prototype.setRoot = function(list, root){
     if(!list) return [];//allow missing manifest section
     var item;
     var n = list.length;
@@ -123,7 +123,7 @@ alex.load.LoadManifest.prototype.setRoot = function(list, root){
  * @param fallback
  * @returns {*}
  */
-alex.load.LoadManifest.prototype.getManifestSection = function(name, res, fallback){
+cc.core.load.LoadManifest.prototype.getManifestSection = function(name, res, fallback){
     var list = null;
     var nameWithResolution = name + res;
     if(this.manifest.hasOwnProperty(nameWithResolution)){
@@ -145,7 +145,7 @@ alex.load.LoadManifest.prototype.getManifestSection = function(name, res, fallba
  * @param input
  * @returns {*}
  */
-alex.load.LoadManifest.prototype.parseAudio = function(input){
+cc.core.load.LoadManifest.prototype.parseAudio = function(input){
     if(!input) return [];//allow missing manifest section
     var item, folder = this.audioFolder;
     var n = input.length;
@@ -156,7 +156,7 @@ alex.load.LoadManifest.prototype.parseAudio = function(input){
     return input;
 };
 
-Object.defineProperties(alex.load.LoadManifest.prototype, {
+Object.defineProperties(cc.core.load.LoadManifest.prototype, {
     /**
      * @property isEmpty
      * type {boolean} true if no files in manifest

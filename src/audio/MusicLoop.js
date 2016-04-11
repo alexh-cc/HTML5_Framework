@@ -3,8 +3,8 @@
  * @param config
  * @constructor
  */
-alex.audio.MusicLoop = function(config){    
-    this.type = alex.audio.AudioModes.MUSIC_LOOP;
+cc.core.audio.MusicLoop = function(config){    
+    this.type = cc.core.audio.AudioModes.MUSIC_LOOP;
     //this.sound = this.initSnd(config);
     if(config){
         for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
@@ -19,7 +19,7 @@ alex.audio.MusicLoop = function(config){
  *
  * @param config
  */
-alex.audio.MusicLoop.prototype.init = function(config){
+cc.core.audio.MusicLoop.prototype.init = function(config){
     this.sound = this.initSnd(config);
 };
 
@@ -28,7 +28,7 @@ alex.audio.MusicLoop.prototype.init = function(config){
  * @param config
  * @returns {Element}
  */
-alex.audio.MusicLoop.prototype.initSnd = function(config){
+cc.core.audio.MusicLoop.prototype.initSnd = function(config){
     //choose appopriate audio file
     config.src += config.audioType;
     var snd = document.createElement('audio');
@@ -60,7 +60,7 @@ alex.audio.MusicLoop.prototype.initSnd = function(config){
 };
 
 //************************
-alex.audio.MusicLoop.prototype.pause = function(b){
+cc.core.audio.MusicLoop.prototype.pause = function(b){
     this.isPaused = b;
     //TODO - perhaps check its loaded, etc
     if(this.isPaused){
@@ -69,32 +69,32 @@ alex.audio.MusicLoop.prototype.pause = function(b){
         this.sound.play();
     }
 };
-alex.audio.MusicLoop.prototype.isPlaying = function() {
+cc.core.audio.MusicLoop.prototype.isPlaying = function() {
     return !this.isPaused;
 };
 //************************
-alex.audio.MusicLoop.prototype.update = function(elapsedTime){
+cc.core.audio.MusicLoop.prototype.update = function(elapsedTime){
     //TODO?
 };
 //************************
-alex.audio.MusicLoop.prototype.dispose = function(){
+cc.core.audio.MusicLoop.prototype.dispose = function(){
     if(this.sound !== null){
         this.sound.pause();
         this.sound = null;
     }
 };
 //************************
-alex.audio.MusicLoop.prototype.mute = function(bool){
+cc.core.audio.MusicLoop.prototype.mute = function(bool){
     this.isMuted = bool;
     this.sound.muted = bool;
     this.sound.volume = (bool)? 0 : this.volume;
 };
-alex.audio.MusicLoop.prototype.muteGroup = function(grp, bool){
+cc.core.audio.MusicLoop.prototype.muteGroup = function(grp, bool){
     if(grp == this.grp){
         this.mute(bool);
     }
 };
-alex.audio.MusicLoop.prototype.isGroupMuted = function(grp){
+cc.core.audio.MusicLoop.prototype.isGroupMuted = function(grp){
     if(grp == this.grp){
         return this.isMuted;
     } else {
@@ -103,27 +103,27 @@ alex.audio.MusicLoop.prototype.isGroupMuted = function(grp){
 };
 
 //************************
-/*alex.audio.MusicLoop.prototype.start = function(){
+/*cc.core.audio.MusicLoop.prototype.start = function(){
     this.sound.play();
 };
 
-alex.audio.MusicLoop.prototype.end = function(){
+cc.core.audio.MusicLoop.prototype.end = function(){
     this.sound.pause();
 };*/
 //************************
-alex.audio.MusicLoop.prototype.play = function(p_id, p_vol, p_loop){
+cc.core.audio.MusicLoop.prototype.play = function(p_id, p_vol, p_loop){
    this.sound.play();
 };
-alex.audio.MusicLoop.prototype.preload = function(p_id){
+cc.core.audio.MusicLoop.prototype.preload = function(p_id){
     //ignore
 };
-alex.audio.MusicLoop.prototype.stop = function(p_id){
+cc.core.audio.MusicLoop.prototype.stop = function(p_id){
     this.sound.pause();
 };
-alex.audio.MusicLoop.prototype.addSounds = function(p_id){
+cc.core.audio.MusicLoop.prototype.addSounds = function(p_id){
     //ignore
 };
-alex.audio.MusicLoop.prototype.stopAll = function(){
+cc.core.audio.MusicLoop.prototype.stopAll = function(){
     //ignore
 };
 //************************

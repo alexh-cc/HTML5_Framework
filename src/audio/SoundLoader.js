@@ -5,8 +5,8 @@
  * Time: 3:29 PM
  * To change this template use File | Settings | File Templates.
  */
-alex.audio.SoundLoader = function(){
-    alex.utils.EventDispatcher.call(this);
+cc.core.audio.SoundLoader = function(){
+    cc.core.utils.EventDispatcher.call(this);
     //
     this.assets = {};
     this.manifest = null;
@@ -15,13 +15,13 @@ alex.audio.SoundLoader = function(){
     this.evtProgress = {type:'progress', value: 0};
     this.evtComplete = {type:'complete', value: 1};
 };
-alex.audio.SoundLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.audio.SoundLoader.prototype.constructor = alex.audio.SoundLoader;
+cc.core.audio.SoundLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.audio.SoundLoader.prototype.constructor = cc.core.audio.SoundLoader;
 /*
  * asset load manifest
  @param: items < Array of objects with src and id strings eg {src:"./img/bg1.jpg", id:"bg"},
  */
-alex.audio.SoundLoader.prototype.load = function(items){
+cc.core.audio.SoundLoader.prototype.load = function(items){
     if(!this.context) this.initContext();//only create context if not already in existence!
     if(!this.manifest){
         this.manifest = items;
@@ -35,17 +35,17 @@ alex.audio.SoundLoader.prototype.load = function(items){
 // UNLOADING
 // *****************************************************
 
-alex.audio.SoundLoader.prototype.purge = function(){
+cc.core.audio.SoundLoader.prototype.purge = function(){
     //remove references to loaded content
     //quick way is to ditch the whole assets object
     this.assets = {};
 };
 
-alex.audio.SoundLoader.prototype.unloadSound = function(id){
+cc.core.audio.SoundLoader.prototype.unloadSound = function(id){
     delete this.assets[id];
 };
 
-alex.audio.SoundLoader.prototype.unload = function(sounds){
+cc.core.audio.SoundLoader.prototype.unload = function(sounds){
     var i, n = sounds.length, id;
     for(i = 0; i < n; i++){
         id = sounds[i];
@@ -54,7 +54,7 @@ alex.audio.SoundLoader.prototype.unload = function(sounds){
 };
 // *****************************************************
 
-alex.audio.SoundLoader.prototype.initContext = function(){
+cc.core.audio.SoundLoader.prototype.initContext = function(){
     if (window.AudioContext) {
         this.context = new AudioContext();
     } else if (window.webkitAudioContext) {
@@ -62,7 +62,7 @@ alex.audio.SoundLoader.prototype.initContext = function(){
     }
 };
 
-alex.audio.SoundLoader.prototype.nextItem = function(){
+cc.core.audio.SoundLoader.prototype.nextItem = function(){
     //find next item that is not loaded
     var checkObj;
     var foundObj = null;
@@ -78,7 +78,7 @@ alex.audio.SoundLoader.prototype.nextItem = function(){
     return foundObj;
 };
 
-alex.audio.SoundLoader.prototype.countLoaded = function(){
+cc.core.audio.SoundLoader.prototype.countLoaded = function(){
     //find next item that is not loaded
     var checkObj, n = this.manifest.length;
     this.numLoaded = 0;
@@ -91,7 +91,7 @@ alex.audio.SoundLoader.prototype.countLoaded = function(){
     }
 };
 
-alex.audio.SoundLoader.prototype.loadNext = function(){
+cc.core.audio.SoundLoader.prototype.loadNext = function(){
     //find next item that is not loaded
     var itemData = this.nextItem();
     this.countLoaded();
@@ -147,7 +147,7 @@ alex.audio.SoundLoader.prototype.loadNext = function(){
     }
 };
 
-alex.audio.SoundLoader.prototype.onSoundLoaded = function(itemData, request) {
+cc.core.audio.SoundLoader.prototype.onSoundLoaded = function(itemData, request) {
     var self = this;
     var id = itemData.id;
    // console.log('onSoundLoaded ' + id)
@@ -188,7 +188,7 @@ alex.audio.SoundLoader.prototype.onSoundLoaded = function(itemData, request) {
     }
 };
 
-alex.audio.SoundLoader.prototype.loadProgress = function(progress){
+cc.core.audio.SoundLoader.prototype.loadProgress = function(progress){
     if(progress === undefined) progress = 0;
     var total = this.manifest.length;
     var amount = (this.numLoaded + progress) / total;
@@ -197,6 +197,6 @@ alex.audio.SoundLoader.prototype.loadProgress = function(progress){
     this.emit(this.evtProgress);
 };
 
-alex.audio.SoundLoader.prototype.loadComplete = function(){
+cc.core.audio.SoundLoader.prototype.loadComplete = function(){
     this.emit(this.evtComplete);
 };

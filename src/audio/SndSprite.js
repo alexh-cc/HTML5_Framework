@@ -5,10 +5,10 @@
  * Time: 4:39 PM
  * To change this template use File | Settings | File Templates.
  */
-alex.audio.SndSprite = function(config){
-    alex.utils.EventDispatcher.call(this);
+cc.core.audio.SndSprite = function(config){
+    cc.core.utils.EventDispatcher.call(this);
     //************************
-    this.type = alex.audio.AudioModes.AUDIO_SPRITE;
+    this.type = cc.core.audio.AudioModes.AUDIO_SPRITE;
     //************************
     //playback vars
     this.endTime = -1;
@@ -34,11 +34,11 @@ alex.audio.SndSprite = function(config){
     }
     
 };
-alex.audio.SndSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.audio.SndSprite.prototype.constructor = alex.audio.SndSprite;
+cc.core.audio.SndSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.audio.SndSprite.prototype.constructor = cc.core.audio.SndSprite;
 //
-alex.audio.SndSprite.prototype.addSoundGroup = function(p_id){
-    var group = new alex.audio.SoundGroup(p_id);
+cc.core.audio.SndSprite.prototype.addSoundGroup = function(p_id){
+    var group = new cc.core.audio.SoundGroup(p_id);
     this.soundGroups[p_id] = group;
     return group;
 };
@@ -47,7 +47,7 @@ alex.audio.SndSprite.prototype.addSoundGroup = function(p_id){
 // SETUP
 // ***************************************
 //NOTE- this actually overwrites the old sounds, so setSounds would have been a better name..     
-alex.audio.SndSprite.prototype.setSounds = function(config){
+cc.core.audio.SndSprite.prototype.setSounds = function(config){
 
     this.sprites = this.parseManifest(config.sprites);
     //
@@ -60,7 +60,7 @@ alex.audio.SndSprite.prototype.setSounds = function(config){
 
 
 
-alex.audio.SndSprite.prototype.parseManifest = function(p_data){
+cc.core.audio.SndSprite.prototype.parseManifest = function(p_data){
     if(!p_data) return [];
     var obj, i, n = p_data.length, soundData = [], soundGroup;
     for(i = 0;i < n;i++){
@@ -79,7 +79,7 @@ alex.audio.SndSprite.prototype.parseManifest = function(p_data){
     return soundData;
 };
 
-alex.audio.SndSprite.prototype.initSnd = function(config){
+cc.core.audio.SndSprite.prototype.initSnd = function(config){
     if(!config.src) return null;
     //choose appopriate audio file
     config.src += this.audioType;//config.fileType;
@@ -104,7 +104,7 @@ alex.audio.SndSprite.prototype.initSnd = function(config){
     return snd;
 };
 
-alex.audio.SndSprite.prototype.preload = function(){
+cc.core.audio.SndSprite.prototype.preload = function(){
     if(this.sound){
         this.sound.autoplay = true;
         //play 2.5 secs of silence at start to buffer it
@@ -120,7 +120,7 @@ alex.audio.SndSprite.prototype.preload = function(){
 /*
  * TODO p_vol & p_loop are currently ignored
  */
-alex.audio.SndSprite.prototype.play = function(p_id,p_vol,p_loop){
+cc.core.audio.SndSprite.prototype.play = function(p_id,p_vol,p_loop){
     //trace("play " + p_id)
     //trace("bufferingComplete " + bufferingComplete)
     if (!this.bufferingComplete) return false;
@@ -170,7 +170,7 @@ alex.audio.SndSprite.prototype.play = function(p_id,p_vol,p_loop){
         return false;
     }
 };
-alex.audio.SndSprite.prototype.stop = function(p_id){
+cc.core.audio.SndSprite.prototype.stop = function(p_id){
     if(this.sound){
         //trace("SndSprite.stop");
         this.sound.pause();
@@ -181,7 +181,7 @@ alex.audio.SndSprite.prototype.stop = function(p_id){
 /*
  *
  */
-alex.audio.SndSprite.prototype.stopAll = function(){
+cc.core.audio.SndSprite.prototype.stopAll = function(){
     if(this.sound){
         this.sound.pause();
         this.endTime = -1;
@@ -191,7 +191,7 @@ alex.audio.SndSprite.prototype.stopAll = function(){
 /*
  *
  */
-alex.audio.SndSprite.prototype.dispose = function(){
+cc.core.audio.SndSprite.prototype.dispose = function(){
     if(this.sound){
         this.sound.pause();
         this.endTime = -1;
@@ -199,7 +199,7 @@ alex.audio.SndSprite.prototype.dispose = function(){
     }
 };
 
-alex.audio.SndSprite.prototype.getSpriteData = function(id){
+cc.core.audio.SndSprite.prototype.getSpriteData = function(id){
     var obj;
     var foundObj = null;
     var n = this.sprites.length;
@@ -213,7 +213,7 @@ alex.audio.SndSprite.prototype.getSpriteData = function(id){
     return foundObj;
 };
 
-alex.audio.SndSprite.prototype.isPlaying = function() {
+cc.core.audio.SndSprite.prototype.isPlaying = function() {
     //NOTE - this could also check if endTime > -1!
     if(!this.sound) return false;
     return !this.sound.paused;
@@ -222,7 +222,7 @@ alex.audio.SndSprite.prototype.isPlaying = function() {
 /*
  * this needs to be called while playing
  */
-alex.audio.SndSprite.prototype.update = function(elapsedTime){
+cc.core.audio.SndSprite.prototype.update = function(elapsedTime){
     if(!this.loadeddata) return;
     //
     if(!this.bufferingComplete){
@@ -264,19 +264,19 @@ alex.audio.SndSprite.prototype.update = function(elapsedTime){
 // MUTE HANDLING
 // ***************************************
 
-alex.audio.SndSprite.prototype.mute = function(bool){
+cc.core.audio.SndSprite.prototype.mute = function(bool){
     this.isMuted = bool;
     if(bool){
         this.stop();
     }
 };
 
-alex.audio.SndSprite.prototype.muteGroup = function(grp,bool){
+cc.core.audio.SndSprite.prototype.muteGroup = function(grp,bool){
     var soundGroup = this.soundGroups[grp];
     soundGroup.isMuted = bool;
 };
 
-alex.audio.SndSprite.prototype.muteAllGroups = function(b){
+cc.core.audio.SndSprite.prototype.muteAllGroups = function(b){
     for(var s in this.soundGroups){
         if(this.soundGroups.hasOwnProperty(s)){
             this.muteGroup(s, b);
@@ -284,13 +284,13 @@ alex.audio.SndSprite.prototype.muteAllGroups = function(b){
     }
 };
 
-alex.audio.SndSprite.prototype.isGroupMuted = function(groupId){
+cc.core.audio.SndSprite.prototype.isGroupMuted = function(groupId){
     var soundGroup = this.soundGroups[groupId];
     //validate
     return (soundGroup === undefined)? false : soundGroup.isMuted;
 };
 
-alex.audio.SndSprite.prototype.pause = function(b){
+cc.core.audio.SndSprite.prototype.pause = function(b){
     this.isGamePaused = b;
     if(b){
         this.stop();

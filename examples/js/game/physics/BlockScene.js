@@ -7,7 +7,7 @@ game_shell.game.BlockScene = function () {
     this.worldTime = 1000;
     this.blocks = [];
 };
-game_shell.game.BlockScene.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+game_shell.game.BlockScene.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  * @method init

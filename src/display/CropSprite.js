@@ -3,22 +3,22 @@
  * @class CropSprite
  * @constructor
  */
-alex.display.CropSprite = function(sprite){
+cc.core.display.CropSprite = function(sprite){
     this.sprite = null;
     this.useCopy = true;//if true then makes a new texture instance
-    alex.utils.EventDispatcher.call(this);
+    cc.core.utils.EventDispatcher.call(this);
 
     if(sprite){
         this.init({sprite: sprite});
     }
 };
-alex.display.CropSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.display.CropSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  * @method init
  * @param config
  */
-alex.display.CropSprite.prototype.init = function(config) {
+cc.core.display.CropSprite.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
 
     this.copyFrame();
@@ -27,7 +27,7 @@ alex.display.CropSprite.prototype.init = function(config) {
 /**
  *
  */
-alex.display.CropSprite.prototype.copyFrame = function() {
+cc.core.display.CropSprite.prototype.copyFrame = function() {
     this.realFrame = this.sprite.texture.frame;
     this.frame = new PIXI.Rectangle(
         this.realFrame.x,
@@ -47,7 +47,7 @@ alex.display.CropSprite.prototype.copyFrame = function() {
 /**
  *
  */
-Object.defineProperties(alex.display.CropSprite.prototype,{
+Object.defineProperties(cc.core.display.CropSprite.prototype,{
     width: {
         get: function(){
             return this.frame.width;
@@ -112,7 +112,7 @@ Object.defineProperties(alex.display.CropSprite.prototype,{
  *
  * @param value
  */
-alex.display.CropSprite.prototype.setWidth = function(value){
+cc.core.display.CropSprite.prototype.setWidth = function(value){
     this.frame.width = value;
     this.sprite.texture.crop.width = this.frame.width;
     this.sprite.texture.width = this.frame.width;
@@ -125,7 +125,7 @@ alex.display.CropSprite.prototype.setWidth = function(value){
  *
  * @param value
  */
-alex.display.CropSprite.prototype.setHeight = function(value){
+cc.core.display.CropSprite.prototype.setHeight = function(value){
     this.frame.height = value;
     this.sprite.texture.crop.height = this.frame.height;
     this.sprite.texture.height = this.frame.height;
@@ -138,7 +138,7 @@ alex.display.CropSprite.prototype.setHeight = function(value){
  * I think this adjusts y position at the same time as height
  * @param value
  */
-alex.display.CropSprite.prototype.setHeightAlt = function(value){
+cc.core.display.CropSprite.prototype.setHeightAlt = function(value){
     this.setHeight(value);
     this.frame.y = this.realFrame.y + this.realFrame.height - value;
     this.sprite.texture.crop.y = this.frame.y;
@@ -147,7 +147,7 @@ alex.display.CropSprite.prototype.setHeightAlt = function(value){
 /**
  *
  */
-alex.display.CropSprite.prototype.restore = function(){
+cc.core.display.CropSprite.prototype.restore = function(){
     this.sprite.texture.frame = this.realFrame;
     this.sprite.texture.crop.width = this.realFrame.width;
     this.sprite.texture.width = this.realFrame.width;
@@ -164,7 +164,7 @@ alex.display.CropSprite.prototype.restore = function(){
  * @param time
  * @param amount
  */
-alex.display.CropSprite.prototype.slideUp = function(y, time, amount) {
+cc.core.display.CropSprite.prototype.slideUp = function(y, time, amount) {
     var fullH = amount || this.realFrame.height;
     var distY = (fullH / this.resolution);
     this.y = y + distY;
@@ -182,7 +182,7 @@ alex.display.CropSprite.prototype.slideUp = function(y, time, amount) {
  * @param time
  * @param amount
  */
-alex.display.CropSprite.prototype.revealUp = function(y, time, amount) {
+cc.core.display.CropSprite.prototype.revealUp = function(y, time, amount) {
     var fullH = amount || this.realFrame.height;
     if(!time) time = 600;
     this.heightAlt = 0;
@@ -198,7 +198,7 @@ alex.display.CropSprite.prototype.revealUp = function(y, time, amount) {
  * @param time
  * @param amount
  */
-alex.display.CropSprite.prototype.revealDown = function(time, amount) {
+cc.core.display.CropSprite.prototype.revealDown = function(time, amount) {
     new TWEEN.Tween(this)
         .to({heightAlt: 0}, time)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -211,7 +211,7 @@ alex.display.CropSprite.prototype.revealDown = function(time, amount) {
  * @param time
  * @param delay
  */
-alex.display.CropSprite.prototype.slideDown = function(time, delay) {
+cc.core.display.CropSprite.prototype.slideDown = function(time, delay) {
     var y = this.y, delay = delay || 0;
     var targetY = y + (this.height / this.resolution);
     new TWEEN.Tween(this)
@@ -222,6 +222,6 @@ alex.display.CropSprite.prototype.slideDown = function(time, delay) {
         .start();
 };
 
-alex.display.CropSprite.prototype.onUp = function() { };
+cc.core.display.CropSprite.prototype.onUp = function() { };
 
-alex.display.CropSprite.prototype.onDown = function() { };
+cc.core.display.CropSprite.prototype.onDown = function() { };

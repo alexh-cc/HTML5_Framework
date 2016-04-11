@@ -51,7 +51,7 @@
         //configure the screen manager
         this.game.gameScreens.call(game_shell.screenMgr);
         //start asset loading, use a BulkLoader class
-        this.screenMgr.showScreen(alex.settings.FIRST_SCREEN);
+        this.screenMgr.showScreen(cc.core.settings.FIRST_SCREEN);
     }
 }).call(game_shell);
 

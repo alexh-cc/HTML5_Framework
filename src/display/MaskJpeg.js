@@ -1,4 +1,4 @@
-alex.display.MaskJpeg = function(jpegImg,pngMask,callback){
+cc.core.display.MaskJpeg = function(jpegImg,pngMask,callback){
 	var txImg = jpegImg;
 	var txMask = pngMask;
 	//create new canvas object and draw each image into it

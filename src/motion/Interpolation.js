@@ -1,8 +1,8 @@
-alex.motion.Interpolation = {
+cc.core.motion.Interpolation = {
 	/**
     * A Catmull Rom Interpolation Method taken from Phaser.
     *
-    * @method alex.motion.Interpolation#catmullRomInterpolation
+    * @method cc.core.motion.Interpolation#catmullRomInterpolation
     * @param {Array} v - The input array of values to interpolate between.
     * @param {number} k - The percentage of interpolation, between 0 and 1.
     * @return {number} The interpolated value
@@ -41,7 +41,7 @@ alex.motion.Interpolation = {
     /**
     * Calculates a catmum rom value.
     *
-    * @method alex.motion.Interpolation#catmullRom
+    * @method cc.core.motion.Interpolation#catmullRom
     * @protected
     * @param {number} p0
     * @param {number} p1
@@ -60,7 +60,7 @@ alex.motion.Interpolation = {
     /**
     * A Bezier Interpolation Method taken from Phaser.
     *
-    * @method alex.motion.Interpolation#bezierInterpolation
+    * @method cc.core.motion.Interpolation#bezierInterpolation
     * @param {Array} v - The input array of values to interpolate between.
     * @param {number} k - The percentage of interpolation, between 0 and 1.
     * @return {number} The interpolated value
@@ -82,7 +82,7 @@ alex.motion.Interpolation = {
     /**
     * Calculates a linear (interpolation) value over t.
     *
-    * @method alex.motion.Interpolation#linear
+    * @method cc.core.motion.Interpolation#linear
     * @param {number} p0
     * @param {number} p1
     * @param {number} t
@@ -94,7 +94,7 @@ alex.motion.Interpolation = {
     /**
     * A Linear Interpolation Method taken from Phaser.
     *
-    * @method alex.motion.Interpolation#linearInterpolation
+    * @method cc.core.motion.Interpolation#linearInterpolation
     * @param {Array} v - The input array of values to interpolate between.
     * @param {number} k - The percentage of interpolation, between 0 and 1.
     * @return {number} The interpolated value

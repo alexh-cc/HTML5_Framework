@@ -3,7 +3,7 @@
  * @constructor
  */
 game_shell.game.SceneBuilder = function () {
-    alex.screens.SceneBuilder.call(this);
+    cc.core.screens.SceneBuilder.call(this);
 };
 
 /**
@@ -11,11 +11,11 @@ game_shell.game.SceneBuilder = function () {
  * @param config
  */
 game_shell.game.SceneBuilder.prototype.init = function (config) {
-    alex.screens.SceneBuilder.prototype.init.call(this, config);
+    cc.core.screens.SceneBuilder.prototype.init.call(this, config);
 
     this.scene.content = this.createContentLayer();
 
-    this.scene.gameBus = new alex.utils.EventQueue();
+    this.scene.gameBus = new cc.core.utils.EventQueue();
 
     this.scene.camera = this.createCamera();
 
@@ -52,10 +52,10 @@ game_shell.game.SceneBuilder.prototype.createContentLayer = function(){
 
 /**
  *
- * @returns {alex.game.Camera}
+ * @returns {cc.core.game.Camera}
  */
 game_shell.game.SceneBuilder.prototype.createCamera = function () {
-    var camera = new alex.game.Camera();
+    var camera = new cc.core.game.Camera();
 
     var target = {x: 0, y: 0};
 

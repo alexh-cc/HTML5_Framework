@@ -1,10 +1,10 @@
-alex.game.CameraCull = function(){
+cc.core.game.CameraCull = function(){
 	this.gameObjects = [];
 	this.camera = null;
 	this.enabled = true;
 };
 
-alex.game.CameraCull.prototype.init = function(config) {
+cc.core.game.CameraCull.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
 
     if(!this.enabled){
@@ -12,11 +12,11 @@ alex.game.CameraCull.prototype.init = function(config) {
     }
 };
 
-alex.game.CameraCull.prototype.add = function(item){
+cc.core.game.CameraCull.prototype.add = function(item){
 	this.gameObjects[this.gameObjects.length] = item;
 };
 
-alex.game.CameraCull.prototype.update = function(delta){
+cc.core.game.CameraCull.prototype.update = function(delta){
     //**********************************
     var i, n = this.gameObjects.length, obj;
     //**************************************

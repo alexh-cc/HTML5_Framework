@@ -4,8 +4,8 @@
  * @param config
  * @constructor
  */
-alex.audio.Channel = function(config){
-    alex.utils.EventDispatcher.call(this);
+cc.core.audio.Channel = function(config){
+    cc.core.utils.EventDispatcher.call(this);
     this.id = config.id;
     this.context = config.context;
     this.channel = null;//AudioBufferSourceNode 
@@ -29,14 +29,14 @@ alex.audio.Channel = function(config){
     //fader tween
     this.tw = null;//only create if needed
 };
-alex.audio.Channel.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.audio.Channel.prototype.constructor = alex.audio.Channel;
+cc.core.audio.Channel.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.audio.Channel.prototype.constructor = cc.core.audio.Channel;
 
 /**
  *
  * @param config
  */
-alex.audio.Channel.prototype.createChannel = function(config){
+cc.core.audio.Channel.prototype.createChannel = function(config){
     var self = this;
     this.channel = this.context.createBufferSource();//AudioBufferSourceNode 
     this.channel.buffer = config.buffer;
@@ -56,7 +56,7 @@ alex.audio.Channel.prototype.createChannel = function(config){
  *
  * @returns {Gain Node}
  */
-alex.audio.Channel.prototype.createGainNode = function(){
+cc.core.audio.Channel.prototype.createGainNode = function(){
     if(this.context.createGainNode){
         return this.context.createGainNode();
     } else if(this.context.createGain){
@@ -70,7 +70,7 @@ alex.audio.Channel.prototype.createGainNode = function(){
  *
  * @param p_muteNode
  */
-alex.audio.Channel.prototype.connect = function(p_muteNode){
+cc.core.audio.Channel.prototype.connect = function(p_muteNode){
     this.muteNode = p_muteNode;
     // Connect the gain node to the destination via the muteNode
     this.gainNode.connect(this.muteNode);
@@ -83,7 +83,7 @@ alex.audio.Channel.prototype.connect = function(p_muteNode){
 /**
  *
  */
-alex.audio.Channel.prototype.play = function(){
+cc.core.audio.Channel.prototype.play = function(){
     /*
      https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode.start
      Parameters
@@ -120,7 +120,7 @@ alex.audio.Channel.prototype.play = function(){
 /**
  *
  */
-alex.audio.Channel.prototype.stop = function(){
+cc.core.audio.Channel.prototype.stop = function(){
     if(this.channel !== null){
         try{
             if(this.channel.stop){
@@ -144,7 +144,7 @@ alex.audio.Channel.prototype.stop = function(){
 // **********************************************
 // VOLUME
 // **********************************************
-Object.defineProperty(alex.audio.Channel.prototype, 'volume', {
+Object.defineProperty(cc.core.audio.Channel.prototype, 'volume', {
     get: function() {
         return this.gainNode? this.gainNode.gain.value : 0;
     },
@@ -161,7 +161,7 @@ Object.defineProperty(alex.audio.Channel.prototype, 'volume', {
  * Fade the track out then stop.
  * @param p_time
  */
-alex.audio.Channel.prototype.fadeOut = function(p_time){
+cc.core.audio.Channel.prototype.fadeOut = function(p_time){
     var time = (p_time === undefined)? 1000 : p_time;
     //use TWEEN with callback
     if(!this.tw) this.tw = this.createTween();
@@ -174,7 +174,7 @@ alex.audio.Channel.prototype.fadeOut = function(p_time){
  * @param p_vol
  * @param p_time
  */
-alex.audio.Channel.prototype.fadeIn = function(p_vol, p_time){
+cc.core.audio.Channel.prototype.fadeIn = function(p_vol, p_time){
     var time = (p_time === undefined)? 1000 : p_time;
     if(p_vol > 1) p_vol = 1;//safety measure!
     //use TWEEN with callback
@@ -188,7 +188,7 @@ alex.audio.Channel.prototype.fadeIn = function(p_vol, p_time){
  * @param p_vol
  * @param p_secs
  */
-alex.audio.Channel.prototype.fadeTo = function(p_vol, p_secs){
+cc.core.audio.Channel.prototype.fadeTo = function(p_vol, p_secs){
     var time = (p_secs === undefined)? 1 : p_secs;
     this.gainNode.gain.linearRampToValueAtTime(p_vol, this.context.currentTime + time);
     //would have to use update cycle with timeout or something like that
@@ -198,7 +198,7 @@ alex.audio.Channel.prototype.fadeTo = function(p_vol, p_secs){
  *
  * @returns {TWEEN.Tween}
  */
-alex.audio.Channel.prototype.createTween = function(){
+cc.core.audio.Channel.prototype.createTween = function(){
     //tween for fading
     var tw = new TWEEN.Tween(this);
     var self = this;
@@ -216,7 +216,7 @@ alex.audio.Channel.prototype.createTween = function(){
 /**
  *
  */
-alex.audio.Channel.prototype.dispose = function(){
+cc.core.audio.Channel.prototype.dispose = function(){
     this.removeEventListeners();
     // - cancel any tweening!
     if(this.tw) {

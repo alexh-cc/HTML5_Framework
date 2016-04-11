@@ -1,5 +1,5 @@
 
-alex.motion.SawTooth = function(){    
+cc.core.motion.SawTooth = function(){    
     this._value = 0;
     this._min = 0;
     this._max = 1;
@@ -8,7 +8,7 @@ alex.motion.SawTooth = function(){
     
 };
 
-alex.motion.SawTooth.prototype.update = function(delta){
+cc.core.motion.SawTooth.prototype.update = function(delta){
     var newValue = this._value + (delta * this._step);   
     if(newValue > this._max){
         newValue -= this._max; 
@@ -16,17 +16,17 @@ alex.motion.SawTooth.prototype.update = function(delta){
     this._value = newValue; 
 };
 
-alex.motion.SawTooth.prototype.reset = function(){
+cc.core.motion.SawTooth.prototype.reset = function(){
     this._value = 0;
 };
 
-Object.defineProperty(alex.motion.SawTooth.prototype, 'oscillationsPerSec', {
+Object.defineProperty(cc.core.motion.SawTooth.prototype, 'oscillationsPerSec', {
     set: function(oscillations){
         this._step = oscillations / 1000;   
     }
 });
 
-Object.defineProperty(alex.motion.SawTooth.prototype, 'value', {
+Object.defineProperty(cc.core.motion.SawTooth.prototype, 'value', {
     get: function(){
         return this._value;   
     }

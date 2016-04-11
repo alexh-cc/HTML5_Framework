@@ -3,7 +3,7 @@
  * @constructor
  */
 game_shell.game.GameBuilder = function(){
-    alex.screens.SceneBuilder.call(this);
+    cc.core.screens.SceneBuilder.call(this);
 };
 
 /**
@@ -11,7 +11,7 @@ game_shell.game.GameBuilder = function(){
  * @param config
  */
 game_shell.game.GameBuilder.prototype.init = function(config) {
-    alex.screens.SceneBuilder.prototype.init.call(this, config);
+    cc.core.screens.SceneBuilder.prototype.init.call(this, config);
     //
     this.createTextBtn('Game Screen', -100, -50, 'title');
 };

@@ -12,7 +12,7 @@ game_shell.game.gameScreens = function(){
 		var screen,
             screenId = (typeof p_event == "string")? p_event : p_event.screenId;
 		switch(screenId){
-			case "load": screen = new alex.screens.LoadScreen(p_event); break;
+			case "load": screen = new cc.core.screens.LoadScreen(p_event); break;
 			case "title": screen = new game_shell.screens.TitleScreen(p_event); break;
             case "dragonbones": screen = new game_shell.screens.DragonBonesScreen(p_event); break;
             case "spine": screen = new game_shell.screens.SpineScreen(p_event); break;
@@ -31,7 +31,7 @@ game_shell.game.gameScreens = function(){
      */
 	this.getManifestPath = function(screenId){
         var scr = game_shell.screens, 
-        	dir = alex.settings.JSON_DIR + 'manifests/',
+        	dir = cc.core.settings.JSON_DIR + 'manifests/',
         	file = null;
         switch(screenId){
             case "load":

@@ -2,26 +2,26 @@
  *
  * @constructor
  */
-alex.utils.EventQueue = function(){
-	alex.utils.EventDispatcher.call(this);
+cc.core.utils.EventQueue = function(){
+	cc.core.utils.EventDispatcher.call(this);
 
 	this.queue = [];
 };
-alex.utils.EventQueue.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.utils.EventQueue.prototype.constructor = alex.utils.EventQueue;
+cc.core.utils.EventQueue.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.utils.EventQueue.prototype.constructor = cc.core.utils.EventQueue;
 
 /**
  *
  * @param event
  */
-alex.utils.EventQueue.prototype.queueEvent = function(event){
+cc.core.utils.EventQueue.prototype.queueEvent = function(event){
     this.queue[this.queue.length] = event;
 };
 
 /**
  *
  */
-alex.utils.EventQueue.prototype.dispatchQueuedEvents = alex.utils.EventQueue.prototype.update = function(delta){
+cc.core.utils.EventQueue.prototype.dispatchQueuedEvents = cc.core.utils.EventQueue.prototype.update = function(delta){
     while(this.queue.length > 0){
         this.dispatchEvent(this.queue.shift());
     }

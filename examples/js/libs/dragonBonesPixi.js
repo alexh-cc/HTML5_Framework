@@ -265,7 +265,7 @@ dragonBones.BonesSprite = function () {
     this.fadeTime = dragonBones.fadeTime;//0.1;
     this.eventComplete = {type: 'complete', timeline: null};
 };
-dragonBones.BonesSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+dragonBones.BonesSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  *

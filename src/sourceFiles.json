@@ -1,8 +1,8 @@
 {
-  "content": "files for alex.js",
+  "content": "files for cc.core.js",
   "path": "relative to src folder",
   "files": [
-    "alex.js",
+    "cc.core.js",
     "pixi/pixi-mods.js",
     "data/settings.js",
     "utils/Key.js",

@@ -10,7 +10,7 @@ game_shell.title.TitleScene = function () {
     this.screenW = 0;
     this.screenH = 0;
 };
-game_shell.title.TitleScene.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+game_shell.title.TitleScene.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  *

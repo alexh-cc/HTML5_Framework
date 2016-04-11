@@ -2,7 +2,7 @@
  * @class ScreenMgr
  * @constructor
  */
-alex.screens.ScreenMgr = function(){
+cc.core.screens.ScreenMgr = function(){
     this.currentScreen = null;
     this.lastScreenId = null;
     this.stage = null;
@@ -11,14 +11,14 @@ alex.screens.ScreenMgr = function(){
     //
     this.resolution = 1;
 };
-alex.screens.ScreenMgr.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.screens.ScreenMgr.prototype.constructor = alex.screens.ScreenMgr;
+cc.core.screens.ScreenMgr.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.screens.ScreenMgr.prototype.constructor = cc.core.screens.ScreenMgr;
 
 /**
  * @method init
  * @param config
  */
-alex.screens.ScreenMgr.prototype.init = function(config){
+cc.core.screens.ScreenMgr.prototype.init = function(config){
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
     
     this.showScreen = this._showScreen.bind(this);
@@ -31,7 +31,7 @@ alex.screens.ScreenMgr.prototype.init = function(config){
  * @param p_event
  * @returns {{screenId: *}}
  */
-alex.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
+cc.core.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
     var config = (typeof p_event === "string")? {screenId: p_event} : p_event;
     config.screenW = this.settings.STAGE_W;
     config.screenH = this.settings.STAGE_H;
@@ -41,7 +41,7 @@ alex.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
     config.eventQueue = this.eventQueue;
     config.lastScreenId = this.lastScreenId;
     config.snd = this.snd;
-    //decided not to pass through alex.settings, its a bit redundant
+    //decided not to pass through cc.core.settings, its a bit redundant
     //config.settings = this.settings;
     return config; 
 };
@@ -50,7 +50,7 @@ alex.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
  * @method resize
  * @param settings
  */
-alex.screens.ScreenMgr.prototype.resize = function(settings){
+cc.core.screens.ScreenMgr.prototype.resize = function(settings){
     if(this.currentScreen !== null){
         //call resize on current screen
         var pointW = settings.pointWidth;
@@ -63,7 +63,7 @@ alex.screens.ScreenMgr.prototype.resize = function(settings){
  * @method displayScreen
  * @param p_event
  */
-alex.screens.ScreenMgr.prototype.displayScreen = function(event){
+cc.core.screens.ScreenMgr.prototype.displayScreen = function(event){
     //kill old screen
     this.disposeScreen();
     var config = this.getScreenConfig(event);
@@ -77,7 +77,7 @@ alex.screens.ScreenMgr.prototype.displayScreen = function(event){
  * @param data
  * @param callback
  */
-alex.screens.ScreenMgr.prototype._showScreen = function(data, callback){
+cc.core.screens.ScreenMgr.prototype._showScreen = function(data, callback){
     var config = (typeof data === "string")? {screenId: data} : data;
     var screenId = config.screenId;
     var manifest = this.getManifestPath(screenId);
@@ -102,7 +102,7 @@ alex.screens.ScreenMgr.prototype._showScreen = function(data, callback){
  * @param manifest
  * @param callback
  */
-alex.screens.ScreenMgr.prototype.loadWithManifest = function(screenId, manifest, callback){
+cc.core.screens.ScreenMgr.prototype.loadWithManifest = function(screenId, manifest, callback){
     this.currentManifest = manifest;
     //NOTE - loader removes event listeners on load complete
     var self = this;
@@ -127,7 +127,7 @@ alex.screens.ScreenMgr.prototype.loadWithManifest = function(screenId, manifest,
 };
 
 //append source array content to target array
-alex.screens.ScreenMgr.prototype.merge = function(target, source){
+cc.core.screens.ScreenMgr.prototype.merge = function(target, source){
     var i, n = source.length;
     for(i = 0; i < n; i++){
         target[target.length] = source[i];
@@ -139,9 +139,9 @@ alex.screens.ScreenMgr.prototype.merge = function(target, source){
  * @param screenId
  * @returns {string}
  */
-alex.screens.ScreenMgr.prototype.getManifestPath = function(screenId){
+cc.core.screens.ScreenMgr.prototype.getManifestPath = function(screenId){
     //override this, just return default
-    return alex.settings.JSON_DIR + 'asset_manifest.json';
+    return cc.core.settings.JSON_DIR + 'asset_manifest.json';
 };
 
 /**
@@ -149,7 +149,7 @@ alex.screens.ScreenMgr.prototype.getManifestPath = function(screenId){
  * @param screenId
  * @param jsonData
  */
-alex.screens.ScreenMgr.prototype.addToManifestJSON = function(screenId, jsonData){
+cc.core.screens.ScreenMgr.prototype.addToManifestJSON = function(screenId, jsonData){
     //override this
 };
 
@@ -158,14 +158,14 @@ alex.screens.ScreenMgr.prototype.addToManifestJSON = function(screenId, jsonData
  * @param screenId
  * @param data
  */
-alex.screens.ScreenMgr.prototype.customizeManifest = function(screenId, data){
+cc.core.screens.ScreenMgr.prototype.customizeManifest = function(screenId, data){
     //override this
 };
 
 /**
  *
  */
-alex.screens.ScreenMgr.prototype.unloadScreen = function(){
+cc.core.screens.ScreenMgr.prototype.unloadScreen = function(){
     if(game_shell.spineUtils) game_shell.spineUtils.purge();
     game_shell.snd.removeSounds(game_shell.loader.webAudioManifest);//NOTE - could also call purge
     game_shell.loader.unload();
@@ -176,8 +176,8 @@ alex.screens.ScreenMgr.prototype.unloadScreen = function(){
  * @param p_event
  * @returns {*}
  */
-alex.screens.ScreenMgr.prototype.createScreen = function(p_event){
-    var screen, scr = alex.screens;
+cc.core.screens.ScreenMgr.prototype.createScreen = function(p_event){
+    var screen, scr = cc.core.screens;
     var screenId = (typeof p_event === "string")? p_event : p_event.screenId;
     switch(screenId){
         case "load": screen = new scr.LoadScreen(p_event); break;
@@ -190,7 +190,7 @@ alex.screens.ScreenMgr.prototype.createScreen = function(p_event){
  *
  * @param p_time
  */
-alex.screens.ScreenMgr.prototype.update = function(p_time){
+cc.core.screens.ScreenMgr.prototype.update = function(p_time){
     if(this.currentScreen) this.currentScreen.update(p_time);
 };
 
@@ -198,14 +198,14 @@ alex.screens.ScreenMgr.prototype.update = function(p_time){
  *
  * @param p_delta
  */
-alex.screens.ScreenMgr.prototype.render = function(p_delta){
+cc.core.screens.ScreenMgr.prototype.render = function(p_delta){
     if(this.currentScreen) this.currentScreen.render(p_delta);
 };
 
 /**
  *
  */
-alex.screens.ScreenMgr.prototype.disposeScreen = function(){
+cc.core.screens.ScreenMgr.prototype.disposeScreen = function(){
     if(this.currentScreen !== null){
         //ignore the load screen!
         if(this.currentScreen.screenId !== 'load'){

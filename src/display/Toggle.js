@@ -5,7 +5,7 @@
  * @param p_on
  * @constructor
  */
-alex.display.Toggle = function (p_onImg, p_offImg, p_on) {
+cc.core.display.Toggle = function (p_onImg, p_offImg, p_on) {
     this.isOn = (p_on !== false);
     //*******************************
     // - support the arguments being textures
@@ -45,15 +45,15 @@ alex.display.Toggle = function (p_onImg, p_offImg, p_on) {
     this.enabled = true;
 
 };
-alex.display.Toggle.prototype = Object.create(PIXI.Sprite.prototype);
-alex.display.Toggle.prototype.constructor = alex.display.Toggle;
+cc.core.display.Toggle.prototype = Object.create(PIXI.Sprite.prototype);
+cc.core.display.Toggle.prototype.constructor = cc.core.display.Toggle;
 
 /**
  * @method getTexture
  * @param p_img
  * @returns {PIXI.Texture}
  */
-alex.display.Toggle.prototype.getTexture = function (p_img) {
+cc.core.display.Toggle.prototype.getTexture = function (p_img) {
     var tx = null;
     if (typeof p_img === 'string') {
         tx = PIXI.utils.TextureCache[p_img];
@@ -67,7 +67,7 @@ alex.display.Toggle.prototype.getTexture = function (p_img) {
 /**
  *
  */
-alex.display.Toggle.prototype.createHitArea = function () {
+cc.core.display.Toggle.prototype.createHitArea = function () {
     //this.resolution = this.txOn.baseTexture.resolution;
     var w = this.txOn.frame.width;
     var h = this.txOn.frame.height;
@@ -79,7 +79,7 @@ alex.display.Toggle.prototype.createHitArea = function () {
 /**
  *
  */
-alex.display.Toggle.prototype._touchstart = function (event) {
+cc.core.display.Toggle.prototype._touchstart = function (event) {
     this._pressed = true;
     this.scale.x = this.scale.y = this.downScale;
 };
@@ -87,7 +87,7 @@ alex.display.Toggle.prototype._touchstart = function (event) {
 /**
  *
  */
-alex.display.Toggle.prototype._touchend = function (event) {
+cc.core.display.Toggle.prototype._touchend = function (event) {
     if (this._pressed) {
         this._pressed = false;
         if(this.downScale < 1) this.scale.x = this.scale.y = this.upScale;
@@ -98,7 +98,7 @@ alex.display.Toggle.prototype._touchend = function (event) {
 /**
  *
  */
-alex.display.Toggle.prototype._touchendoutside = function (event) {
+cc.core.display.Toggle.prototype._touchendoutside = function (event) {
     if (this._pressed) {
         if(this.downScale < 1) this.scale.x = this.scale.y = this.upScale;
         this._pressed = false;
@@ -108,7 +108,7 @@ alex.display.Toggle.prototype._touchendoutside = function (event) {
 /**
  *
  */
-alex.display.Toggle.prototype.toggle = function () {
+cc.core.display.Toggle.prototype.toggle = function () {
     this.isOn = !this.isOn;
     if (this.isOn) {
         this.texture = this.txOn;
@@ -121,7 +121,7 @@ alex.display.Toggle.prototype.toggle = function () {
 /**
  *
  */
-alex.display.Toggle.prototype.setOff = function () {
+cc.core.display.Toggle.prototype.setOff = function () {
     this.texture = this.txOff;
     this.isOn = false;
 };
@@ -129,7 +129,7 @@ alex.display.Toggle.prototype.setOff = function () {
 /**
  *
  */
-alex.display.Toggle.prototype.setOn = function () {
+cc.core.display.Toggle.prototype.setOn = function () {
     this.texture = this.txOn;
     this.isOn = true;
 };
@@ -137,7 +137,7 @@ alex.display.Toggle.prototype.setOn = function () {
 /**
  *
  */
-Object.defineProperty(alex.display.Toggle.prototype, 'enabled', {
+Object.defineProperty(cc.core.display.Toggle.prototype, 'enabled', {
     get: function () {
         return this.interactive;
     },

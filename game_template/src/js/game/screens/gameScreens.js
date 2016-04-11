@@ -10,7 +10,7 @@ game_shell.game.gameScreens = function(){
 		var screen,
             screenId = (typeof event == "string")? event : event.screenId;
 		switch(screenId){
-			case "load": screen = new alex.screens.LoadScreen(event); break;
+			case "load": screen = new cc.core.screens.LoadScreen(event); break;
 			case "title": screen = new game_shell.screens.TitleScreen(event); break;
 			case "menu": screen = new game_shell.screens.MenuScreen(event); break;
 			case "game": screen = new game_shell.screens.GameScreen(event); break;
@@ -24,7 +24,7 @@ game_shell.game.gameScreens = function(){
      * @returns {string}
      */
     this.getManifestPath = function(screenId){
-        var dir = alex.settings.JSON_DIR + 'manifests/',
+        var dir = cc.core.settings.JSON_DIR + 'manifests/',
             file = null;
         switch(screenId){
             case "load":

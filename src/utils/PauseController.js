@@ -2,7 +2,7 @@
  * @class PauseController
  * @constructor
  */
-alex.utils.PauseController = function(){
+cc.core.utils.PauseController = function(){
     this.isPaused = false;
     this.wrongOrientation = false;//whether it was going portrait that caused the pause (need to know whether to restart..)
     this.pause = this._pause.bind(this);
@@ -13,7 +13,7 @@ alex.utils.PauseController = function(){
  * 
  * @param config
  */
-alex.utils.PauseController.prototype.init = function(config){
+cc.core.utils.PauseController.prototype.init = function(config){
     this.updateLoop = config.updateLoop;
     this.renderLoop = config.renderLoop;
     this.snd = config.snd;
@@ -24,7 +24,7 @@ alex.utils.PauseController.prototype.init = function(config){
 /**
  * 
  */
-alex.utils.PauseController.prototype.initPageHidden = function(){
+cc.core.utils.PauseController.prototype.initPageHidden = function(){
     var self = this;
     // blur / focus
     window.addEventListener("blur", function(){
@@ -65,7 +65,7 @@ alex.utils.PauseController.prototype.initPageHidden = function(){
  * @param event
  * @private
  */
-alex.utils.PauseController.prototype._resized = function(event){
+cc.core.utils.PauseController.prototype._resized = function(event){
     if(event.wrongOrientation){
         //pause the game
         if(!this.isPaused) {
@@ -86,7 +86,7 @@ alex.utils.PauseController.prototype._resized = function(event){
  * @param p_state
  * @private
  */
-alex.utils.PauseController.prototype._pause = function(p_state){
+cc.core.utils.PauseController.prototype._pause = function(p_state){
     if(p_state && !this.isPaused){
         console.log("PauseController -> " + p_state);
         TWEEN.pause();

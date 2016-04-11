@@ -1,5 +1,5 @@
-alex.motion.Wiggle = function(p_displayObj, p_maxRotation){
-	alex.utils.EventDispatcher.call(this);
+cc.core.motion.Wiggle = function(p_displayObj, p_maxRotation){
+	cc.core.utils.EventDispatcher.call(this);
 	//*************************************
 	this.img = p_displayObj;
 	this.baseR = p_displayObj.rotation;
@@ -15,18 +15,18 @@ alex.motion.Wiggle = function(p_displayObj, p_maxRotation){
 
 };
 //*******************************
-alex.motion.Wiggle.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.motion.Wiggle.prototype.constructor = alex.motion.Wiggle;
+cc.core.motion.Wiggle.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.motion.Wiggle.prototype.constructor = cc.core.motion.Wiggle;
 
-alex.motion.Wiggle.prototype.startWiggle = function() {
+cc.core.motion.Wiggle.prototype.startWiggle = function() {
 	this.counter = 0;
 };
 
-alex.motion.Wiggle.prototype.update = function(delta) {
+cc.core.motion.Wiggle.prototype.update = function(delta) {
 	this.wiggle(delta);
 };
 
-alex.motion.Wiggle.prototype.wiggle = function(time) {
+cc.core.motion.Wiggle.prototype.wiggle = function(time) {
 	this.counter += (this.speed * time);
 	var l_nSin = Math.sin(this.counter);
 	var l_nNewRotation = this.baseR - (l_nSin * this.maxR);

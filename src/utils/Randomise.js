@@ -1,7 +1,7 @@
 /**
  * Utility class for randomisation
  */
-alex.utils.Randomise = {
+cc.core.utils.Randomise = {
 	HOLDER: [],
 	/**
      * randomises the content of an Array

@@ -3,10 +3,10 @@
  *
  * @constructor
  */
-alex.load.ImageLoadState = function () {
+cc.core.load.ImageLoadState = function () {
     this.bulkLoader = null;
 
-    this.imageLoader = new alex.load.ImageLoader();
+    this.imageLoader = new cc.core.load.ImageLoader();
 
     //store loaded assets
     this._assets = {};//TODO - is this actually used for anything?
@@ -19,7 +19,7 @@ alex.load.ImageLoadState = function () {
  * @method init
  * @param config
  */
-alex.load.ImageLoadState.prototype.init = function (config) {
+cc.core.load.ImageLoadState.prototype.init = function (config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
     this.imageLoaded = this._imageLoaded.bind(this);
     this.imageProgress = this._imageProgress.bind(this);
@@ -29,7 +29,7 @@ alex.load.ImageLoadState.prototype.init = function (config) {
 /**
  *
  */
-alex.load.ImageLoadState.prototype.load = function () {
+cc.core.load.ImageLoadState.prototype.load = function () {
     //allow not having images
     var files = this.bulkLoader.imgManifest;
     if (files.length === 0) {
@@ -51,7 +51,7 @@ alex.load.ImageLoadState.prototype.load = function () {
  * @param event
  * @private
  */
-alex.load.ImageLoadState.prototype._imageLoaded = function (event) {
+cc.core.load.ImageLoadState.prototype._imageLoaded = function (event) {
     var img = event.img,
         success = event.success,
         assetData = event.data;
@@ -71,7 +71,7 @@ alex.load.ImageLoadState.prototype._imageLoaded = function (event) {
     this.imageProgress(event);
 };
 
-alex.load.ImageLoadState.prototype.getAsset = function (id) {
+cc.core.load.ImageLoadState.prototype.getAsset = function (id) {
     return this._assets[id];
 };
 
@@ -80,7 +80,7 @@ alex.load.ImageLoadState.prototype.getAsset = function (id) {
  * @param event
  * @private
  */
-alex.load.ImageLoadState.prototype._imageProgress = function (event) {
+cc.core.load.ImageLoadState.prototype._imageProgress = function (event) {
     this.bulkLoader.imageLoaded(event.progress);
 };
 
@@ -88,7 +88,7 @@ alex.load.ImageLoadState.prototype._imageProgress = function (event) {
  * source paths are used when unloading
  * @param files
  */
-alex.load.ImageLoadState.prototype.storeSourcePaths = function (files) {
+cc.core.load.ImageLoadState.prototype.storeSourcePaths = function (files) {
     var item, i, n = files.length;
     for (i = 0; i < n; i++) {
         item = files[i];
@@ -100,7 +100,7 @@ alex.load.ImageLoadState.prototype.storeSourcePaths = function (files) {
  *
  * @private
  */
-alex.load.ImageLoadState.prototype._loadComplete = function () {
+cc.core.load.ImageLoadState.prototype._loadComplete = function () {
     this.imageLoader.offAll();//remove all listeners!
     // now continue
     this.bulkLoader.sequence.next()
@@ -112,7 +112,7 @@ alex.load.ImageLoadState.prototype._loadComplete = function () {
  * @param src
  * @returns {Texture}
  */
-alex.load.ImageLoadState.prototype.addTexture = function (img, src) {
+cc.core.load.ImageLoadState.prototype.addTexture = function (img, src) {
     var tx = null;
     //bare in mind that the img could be null if load failed!
     if (img !== null) {
@@ -129,7 +129,7 @@ alex.load.ImageLoadState.prototype.addTexture = function (img, src) {
  * @param src
  * @returns {PIXI.BaseTexture}
  */
-alex.load.ImageLoadState.prototype.createBaseTexture = function (img, src) {
+cc.core.load.ImageLoadState.prototype.createBaseTexture = function (img, src) {
     var baseTexture = new PIXI.BaseTexture(img, null, PIXI.utils.getResolutionOfUrl(src));
     baseTexture.imageUrl = src;
     PIXI.utils.BaseTextureCache[src] = baseTexture;
@@ -142,7 +142,7 @@ alex.load.ImageLoadState.prototype.createBaseTexture = function (img, src) {
  * @param p_json
  * @param p_src
  */
-alex.load.ImageLoadState.prototype.addAtlas = function (p_img, p_json, p_src) {
+cc.core.load.ImageLoadState.prototype.addAtlas = function (p_img, p_json, p_src) {
     var baseTexture = this.createBaseTexture(p_img, p_src);
     this.addAtlasData(baseTexture, p_json);
 };
@@ -152,7 +152,7 @@ alex.load.ImageLoadState.prototype.addAtlas = function (p_img, p_json, p_src) {
  * @param baseTexture
  * @param p_json
  */
-alex.load.ImageLoadState.prototype.addAtlasData = function (baseTexture, p_json) {
+cc.core.load.ImageLoadState.prototype.addAtlasData = function (baseTexture, p_json) {
     var frameData = p_json.frames;
     var frameId, item;
     //check if it is an array!
@@ -179,7 +179,7 @@ alex.load.ImageLoadState.prototype.addAtlasData = function (baseTexture, p_json)
  * @param baseTexture
  * @returns {*}
  */
-alex.load.ImageLoadState.prototype.addAtlasFrame = function (item, key, baseTexture) {
+cc.core.load.ImageLoadState.prototype.addAtlasFrame = function (item, key, baseTexture) {
     var rect = item.frame,
         tx = null,
         resolution = this.resolution;
@@ -219,14 +219,14 @@ alex.load.ImageLoadState.prototype.addAtlasFrame = function (item, key, baseText
 };
 
 
-alex.load.ImageLoadState.prototype.purge = function () {
+cc.core.load.ImageLoadState.prototype.purge = function () {
     this._assets = {};
 };
 /**
  *
  * @param id
  */
-alex.load.ImageLoadState.prototype.unloadImage = function (id) {
+cc.core.load.ImageLoadState.prototype.unloadImage = function (id) {
     delete this._assets[id];
     //need to remove any textures from the texturecache...
     //need the original src path to do that...
@@ -239,7 +239,7 @@ alex.load.ImageLoadState.prototype.unloadImage = function (id) {
 /**
  * @param src
  */
-alex.load.ImageLoadState.prototype.unloadTextures = function (src) {
+cc.core.load.ImageLoadState.prototype.unloadTextures = function (src) {
     // - if it was an atlas then work out if any subtextures came from it
     // and delete the.
     var baseTextureCache = PIXI.utils.BaseTextureCache;
@@ -264,7 +264,7 @@ alex.load.ImageLoadState.prototype.unloadTextures = function (src) {
  *
  * @param items
  */
-alex.load.ImageLoadState.prototype.unload = function (items) {
+cc.core.load.ImageLoadState.prototype.unload = function (items) {
     var i, n = items.length, id;
     for (i = 0; i < n; i++) {
         id = items[i];

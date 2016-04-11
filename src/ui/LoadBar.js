@@ -5,7 +5,7 @@
  * Time: 10:20 AM
  * Default loading bar
  */
-alex.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
+cc.core.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
     PIXI.Container.call(this);
     //
     
@@ -27,7 +27,7 @@ alex.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
     
     this.fullW = barW;
 
-    var prgBar =  new alex.display.Quad(barW, barH, c2);
+    var prgBar =  new cc.core.display.Quad(barW, barH, c2);
     prgBar.x = -half;
     prgBar.y = -half;
     //
@@ -59,5 +59,5 @@ alex.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
     this.addChild(prgBar);
 
 };
-alex.ui.LoadBar.prototype = Object.create(PIXI.Container.prototype);
-alex.ui.LoadBar.prototype.constructor = alex.ui.LoadBar;
+cc.core.ui.LoadBar.prototype = Object.create(PIXI.Container.prototype);
+cc.core.ui.LoadBar.prototype.constructor = cc.core.ui.LoadBar;

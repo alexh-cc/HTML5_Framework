@@ -4,7 +4,7 @@
  * @param p_downImgId {String|PIXI.Texture}
  * @param p_disabledImgId {String|PIXI.Texture}
  */
-alex.display.Button = function(p_upImgId, p_downImgId, p_disabledImgId){
+cc.core.display.Button = function(p_upImgId, p_downImgId, p_disabledImgId){
     if(typeof p_upImgId === 'string'){
         this.txUp = PIXI.utils.TextureCache[p_upImgId];
     } else {
@@ -41,15 +41,15 @@ alex.display.Button = function(p_upImgId, p_downImgId, p_disabledImgId){
 
     this.setAdditionalTextures(p_downImgId, p_disabledImgId);
 };
-alex.display.Button.prototype = Object.create(PIXI.Sprite.prototype);
-alex.display.Button.prototype.constructor = alex.display.Button;
+cc.core.display.Button.prototype = Object.create(PIXI.Sprite.prototype);
+cc.core.display.Button.prototype.constructor = cc.core.display.Button;
 
 /**
  * @method setAdditionalTextures
  * @param p_downImgId
  * @param p_disabledImgId
  */
-alex.display.Button.prototype.setAdditionalTextures = function(p_downImgId, p_disabledImgId) {
+cc.core.display.Button.prototype.setAdditionalTextures = function(p_downImgId, p_disabledImgId) {
 //NOTE center reg point only applies when no down state!
     var downType = typeof p_downImgId;
 
@@ -88,7 +88,7 @@ alex.display.Button.prototype.setAdditionalTextures = function(p_downImgId, p_di
 /**
  *
  */
-alex.display.Button.prototype.createHitArea = function() {
+cc.core.display.Button.prototype.createHitArea = function() {
     //this.resolution = this.txUp.baseTexture.resolution;
     var w = this.txUp.frame.width;//(this.txUp.frame.width / this.resolution);
     var h = this.txUp.frame.height;//(this.txUp.frame.height / this.resolution);
@@ -99,7 +99,7 @@ alex.display.Button.prototype.createHitArea = function() {
  *
  * @private
  */
-alex.display.Button.prototype._touchstart = function() {
+cc.core.display.Button.prototype._touchstart = function() {
     if(!this.txDown){
         this.scale.x = this.scale.y = this.downScale;
     } else {
@@ -113,7 +113,7 @@ alex.display.Button.prototype._touchstart = function() {
  *
  * @private
  */
-alex.display.Button.prototype._touchend = function() {
+cc.core.display.Button.prototype._touchend = function() {
     if(this._pressed){
         this._pressed = false;
         this.restore();
@@ -125,7 +125,7 @@ alex.display.Button.prototype._touchend = function() {
  *
  * @private
  */
-alex.display.Button.prototype._touchendoutside = function() {
+cc.core.display.Button.prototype._touchendoutside = function() {
     if(this._pressed){
         this._pressed = false;
         this.restore();
@@ -137,7 +137,7 @@ alex.display.Button.prototype._touchendoutside = function() {
  *
  * @private
  */
-alex.display.Button.prototype.restore = function() {
+cc.core.display.Button.prototype.restore = function() {
     if(this.downScale < 1){
         this.scale.x = this.scale.y = this.upScale;
     } 
@@ -150,7 +150,7 @@ alex.display.Button.prototype.restore = function() {
  *
  * @private
  */
-Object.defineProperty(alex.display.Button.prototype, 'enabled', {
+Object.defineProperty(cc.core.display.Button.prototype, 'enabled', {
     get: function() {
         return  this.interactive;
     },

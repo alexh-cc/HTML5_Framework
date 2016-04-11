@@ -41,7 +41,7 @@ var Game = function(){
     };
 
     this.createSpineUtils = function(){
-        var spineUtils = new alex.utils.SpineUtils();
+        var spineUtils = new cc.core.utils.SpineUtils();
         spineUtils.init({
             jsonCache: this.json
         });
@@ -59,7 +59,7 @@ var Game = function(){
         //configure the screen manager
         this.game.gameScreens.call(game_shell.screenMgr);
         //start asset loading, use a BulkLoader class
-        this.screenMgr.showScreen(alex.settings.FIRST_SCREEN);
+        this.screenMgr.showScreen(cc.core.settings.FIRST_SCREEN);
     }
 };
 //

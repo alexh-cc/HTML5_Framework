@@ -2,8 +2,8 @@
  * @class ImageLoader
  * @constructor
  */
-alex.load.ImageLoader = function () {
-    alex.utils.EventDispatcher.call(this);
+cc.core.load.ImageLoader = function () {
+    cc.core.utils.EventDispatcher.call(this);
     this.manifest = null;//array of objects with src and id strings > {src:"./img/bg1.jpg", id:"bg"},
 
     this.eventLoaded = {
@@ -15,14 +15,14 @@ alex.load.ImageLoader = function () {
     }
 
 };
-alex.load.ImageLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.ImageLoader.prototype.constructor = alex.load.ImageLoader;
+cc.core.load.ImageLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.ImageLoader.prototype.constructor = cc.core.load.ImageLoader;
 
 /**
  * asset load manifest
  @param: items < Array of objects with src and id strings eg {src:"./img/bg1.jpg", id:"bg"},
  */
-alex.load.ImageLoader.prototype.load = function (items) {
+cc.core.load.ImageLoader.prototype.load = function (items) {
     this.numTotal = items.length;
     this.numLoaded = 0;
     //set loadstate flags
@@ -43,7 +43,7 @@ alex.load.ImageLoader.prototype.load = function (items) {
  *
  * @returns {Object}
  */
-alex.load.ImageLoader.prototype.findNext = function () {
+cc.core.load.ImageLoader.prototype.findNext = function () {
     //find next item that is not loaded
     var checkObj, assetData = null, n = this.manifest.length;
     for (var i = 0; i < n; i++) {
@@ -60,7 +60,7 @@ alex.load.ImageLoader.prototype.findNext = function () {
 /**
  *
  */
-alex.load.ImageLoader.prototype.loadNext = function () {
+cc.core.load.ImageLoader.prototype.loadNext = function () {
     var assetData = this.findNext();
     //create an Image instance to load the item
     if (assetData) {
@@ -78,7 +78,7 @@ alex.load.ImageLoader.prototype.loadNext = function () {
  * @param assetData
  * @returns {Image}
  */
-alex.load.ImageLoader.prototype.loadImage = function (assetData) {
+cc.core.load.ImageLoader.prototype.loadImage = function (assetData) {
     var img = new Image();
     var self = this;
     img.onload = function () {
@@ -105,7 +105,7 @@ alex.load.ImageLoader.prototype.loadImage = function (assetData) {
  * @param img
  * @param assetData
  */
-alex.load.ImageLoader.prototype.imageLoaded = function (img, assetData) {
+cc.core.load.ImageLoader.prototype.imageLoaded = function (img, assetData) {
     this.numLoaded++;
 
     this.eventLoaded.progress = this.numLoaded / this.numTotal;
@@ -120,7 +120,7 @@ alex.load.ImageLoader.prototype.imageLoaded = function (img, assetData) {
 /**
  *
  */
-alex.load.ImageLoader.prototype.loadComplete = function () {
+cc.core.load.ImageLoader.prototype.loadComplete = function () {
     this.emit({type: "complete"});
 };
 

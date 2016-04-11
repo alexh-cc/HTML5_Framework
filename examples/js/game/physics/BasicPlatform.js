@@ -3,10 +3,10 @@
  * @constructor
  */
 game_shell.physics.BasicPlatform = function() {
-    alex.game.GameObject.call(this);
+    cc.core.game.GameObject.call(this);
     this.type = game_shell.physics.BodyTypes.PLATFORM;
 };
-game_shell.physics.BasicPlatform.prototype = Object.create(alex.game.GameObject.prototype);
+game_shell.physics.BasicPlatform.prototype = Object.create(cc.core.game.GameObject.prototype);
 game_shell.physics.BasicPlatform.prototype.constructor = game_shell.physics.BasicPlatform;
 
 /**

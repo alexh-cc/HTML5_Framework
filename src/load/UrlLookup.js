@@ -2,7 +2,7 @@
  * asset url lookup helper
  * @constructor
  */
-alex.utils.UrlLookup = function(){
+cc.core.utils.UrlLookup = function(){
 
 };
 
@@ -10,7 +10,7 @@ alex.utils.UrlLookup = function(){
  * allow id reference rather than full path
  * @param p_list
  */
-alex.utils.UrlLookup.prototype.storeLookup = function(p_list){
+cc.core.utils.UrlLookup.prototype.storeLookup = function(p_list){
     if(p_list){
         //TODO - this fails if use for both json and image with same id!
         var n = p_list.length;
@@ -25,7 +25,7 @@ alex.utils.UrlLookup.prototype.storeLookup = function(p_list){
  *
  * @param item
  */
-alex.utils.UrlLookup.prototype.add = function(item){
+cc.core.utils.UrlLookup.prototype.add = function(item){
     this[item.src] = item;
     this[item.id] = item;
 };
@@ -35,7 +35,7 @@ alex.utils.UrlLookup.prototype.add = function(item){
  * @param key
  * @returns {*}
  */
-alex.utils.UrlLookup.prototype.getAssetData = function(key){
+cc.core.utils.UrlLookup.prototype.getAssetData = function(key){
     return this[key];
 };
 
@@ -44,7 +44,7 @@ alex.utils.UrlLookup.prototype.getAssetData = function(key){
  * @param key
  * @returns {*}
  */
-alex.utils.UrlLookup.prototype.getURL = function(key){
+cc.core.utils.UrlLookup.prototype.getURL = function(key){
     var assetData = this[key];
     if(!assetData){
         console.log("ERROR - no asset found for key  -> " + key);
@@ -59,7 +59,7 @@ alex.utils.UrlLookup.prototype.getURL = function(key){
  * @param fileName
  * @returns {*}
  */
-alex.utils.UrlLookup.prototype.pathForFile = function(fileName){
+cc.core.utils.UrlLookup.prototype.pathForFile = function(fileName){
     var id, item, foundPath = null;
     for(id in this){
         if(this.hasOwnProperty(id)){

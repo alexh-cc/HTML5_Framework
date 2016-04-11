@@ -4,7 +4,7 @@
  * @param poolSize
  * @constructor
  */
-alex.utils.DelayedAction = function(poolSize){
+cc.core.utils.DelayedAction = function(poolSize){
     var size = poolSize || 50;
     this.createPool(size);
     this._actions = [];
@@ -14,7 +14,7 @@ alex.utils.DelayedAction = function(poolSize){
  * optional facility to bind scope
  * @param size
  */
-alex.utils.DelayedAction.prototype.createPool = function(size){
+cc.core.utils.DelayedAction.prototype.createPool = function(size){
     this._pool = [];
     while(size > 0){
         this._pool[this._pool.length] = {_targetTime: -1, _callback: null};
@@ -27,7 +27,7 @@ alex.utils.DelayedAction.prototype.createPool = function(size){
  * @returns {T}
  * @private
  */
-alex.utils.DelayedAction.prototype._next = function(){
+cc.core.utils.DelayedAction.prototype._next = function(){
     var item = this._pool.shift();
     this._pool[this._pool.length] = item;
     return item;
@@ -40,7 +40,7 @@ alex.utils.DelayedAction.prototype._next = function(){
  * @param p_scope
  * @returns {T}
  */
-alex.utils.DelayedAction.prototype.delay = function(p_callback, p_ms, p_scope){
+cc.core.utils.DelayedAction.prototype.delay = function(p_callback, p_ms, p_scope){
     var action = this._next();
     action._targetTime = p_ms || -1;
     if(typeof p_scope !== 'undefined'){
@@ -58,7 +58,7 @@ alex.utils.DelayedAction.prototype.delay = function(p_callback, p_ms, p_scope){
  *
  * @param elapsedTime
  */
-alex.utils.DelayedAction.prototype.update = function(elapsedTime){
+cc.core.utils.DelayedAction.prototype.update = function(elapsedTime){
     var n = this._actions.length;
     if(n > 0){
         var i, action;
@@ -81,7 +81,7 @@ alex.utils.DelayedAction.prototype.update = function(elapsedTime){
 /**
  *
  */
-alex.utils.DelayedAction.prototype.clear = alex.utils.DelayedAction.prototype.purge = function(){
+cc.core.utils.DelayedAction.prototype.clear = cc.core.utils.DelayedAction.prototype.purge = function(){
     var n = this._actions.length;
     if(n > 0){
         var i, action;
@@ -97,7 +97,7 @@ alex.utils.DelayedAction.prototype.clear = alex.utils.DelayedAction.prototype.pu
 /**
  *
  */
-alex.utils.DelayedAction.prototype.dispose = function(){
+cc.core.utils.DelayedAction.prototype.dispose = function(){
     this.clear();
     this._pool = null;
 };

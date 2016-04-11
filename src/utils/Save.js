@@ -3,7 +3,7 @@
  * @class Save
  * @constructor
  */
-alex.utils.Save = function(key){
+cc.core.utils.Save = function(key){
     this.key = key || 'game_data';
 
     this.isSupported = this.checkSupported();
@@ -13,7 +13,7 @@ alex.utils.Save = function(key){
  *
  * @param config
  */
-alex.utils.Save.prototype.init = function(config){
+cc.core.utils.Save.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
@@ -21,7 +21,7 @@ alex.utils.Save.prototype.init = function(config){
  *
  * @param data
  */
-alex.utils.Save.prototype.save = function(data){
+cc.core.utils.Save.prototype.save = function(data){
     if(this.isSupported && data){
         if(typeof data !== 'string') data = JSON.stringify(data);
 
@@ -33,7 +33,7 @@ alex.utils.Save.prototype.save = function(data){
  *
  * @returns {Object}
  */
-alex.utils.Save.prototype.restore = function(){
+cc.core.utils.Save.prototype.restore = function(){
     if(this.isSupported){
         try {
             var stringValue = localStorage[this.key];
@@ -43,7 +43,7 @@ alex.utils.Save.prototype.restore = function(){
                 return data;
             }
         } catch(e){
-            console.log('ERROR - alex.utils.Save.restore:');
+            console.log('ERROR - cc.core.utils.Save.restore:');
             console.log(e);
         }
     }
@@ -55,7 +55,7 @@ alex.utils.Save.prototype.restore = function(){
  * @returns {boolean}
  * @private
  */
-alex.utils.Save.prototype.checkSupported = function(){
+cc.core.utils.Save.prototype.checkSupported = function(){
     try {
         return 'localStorage' in window && window['localStorage'] !== null;
     } catch (e) {
@@ -70,7 +70,7 @@ alex.utils.Save.prototype.checkSupported = function(){
  * @returns {boolean}
  * @private
  */
-alex.utils.Save.prototype._saveItem = function(p_key, p_value){
+cc.core.utils.Save.prototype._saveItem = function(p_key, p_value){
     var success = true;
     try{
         localStorage.removeItem(p_key);

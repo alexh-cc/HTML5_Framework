@@ -13,8 +13,8 @@ module.exports = function (grunt) {
         deployDir: 'bin/',
         templateDir: 'game_template/src/',
         examplesDir: 'examples/',
-        unmin: 'alex_v<%= pkg.version %>.source.js',
-        minified: 'alex_v<%= pkg.version %>.min.js',
+        unmin: 'cc_core_v<%= pkg.version %>.source.js',
+        minified: 'cc_core_v<%= pkg.version %>.min.js',
 
         clean: {
             alex: {
@@ -76,25 +76,6 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc'
             }
         },
-        ivantage_svn_changelog: {
-            internal_log: {
-                options: {
-                    outFile: '<%= sourceDir %>../changelog.md',
-                    revFrom: 1
-                    // revTo: 'HEAD',
-                }
-            }
-        },
-        push_svn: {
-            options: {
-                remove: false,
-                message: 'bumped to v<%= pkg.version %>'//getVersion(grunt)//
-            },
-            main: {
-                src: './',
-                dest: 'https://worklaptop/svn/Alex_HTML5_Framework_v3'
-            }
-        },
         bump: {
             options: {
                 files: ['<%= sourceDir %>alex.js', 'package.json'],
@@ -110,10 +91,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-ivantage-svn-changelog');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-bump');
-    grunt.loadNpmTasks('grunt-push-svn');
 
     //refresh the package json
     grunt.loadTasks('tasks');
@@ -121,11 +100,10 @@ module.exports = function (grunt) {
     //
     grunt.registerTask('build', ['clean', 'concat', 'uglify', 'copy']);
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('changelog', ['ivantage_svn_changelog']);
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('bump-major', ['bump: major']);
     grunt.registerTask('bump-minor', ['bump: minor']);
-    grunt.registerTask('bump-patch', ['clean', 'bump', 'refresh', 'build', 'push_svn', 'changelog']);
+    grunt.registerTask('bump-patch', ['clean', 'bump', 'refresh', 'build']);
 
 };
 

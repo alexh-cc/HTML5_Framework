@@ -3,18 +3,18 @@
  * @param url
  * @constructor
  */
-alex.load.BitmapFontLoader = function (url, resolution) {
-    alex.utils.EventDispatcher.call(this);
+cc.core.load.BitmapFontLoader = function (url, resolution) {
+    cc.core.utils.EventDispatcher.call(this);
     this.url = url;
     this.resolution = resolution;
 };
-alex.load.BitmapFontLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.BitmapFontLoader.prototype.constructor = alex.load.BitmapFontLoader;
+cc.core.load.BitmapFontLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.BitmapFontLoader.prototype.constructor = cc.core.load.BitmapFontLoader;
 
 /**
  * begin loading the font xml file
  */
-alex.load.BitmapFontLoader.prototype.load = function () {
+cc.core.load.BitmapFontLoader.prototype.load = function () {
     this.ajaxRequest = new PIXI.AjaxRequest();
     var self = this;
     this.ajaxRequest.onreadystatechange = function () {
@@ -30,7 +30,7 @@ alex.load.BitmapFontLoader.prototype.load = function () {
  * if xml loaded succesfully then load the font image
  * @method onXMLLoaded
  */
-alex.load.BitmapFontLoader.prototype.onXMLLoaded = function () {
+cc.core.load.BitmapFontLoader.prototype.onXMLLoaded = function () {
     if (this.ajaxRequest.readyState === 4) {
         if (this.ajaxRequest.status === 200) {
             //get the response xml
@@ -57,7 +57,7 @@ alex.load.BitmapFontLoader.prototype.onXMLLoaded = function () {
  * @method loadFontImage
  * @param responseXML
  */
-alex.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
+cc.core.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
     //get the file name
     var imageFile = responseXML.getElementsByTagName('page')[0].getAttribute('file');
     var slashIndex = this.url.lastIndexOf('/');
@@ -74,7 +74,7 @@ alex.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
             self = this;
         img.onload = function () {
             //create image
-            var baseTexture = alex.load.ImageLoadState.prototype.createBaseTexture(img, textureUrl);
+            var baseTexture = cc.core.load.ImageLoadState.prototype.createBaseTexture(img, textureUrl);
             texture = new PIXI.Texture(baseTexture);
             PIXI.utils.TextureCache[textureUrl] = texture;
             self.parseFontData(responseXML, texture)
@@ -90,7 +90,7 @@ alex.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
  * @param texture
  * @returns {{}}
  */
-alex.load.BitmapFontLoader.prototype.parseFontData = function (responseXML, texture) {
+cc.core.load.BitmapFontLoader.prototype.parseFontData = function (responseXML, texture) {
     var data = {};
     var info = responseXML.getElementsByTagName('info')[0];
     var common = responseXML.getElementsByTagName('common')[0];
@@ -152,6 +152,6 @@ alex.load.BitmapFontLoader.prototype.parseFontData = function (responseXML, text
  * @param value
  * @returns {number}
  */
-alex.load.BitmapFontLoader.prototype.scaleValue = function (value) {
+cc.core.load.BitmapFontLoader.prototype.scaleValue = function (value) {
     return value / this.resolution;
 };

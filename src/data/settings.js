@@ -1,5 +1,5 @@
 //this is more like global config than settings so poorly named
-alex.settings = {
+cc.core.settings = {
     DEFAULT_W: 568,//<- default stage width in points
 	DEFAULT_H: 320,//<- default stage height in points
     STAGE_W: 568,//<- actual stage width in points

@@ -28,7 +28,7 @@ game_shell.screens.ParticleScreen.prototype.run = function () {
  *
  */
 game_shell.screens.ParticleScreen.prototype.createBackground = function(){
-    var q = new alex.display.Quad(this.screenW, this.screenH, 0x0);
+    var q = new cc.core.display.Quad(this.screenW, this.screenH, 0x0);
     q.x = this.screenW * -0.5;
     q.y = this.screenH * -0.5;
     this.addChild(q);
@@ -82,9 +82,9 @@ game_shell.screens.ParticleScreen.prototype.createParticles = function(){
  * @constructor
  */
 game_shell.screens.Particles = function(){
-    alex.game.ParticleBase.call(this);
+    cc.core.game.ParticleBase.call(this);
 };
-game_shell.screens.Particles.prototype = Object.create(alex.game.ParticleBase.prototype);
+game_shell.screens.Particles.prototype = Object.create(cc.core.game.ParticleBase.prototype);
 //
 
 game_shell.screens.Particles.prototype.createEmitter = function() {

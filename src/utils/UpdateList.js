@@ -2,7 +2,7 @@
  * class UpdateList
  * @constructor
  */
-alex.utils.UpdateList = function(){
+cc.core.utils.UpdateList = function(){
     this.updateItems = [];
 	this.removeItems = [];
 };
@@ -11,20 +11,20 @@ alex.utils.UpdateList = function(){
  * could have been called apply....
  * @param target
  */
-alex.utils.UpdateList.prototype.mixin = function(target){
+cc.core.utils.UpdateList.prototype.mixin = function(target){
     target.updateItems = [];
 	target.removeItems = [];
-	target.update = alex.utils.UpdateList.prototype.update;
-    target.addUpdateItem = alex.utils.UpdateList.prototype.addUpdateItem;
-	target.removeUpdateItem = alex.utils.UpdateList.prototype.removeUpdateItem;
-    target.purge = alex.utils.UpdateList.prototype.purge;
+	target.update = cc.core.utils.UpdateList.prototype.update;
+    target.addUpdateItem = cc.core.utils.UpdateList.prototype.addUpdateItem;
+	target.removeUpdateItem = cc.core.utils.UpdateList.prototype.removeUpdateItem;
+    target.purge = cc.core.utils.UpdateList.prototype.purge;
 };
 
 /**
  *
  * @param p_delta
  */
-alex.utils.UpdateList.prototype.update = function(p_delta){
+cc.core.utils.UpdateList.prototype.update = function(p_delta){
     var n = this.updateItems.length;
     var item, i;
     for(i = n-1; i > -1; i--){
@@ -45,16 +45,16 @@ alex.utils.UpdateList.prototype.update = function(p_delta){
 /**
  *
  */
-alex.utils.UpdateList.prototype.purge = function(){
+cc.core.utils.UpdateList.prototype.purge = function(){
     this.updateItems.length = 0;
     this.removeItems.length = 0;
 };
 
 /**
  *
- * @type {alex.utils.UpdateList.add}
+ * @type {cc.core.utils.UpdateList.add}
  */
-alex.utils.UpdateList.prototype.addUpdateItem = alex.utils.UpdateList.prototype.add = function(p_item){
+cc.core.utils.UpdateList.prototype.addUpdateItem = cc.core.utils.UpdateList.prototype.add = function(p_item){
     //don't allow adding more than once!
     if(this.updateItems.indexOf(p_item) === -1){
         this.updateItems[this.updateItems.length] = p_item;
@@ -63,17 +63,17 @@ alex.utils.UpdateList.prototype.addUpdateItem = alex.utils.UpdateList.prototype.
 
 /**
  * this just adds to the remove list so that items aren't removed mid-loop
- * @type {alex.utils.UpdateList.remove}
+ * @type {cc.core.utils.UpdateList.remove}
  */
-alex.utils.UpdateList.prototype.removeUpdateItem = alex.utils.UpdateList.prototype.remove = function(p_item){
+cc.core.utils.UpdateList.prototype.removeUpdateItem = cc.core.utils.UpdateList.prototype.remove = function(p_item){
     this.removeItems[this.removeItems.length] = p_item;
 };
 
 /**
  * actually remove the item...
- * @type {alex.utils.UpdateList._remove}
+ * @type {cc.core.utils.UpdateList._remove}
  */
-alex.utils.UpdateList.prototype.removeUpdateItem = alex.utils.UpdateList.prototype._remove = function(p_item){
+cc.core.utils.UpdateList.prototype.removeUpdateItem = cc.core.utils.UpdateList.prototype._remove = function(p_item){
     var index = this.updateItems.indexOf(p_item);
     if(index > -1) this.updateItems.splice(index,1);
 };
@@ -81,7 +81,7 @@ alex.utils.UpdateList.prototype.removeUpdateItem = alex.utils.UpdateList.prototy
 /**
  *
  */
-Object.defineProperty(alex.utils.UpdateList.prototype, 'length', {
+Object.defineProperty(cc.core.utils.UpdateList.prototype, 'length', {
     get: function(){
         return this.updateItems.length;
     }

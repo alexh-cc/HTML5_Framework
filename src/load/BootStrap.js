@@ -20,15 +20,15 @@ example usage (in main game js)
     };
 
  */
-alex.load.BootStrap = function(){
+cc.core.load.BootStrap = function(){
     this.resolution = 2;//default
     this.stageW = 568;//default
     this.stage = null;
     this.barColor = 0xffffff;
 };
-alex.load.BootStrap.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.load.BootStrap.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
-alex.load.BootStrap.prototype.init = function(config) {
+cc.core.load.BootStrap.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
 
     //define the bundle to load
@@ -46,11 +46,11 @@ alex.load.BootStrap.prototype.init = function(config) {
 };
 
 //override this
-alex.load.BootStrap.prototype.defineBundle = function(){
+cc.core.load.BootStrap.prototype.defineBundle = function(){
     //for example
 
-    /*var imgFolder = alex.statics.IMG_DIR;
-    var jsonFolder = alex.statics.JSON_DIR;
+    /*var imgFolder = cc.core.statics.IMG_DIR;
+    var jsonFolder = cc.core.statics.JSON_DIR;
 
     this.addJson({
         src: imgFolder + 'loader_@' + this.resolution + 'x.json',
@@ -64,25 +64,25 @@ alex.load.BootStrap.prototype.defineBundle = function(){
 
 };
 
-alex.load.BootStrap.prototype.start = function(){
+cc.core.load.BootStrap.prototype.start = function(){
     //start loading
     this.loadJson();
 };
 
-alex.load.BootStrap.prototype.addJson = function(item){
+cc.core.load.BootStrap.prototype.addJson = function(item){
     this.bundle.json[this.bundle.json.length] = item;
 };
 
-alex.load.BootStrap.prototype.addImage = function(item){
+cc.core.load.BootStrap.prototype.addImage = function(item){
     this.bundle.images[this.bundle.images.length] = item;
 };
 
-alex.load.BootStrap.prototype.loadJson = function () {
+cc.core.load.BootStrap.prototype.loadJson = function () {
     var items = this.bundle.json;
     if(items.length === 0){
         this.loadImages();
     } else {
-        var loader = new alex.load.JsonQueue();
+        var loader = new cc.core.load.JsonQueue();
         var self = this;
         loader.on('loaded', function (event) {
             game_shell.json[event.id] = event.jsonData;
@@ -102,7 +102,7 @@ alex.load.BootStrap.prototype.loadJson = function () {
     }
 };
 
-alex.load.BootStrap.prototype.loadImages = function(){
+cc.core.load.BootStrap.prototype.loadImages = function(){
     var items = this.bundle.images, n = items.length;
 
     this.loadedImages = 0;
@@ -116,7 +116,7 @@ alex.load.BootStrap.prototype.loadImages = function(){
     }
 };
 
-alex.load.BootStrap.prototype.loadImage = function(item){
+cc.core.load.BootStrap.prototype.loadImage = function(item){
     var id = item.id, self = this;
     game_shell.loader.urls.add(item);
     var baseTexture = PIXI.BaseTexture.fromImage(item.src, false);
@@ -129,7 +129,7 @@ alex.load.BootStrap.prototype.loadImage = function(item){
     }
 }
 
-alex.load.BootStrap.prototype.imageLoaded = function(baseTexture, id){
+cc.core.load.BootStrap.prototype.imageLoaded = function(baseTexture, id){
     this.loadedImages++;
 
     //check if there was a matching json file
@@ -157,20 +157,20 @@ alex.load.BootStrap.prototype.imageLoaded = function(baseTexture, id){
     }
 };
 
-alex.load.BootStrap.prototype.createLoadBar = function(){
+cc.core.load.BootStrap.prototype.createLoadBar = function(){
     var w = 10, h = 20;
-    this.bar = new alex.display.Quad(w, h, this.barColor);
+    this.bar = new cc.core.display.Quad(w, h, this.barColor);
     this.bar.x = (this.stageW * -0.5);
     //put it at the bottom!
     this.bar.y = (this.stageH * 0.5) - (h * 0.5);
     this.stage.addChild(this.bar);
 };
 
-alex.load.BootStrap.prototype.growBar = function(){
+cc.core.load.BootStrap.prototype.growBar = function(){
     new TWEEN.Tween(this.bar).to({width: this.bar.width + this.step}, 50).start();
 };
 
-alex.load.BootStrap.prototype.finished = function(){
+cc.core.load.BootStrap.prototype.finished = function(){
     this.stage.removeChild(this.bar);
     this.emit({type:'complete'});
 };

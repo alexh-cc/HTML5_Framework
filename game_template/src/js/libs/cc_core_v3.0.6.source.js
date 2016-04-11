@@ -1,15 +1,16 @@
-var alex = {
+var cc = window.cc || {};
+cc.core = {
   version: '3.0.6'//<- framework release version number
 };
-console.log('alex.js - version ' + alex.version);
-alex.load = {};
-alex.utils = {};
-alex.display = {};
-alex.ui = {};
-alex.motion = {};
-alex.screens = {};
-alex.audio = {};
-alex.game = {};
+console.log('cc.core.js - version ' + cc.core.version);
+cc.core.load = {};
+cc.core.utils = {};
+cc.core.display = {};
+cc.core.ui = {};
+cc.core.motion = {};
+cc.core.screens = {};
+cc.core.audio = {};
+cc.core.game = {};
 // *************************************************************
 //add missing method to display object
 // *************************************************************
@@ -215,7 +216,7 @@ PIXI.interaction.InteractionManager.prototype.getTouchData = function (touchEven
 //    return result;
 //};
 //this is more like global config than settings so poorly named
-alex.settings = {
+cc.core.settings = {
     DEFAULT_W: 568,//<- default stage width in points
 	DEFAULT_H: 320,//<- default stage height in points
     STAGE_W: 568,//<- actual stage width in points
@@ -405,24 +406,24 @@ game_shell.KeyListener.prototype.constructor = game_shell.KeyListener;
  * @author mrdoob / http://mrdoob.com/
  */
 
-alex.utils.EventDispatcher = function () {}
+cc.core.utils.EventDispatcher = function () {}
 
-alex.utils.EventDispatcher.prototype = {
+cc.core.utils.EventDispatcher.prototype = {
 
-	constructor: alex.utils.EventDispatcher,
+	constructor: cc.core.utils.EventDispatcher,
 
 	apply: function ( object ) {
 
-		object.addEventListener = alex.utils.EventDispatcher.prototype.addEventListener;
-		object.on = alex.utils.EventDispatcher.prototype.addEventListener;
-		object.hasEventListener = alex.utils.EventDispatcher.prototype.hasEventListener;
-		object.has = alex.utils.EventDispatcher.prototype.hasEventListener;
-		object.removeEventListener = alex.utils.EventDispatcher.prototype.removeEventListener;
-		object.off = alex.utils.EventDispatcher.prototype.removeEventListener;
-		object.removeEventListeners = alex.utils.EventDispatcher.prototype.removeEventListeners;
-		object.offAll = alex.utils.EventDispatcher.prototype.removeEventListeners;
-		object.dispatchEvent = alex.utils.EventDispatcher.prototype.dispatchEvent;
-		object.emit = alex.utils.EventDispatcher.prototype.dispatchEvent;
+		object.addEventListener = cc.core.utils.EventDispatcher.prototype.addEventListener;
+		object.on = cc.core.utils.EventDispatcher.prototype.addEventListener;
+		object.hasEventListener = cc.core.utils.EventDispatcher.prototype.hasEventListener;
+		object.has = cc.core.utils.EventDispatcher.prototype.hasEventListener;
+		object.removeEventListener = cc.core.utils.EventDispatcher.prototype.removeEventListener;
+		object.off = cc.core.utils.EventDispatcher.prototype.removeEventListener;
+		object.removeEventListeners = cc.core.utils.EventDispatcher.prototype.removeEventListeners;
+		object.offAll = cc.core.utils.EventDispatcher.prototype.removeEventListeners;
+		object.dispatchEvent = cc.core.utils.EventDispatcher.prototype.dispatchEvent;
+		object.emit = cc.core.utils.EventDispatcher.prototype.dispatchEvent;
 
 	},
 
@@ -519,36 +520,36 @@ alex.utils.EventDispatcher.prototype = {
 	}
 };
 //terser syntax...
-alex.utils.EventDispatcher.prototype.on = alex.utils.EventDispatcher.prototype.addEventListener;
-alex.utils.EventDispatcher.prototype.emit = alex.utils.EventDispatcher.prototype.dispatchEvent;
-alex.utils.EventDispatcher.prototype.has = alex.utils.EventDispatcher.prototype.hasEventListener;
-alex.utils.EventDispatcher.prototype.off = alex.utils.EventDispatcher.prototype.removeEventListener;
-alex.utils.EventDispatcher.prototype.offAll = alex.utils.EventDispatcher.prototype.removeEventListeners;
+cc.core.utils.EventDispatcher.prototype.on = cc.core.utils.EventDispatcher.prototype.addEventListener;
+cc.core.utils.EventDispatcher.prototype.emit = cc.core.utils.EventDispatcher.prototype.dispatchEvent;
+cc.core.utils.EventDispatcher.prototype.has = cc.core.utils.EventDispatcher.prototype.hasEventListener;
+cc.core.utils.EventDispatcher.prototype.off = cc.core.utils.EventDispatcher.prototype.removeEventListener;
+cc.core.utils.EventDispatcher.prototype.offAll = cc.core.utils.EventDispatcher.prototype.removeEventListeners;
 
 /**
  *
  * @constructor
  */
-alex.utils.EventQueue = function(){
-	alex.utils.EventDispatcher.call(this);
+cc.core.utils.EventQueue = function(){
+	cc.core.utils.EventDispatcher.call(this);
 
 	this.queue = [];
 };
-alex.utils.EventQueue.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.utils.EventQueue.prototype.constructor = alex.utils.EventQueue;
+cc.core.utils.EventQueue.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.utils.EventQueue.prototype.constructor = cc.core.utils.EventQueue;
 
 /**
  *
  * @param event
  */
-alex.utils.EventQueue.prototype.queueEvent = function(event){
+cc.core.utils.EventQueue.prototype.queueEvent = function(event){
     this.queue[this.queue.length] = event;
 };
 
 /**
  *
  */
-alex.utils.EventQueue.prototype.dispatchQueuedEvents = alex.utils.EventQueue.prototype.update = function(delta){
+cc.core.utils.EventQueue.prototype.dispatchQueuedEvents = cc.core.utils.EventQueue.prototype.update = function(delta){
     while(this.queue.length > 0){
         this.dispatchEvent(this.queue.shift());
     }
@@ -556,7 +557,7 @@ alex.utils.EventQueue.prototype.dispatchQueuedEvents = alex.utils.EventQueue.pro
 /**
  * Utility class for randomisation
  */
-alex.utils.Randomise = {
+cc.core.utils.Randomise = {
 	HOLDER: [],
 	/**
      * randomises the content of an Array
@@ -626,8 +627,8 @@ alex.utils.Randomise = {
  * @param p_repeat {number} total number of ticks
  * @constructor
  */
-alex.utils.Timer = function(p_interval, p_repeat){
-	alex.utils.EventDispatcher.call(this);
+cc.core.utils.Timer = function(p_interval, p_repeat){
+	cc.core.utils.EventDispatcher.call(this);
 	//*******************************
 	this.interval = p_interval || 1000;//default to once per second	
 	if(typeof p_repeat != "undefined"){
@@ -652,13 +653,13 @@ alex.utils.Timer = function(p_interval, p_repeat){
 		//the end!
 	};
 };
-alex.utils.Timer.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.utils.Timer.prototype.constructor = alex.utils.Timer;
+cc.core.utils.Timer.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.utils.Timer.prototype.constructor = cc.core.utils.Timer;
 
 /**
  *
  */
-alex.utils.Timer.prototype.start = function(){
+cc.core.utils.Timer.prototype.start = function(){
 	this.running = true;
 	this.currentTime = 0;
 	this.tickCount = 0;
@@ -667,21 +668,21 @@ alex.utils.Timer.prototype.start = function(){
 /**
  *
  */
-alex.utils.Timer.prototype.stop = function(){
+cc.core.utils.Timer.prototype.stop = function(){
 	this.running = false;
 };
 
 /**
  *
  */
-alex.utils.Timer.prototype.resume = function(){
+cc.core.utils.Timer.prototype.resume = function(){
 	this.running = true;
 };
 
 /**
  *
  */
-alex.utils.Timer.prototype.reset = function(){
+cc.core.utils.Timer.prototype.reset = function(){
 	this.running = false;
 	this.currentTime = 0;
 	this.tickCount = 0;
@@ -690,7 +691,7 @@ alex.utils.Timer.prototype.reset = function(){
 /**
  *
  */
-Object.defineProperties(alex.utils.Timer.prototype, {
+Object.defineProperties(cc.core.utils.Timer.prototype, {
     isComplete: {
         get: function () {
             return this.tickCount === this.repeat;
@@ -707,7 +708,7 @@ Object.defineProperties(alex.utils.Timer.prototype, {
  * update loop
  * @param elapsed
  */
-alex.utils.Timer.prototype.update = function(elapsed){
+cc.core.utils.Timer.prototype.update = function(elapsed){
 	if(this.running){
 		this.currentTime += elapsed;
 		if(this.currentTime > this.interval){
@@ -720,7 +721,7 @@ alex.utils.Timer.prototype.update = function(elapsed){
 /**
  * 
  */
-alex.utils.Timer.prototype.tick = function(){
+cc.core.utils.Timer.prototype.tick = function(){
 	this.currentTime -= this.interval;
 	this.tickCount++;
 	//
@@ -742,37 +743,37 @@ alex.utils.Timer.prototype.tick = function(){
 /**
  * 
  */
-alex.utils.Timer.prototype.dispose = function(){
+cc.core.utils.Timer.prototype.dispose = function(){
 	this.onTimer = null;
 	this.onTimerComplete = null;
-	alex.utils.EventDispatcher.prototype.dispose.call(this);
+	cc.core.utils.EventDispatcher.prototype.dispose.call(this);
 };
 /**
  * @class RandomTimer
  * @param p_interval
  * @constructor
  */
-alex.utils.RandomTimer = function(p_interval){
+cc.core.utils.RandomTimer = function(p_interval){
 	if(!p_interval) p_interval = 3000;
-	alex.utils.Timer.call(this, p_interval);
+	cc.core.utils.Timer.call(this, p_interval);
 	this.baseInterval = this.interval;
 };
-alex.utils.RandomTimer.prototype = Object.create(alex.utils.Timer.prototype);
-alex.utils.RandomTimer.constructor = alex.utils.RandomTimer;
+cc.core.utils.RandomTimer.prototype = Object.create(cc.core.utils.Timer.prototype);
+cc.core.utils.RandomTimer.constructor = cc.core.utils.RandomTimer;
 
 /**
  *
  */
-alex.utils.RandomTimer.prototype.start = function(){
-	alex.utils.Timer.prototype.start.call(this);
+cc.core.utils.RandomTimer.prototype.start = function(){
+	cc.core.utils.Timer.prototype.start.call(this);
 	this.currentTime = Math.floor(Math.random() * this.baseInterval);
 };
 
 /**
  * 
  */
-alex.utils.RandomTimer.prototype.tick = function(){
-	alex.utils.Timer.prototype.tick.call(this);
+cc.core.utils.RandomTimer.prototype.tick = function(){
+	cc.core.utils.Timer.prototype.tick.call(this);
 	//now randomise
 	this.interval = this.baseInterval + Math.floor(Math.random() * this.baseInterval);
 };
@@ -782,7 +783,7 @@ alex.utils.RandomTimer.prototype.tick = function(){
  * @param poolSize
  * @constructor
  */
-alex.utils.DelayedAction = function(poolSize){
+cc.core.utils.DelayedAction = function(poolSize){
     var size = poolSize || 50;
     this.createPool(size);
     this._actions = [];
@@ -792,7 +793,7 @@ alex.utils.DelayedAction = function(poolSize){
  * optional facility to bind scope
  * @param size
  */
-alex.utils.DelayedAction.prototype.createPool = function(size){
+cc.core.utils.DelayedAction.prototype.createPool = function(size){
     this._pool = [];
     while(size > 0){
         this._pool[this._pool.length] = {_targetTime: -1, _callback: null};
@@ -805,7 +806,7 @@ alex.utils.DelayedAction.prototype.createPool = function(size){
  * @returns {T}
  * @private
  */
-alex.utils.DelayedAction.prototype._next = function(){
+cc.core.utils.DelayedAction.prototype._next = function(){
     var item = this._pool.shift();
     this._pool[this._pool.length] = item;
     return item;
@@ -818,7 +819,7 @@ alex.utils.DelayedAction.prototype._next = function(){
  * @param p_scope
  * @returns {T}
  */
-alex.utils.DelayedAction.prototype.delay = function(p_callback, p_ms, p_scope){
+cc.core.utils.DelayedAction.prototype.delay = function(p_callback, p_ms, p_scope){
     var action = this._next();
     action._targetTime = p_ms || -1;
     if(typeof p_scope !== 'undefined'){
@@ -836,7 +837,7 @@ alex.utils.DelayedAction.prototype.delay = function(p_callback, p_ms, p_scope){
  *
  * @param elapsedTime
  */
-alex.utils.DelayedAction.prototype.update = function(elapsedTime){
+cc.core.utils.DelayedAction.prototype.update = function(elapsedTime){
     var n = this._actions.length;
     if(n > 0){
         var i, action;
@@ -859,7 +860,7 @@ alex.utils.DelayedAction.prototype.update = function(elapsedTime){
 /**
  *
  */
-alex.utils.DelayedAction.prototype.clear = alex.utils.DelayedAction.prototype.purge = function(){
+cc.core.utils.DelayedAction.prototype.clear = cc.core.utils.DelayedAction.prototype.purge = function(){
     var n = this._actions.length;
     if(n > 0){
         var i, action;
@@ -875,7 +876,7 @@ alex.utils.DelayedAction.prototype.clear = alex.utils.DelayedAction.prototype.pu
 /**
  *
  */
-alex.utils.DelayedAction.prototype.dispose = function(){
+cc.core.utils.DelayedAction.prototype.dispose = function(){
     this.clear();
     this._pool = null;
 };
@@ -884,7 +885,7 @@ alex.utils.DelayedAction.prototype.dispose = function(){
  *
  * @constructor
  */
-alex.utils.SystemInfo = function(){
+cc.core.utils.SystemInfo = function(){
     this.browser = -1;//identify browser type
     this.os = -1;//operating system
     this.device = -1;//device type (desktop or mobile)
@@ -925,7 +926,7 @@ alex.utils.SystemInfo = function(){
 /**
  *
  */
-alex.utils.SystemInfo.prototype.run = function(){
+cc.core.utils.SystemInfo.prototype.run = function(){
     this._checkDevice();
     this._checkAudio();
 };
@@ -934,7 +935,7 @@ alex.utils.SystemInfo.prototype.run = function(){
  * user agent sniffing
  * @private
  */
-alex.utils.SystemInfo.prototype._checkDevice = function(){
+cc.core.utils.SystemInfo.prototype._checkDevice = function(){
     var systemString = navigator.userAgent;
     if (systemString.length > 0) {
         //reg exp
@@ -1030,7 +1031,7 @@ alex.utils.SystemInfo.prototype._checkDevice = function(){
  * check audio support
  * @private
  */
-alex.utils.SystemInfo.prototype._checkAudio = function(){
+cc.core.utils.SystemInfo.prototype._checkAudio = function(){
     //*****************************        
     //var canPlay = 'probably';
     //var canPlayOgg = Modernizr.audio.ogg;    
@@ -1068,7 +1069,7 @@ alex.utils.SystemInfo.prototype._checkAudio = function(){
 // helper getters
 //********************************
 
-Object.defineProperties(alex.utils.SystemInfo.prototype, {
+Object.defineProperties(cc.core.utils.SystemInfo.prototype, {
     isAndroidStock: {
         get: function() {
             return this.browser === this.browserAndroidStock;
@@ -1114,7 +1115,7 @@ Object.defineProperties(alex.utils.SystemInfo.prototype, {
  * @class FullscreenMgr
  * @constructor
  */
-alex.utils.FullscreenMgr = function(){
+cc.core.utils.FullscreenMgr = function(){
     this.canvas = null;
     this.isMobile = false;
     this.fullScreenState = false;//just for debugging
@@ -1128,7 +1129,7 @@ alex.utils.FullscreenMgr = function(){
  * @method init
  * @param config
  */
-alex.utils.FullscreenMgr.prototype.init = function(config){
+cc.core.utils.FullscreenMgr.prototype.init = function(config){
     this.canvas = config.canvas;//element
     this.isMobile = config.isMobile;//
     this.isAvailable = this.checkAvailable();
@@ -1140,7 +1141,7 @@ alex.utils.FullscreenMgr.prototype.init = function(config){
  * @method activate
  * @param state
  */
-alex.utils.FullscreenMgr.prototype.activate = function(state){
+cc.core.utils.FullscreenMgr.prototype.activate = function(state){
     this.fullScreenState = state;
     this.canvas.removeEventListener("click", this.goFullscreen);
     this.canvas.removeEventListener("touchstart", this.goFullscreen);
@@ -1155,7 +1156,7 @@ alex.utils.FullscreenMgr.prototype.activate = function(state){
  * @method _goFullscreen
  * @private
  */
-alex.utils.FullscreenMgr.prototype._goFullscreen = function(){
+cc.core.utils.FullscreenMgr.prototype._goFullscreen = function(){
     var gameDiv = document.documentElement;
     if (gameDiv.requestFullscreen) {
         gameDiv.requestFullscreen();
@@ -1173,7 +1174,7 @@ alex.utils.FullscreenMgr.prototype._goFullscreen = function(){
 /**
  * @method reactivate
  */
-alex.utils.FullscreenMgr.prototype.reactivate = function(){
+cc.core.utils.FullscreenMgr.prototype.reactivate = function(){
     this.activate(!this.isFullScreen);
 };
 
@@ -1181,7 +1182,7 @@ alex.utils.FullscreenMgr.prototype.reactivate = function(){
  * @method checkAvailable
  * @returns {*}
  */
-alex.utils.FullscreenMgr.prototype.checkAvailable = function(){
+cc.core.utils.FullscreenMgr.prototype.checkAvailable = function(){
     var doc = document.documentElement;
     //this is only for iframes
     doc.allowfullscreen = true;
@@ -1228,7 +1229,7 @@ alex.utils.FullscreenMgr.prototype.checkAvailable = function(){
  * @param event
  * @private
  */
-alex.utils.FullscreenMgr.prototype._fullscreenChanged = function(event){
+cc.core.utils.FullscreenMgr.prototype._fullscreenChanged = function(event){
     var fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
     this.isFullScreen = fullscreenElement !== null && typeof fullscreenElement != "undefined";
     console.log("FullscreenMg -> fullscreenChanged -- isFullScreen: " + this.isFullScreen);
@@ -1243,7 +1244,7 @@ alex.utils.FullscreenMgr.prototype._fullscreenChanged = function(event){
  * @method fullscreenError
  * @param event
  */
-alex.utils.FullscreenMgr.prototype.fullscreenError = function(event){
+cc.core.utils.FullscreenMgr.prototype.fullscreenError = function(event){
     console.log("* !!!! fullscreenError !!! * " + event);
     console.log("* event.message: " + event.message);
     this.fullscreenChanged(null);
@@ -1253,7 +1254,7 @@ alex.utils.FullscreenMgr.prototype.fullscreenError = function(event){
  * @param fps
  * @constructor
  */
-alex.utils.UpdateLoop = function(fps){
+cc.core.utils.UpdateLoop = function(fps){
 	this.gameLoopId = -1;//interval id
 	this.fps = fps || 60;
 	this.interval = 1000/this.fps;//60 fps
@@ -1267,7 +1268,7 @@ alex.utils.UpdateLoop = function(fps){
 /**
  *
  */
-alex.utils.UpdateLoop.prototype.start = function(){
+cc.core.utils.UpdateLoop.prototype.start = function(){
     clearInterval(this.gameLoopId);
     this.currentTime = Date.now();
     this.gameLoopId = setInterval(this.gameLoop, this.interval);
@@ -1276,7 +1277,7 @@ alex.utils.UpdateLoop.prototype.start = function(){
 /**
  *
  */
-alex.utils.UpdateLoop.prototype.stop = function(){
+cc.core.utils.UpdateLoop.prototype.stop = function(){
     clearInterval(this.gameLoopId);
 };
 
@@ -1284,7 +1285,7 @@ alex.utils.UpdateLoop.prototype.stop = function(){
  *
  * @param p_time
  */
-alex.utils.UpdateLoop.prototype.updateGame = function(p_time){
+cc.core.utils.UpdateLoop.prototype.updateGame = function(p_time){
     //override this
 };
 
@@ -1292,7 +1293,7 @@ alex.utils.UpdateLoop.prototype.updateGame = function(p_time){
  * 
  * @private
  */
-alex.utils.UpdateLoop.prototype._gameLoop = function(){
+cc.core.utils.UpdateLoop.prototype._gameLoop = function(){
 	var newTime = Date.now();
     var elapsed = newTime - this.currentTime;
     this.currentTime = newTime;
@@ -1308,7 +1309,7 @@ alex.utils.UpdateLoop.prototype._gameLoop = function(){
  * @class RenderLoop
  * @constructor
  */
-alex.utils.RenderLoop = function(){
+cc.core.utils.RenderLoop = function(){
     this.currentTime = 0;
     this.requestId = -1;
     this.stage = null;
@@ -1319,7 +1320,7 @@ alex.utils.RenderLoop = function(){
  *
  * @param p_config
  */
-alex.utils.RenderLoop.prototype.init = function(p_config){
+cc.core.utils.RenderLoop.prototype.init = function(p_config){
     this.stage = p_config.stage;
     this.screenMgr = p_config.screenMgr;
     //************************************************
@@ -1335,7 +1336,7 @@ alex.utils.RenderLoop.prototype.init = function(p_config){
 /**
  *
  */
-alex.utils.RenderLoop.prototype._defaultRender = function(){
+cc.core.utils.RenderLoop.prototype._defaultRender = function(){
     var newTime = Date.now(), 
         elapsed = newTime - this.currentTime;
         this.currentTime = newTime;
@@ -1348,7 +1349,7 @@ alex.utils.RenderLoop.prototype._defaultRender = function(){
 /**
  *
  */
-alex.utils.RenderLoop.prototype._statsRender = function(){
+cc.core.utils.RenderLoop.prototype._statsRender = function(){
     stats.begin();
     var newTime = Date.now(), 
         elapsed = newTime - this.currentTime;
@@ -1363,7 +1364,7 @@ alex.utils.RenderLoop.prototype._statsRender = function(){
 /**
  *
  */
-alex.utils.RenderLoop.prototype.start = function(){
+cc.core.utils.RenderLoop.prototype.start = function(){
     this.currentTime = Date.now();
     this.render();
 };
@@ -1371,7 +1372,7 @@ alex.utils.RenderLoop.prototype.start = function(){
 /**
  *
  */
-alex.utils.RenderLoop.prototype.stop = function(){
+cc.core.utils.RenderLoop.prototype.stop = function(){
     cancelAnimationFrame(this.requestId);
 };
 
@@ -1379,7 +1380,7 @@ alex.utils.RenderLoop.prototype.stop = function(){
  * @class Resolution
  * @constructor
  */
-alex.utils.Resolution = function(){
+cc.core.utils.Resolution = function(){
 	//resolution can be 1, 2 or 4
 	//@1x = non-retina phone -> 480 x 320
 	//@2x = retina phone or non-retina tablet -> ipad 1 (1024 x 768), iphone 4 (960 x 640), iPhone 5 (1136 x 640)
@@ -1389,13 +1390,13 @@ alex.utils.Resolution = function(){
 	//should just be called 'shorter edge'
 	//and what this refers to as width
 	//should just be called 'longer edge'
-	this.minHeight2 = alex.settings.RES_2_MIN_H || 320;//640;
+	this.minHeight2 = cc.core.settings.RES_2_MIN_H || 320;//640;
 	this.minHeight4 = this.minHeight2 * 2;//640;//1280;
 	//widths are for targetting ipad
-	this.minWidth2 = alex.settings.RES_2_MIN_W || 512;//1024;//
+	this.minWidth2 = cc.core.settings.RES_2_MIN_W || 512;//1024;//
 	this.minWidth4 = this.minWidth2 * 2;//1024;//2048;
 
-	this.maxResolution = alex.settings.MAX_RESOLUTON;
+	this.maxResolution = cc.core.settings.MAX_RESOLUTON;
 
 	this.pixelRatio = window.devicePixelRatio || 1;
 };
@@ -1404,7 +1405,7 @@ alex.utils.Resolution = function(){
  * @method init
  * @param config
  */
-alex.utils.Resolution.prototype.init = function(config){
+cc.core.utils.Resolution.prototype.init = function(config){
 	this.forceResolution = config.forceResolution;//normally force 2 for desktop maybe... or hack the minResolution2 to 321
 	//this.renderer = config.renderer || {};
 	if(this.forceResolution > -1) this.resolution = this.forceResolution;
@@ -1413,7 +1414,7 @@ alex.utils.Resolution.prototype.init = function(config){
 /**
  * set resolution by comparing shortest screen edge to baseline
  */
-alex.utils.Resolution.prototype.setByHeight = function(){
+cc.core.utils.Resolution.prototype.setByHeight = function(){
 	//NOTE - this can't this use viewport values, runs before viewport is created - but why?
 	if(this.forceResolution > -1){
 		this.resolution = this.forceResolution;
@@ -1438,7 +1439,7 @@ alex.utils.Resolution.prototype.setByHeight = function(){
 /**
  * set resolution by comparing longest screen edge to baseline
  */
-alex.utils.Resolution.prototype.setByWidth = function(){
+cc.core.utils.Resolution.prototype.setByWidth = function(){
 	//NOTE - this can't this use viewport values, runs before viewport is created - but why?
 	if(this.forceResolution > -1){
 		this.resolution = this.forceResolution;
@@ -1463,33 +1464,33 @@ alex.utils.Resolution.prototype.setByWidth = function(){
  * @class Viewport
  * @constructor
  */
-alex.utils.Viewport = function(){
-    alex.utils.EventDispatcher.call(this);
+cc.core.utils.Viewport = function(){
+    cc.core.utils.EventDispatcher.call(this);
 
-    this.PORTRAIT = alex.settings.ORIENTATION_PORTRAIT;
-    this.LANDSCAPE = alex.settings.ORIENTATION_LANDSCAPE;
+    this.PORTRAIT = cc.core.settings.ORIENTATION_PORTRAIT;
+    this.LANDSCAPE = cc.core.settings.ORIENTATION_LANDSCAPE;
 
-    this.scaleModes = alex.settings.SCALE_MODES;
+    this.scaleModes = cc.core.settings.SCALE_MODES;
 
     this.settings = null;
 
-    this.resize = alex.utils.Viewport.prototype.resize.bind(this);
+    this.resize = cc.core.utils.Viewport.prototype.resize.bind(this);
 };
-alex.utils.Viewport.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.utils.Viewport.prototype.constructor = alex.utils.Viewport;
+cc.core.utils.Viewport.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.utils.Viewport.prototype.constructor = cc.core.utils.Viewport;
 
 
 //iframe modes:
 //IFRAME_MODE_1 -> measure the parent window
 //IFRAME_MODE_2 -> measure the iframe window (default)
-alex.utils.Viewport.prototype.IFRAME_MODE_1 = 1;
-alex.utils.Viewport.prototype.IFRAME_MODE_2 = 2;
+cc.core.utils.Viewport.prototype.IFRAME_MODE_1 = 1;
+cc.core.utils.Viewport.prototype.IFRAME_MODE_2 = 2;
 
 /**
  * @method init
  * @param config
  */
-alex.utils.Viewport.prototype.init = function(config){
+cc.core.utils.Viewport.prototype.init = function(config){
     //flags
     this.CHECK_ORIENTATION = config.CHECK_ORIENTATION;
     this.DESKTOP_RESIZE = config.DESKTOP_RESIZE;
@@ -1521,7 +1522,7 @@ alex.utils.Viewport.prototype.init = function(config){
 /**
  *
  */
-alex.utils.Viewport.prototype.initResize = function(){
+cc.core.utils.Viewport.prototype.initResize = function(){
     window.addEventListener('resize', this.resize, false);
     window.addEventListener('orientationchange', this.resize, false);
 };
@@ -1529,7 +1530,7 @@ alex.utils.Viewport.prototype.initResize = function(){
 /**
  *
  */
-alex.utils.Viewport.prototype.resize = function(){
+cc.core.utils.Viewport.prototype.resize = function(){
     this.eventResize.settings = this.getSize();
     this.emit(this.eventResize);
 };
@@ -1538,7 +1539,7 @@ alex.utils.Viewport.prototype.resize = function(){
  *
  * @param mode
  */
-alex.utils.Viewport.prototype.setScaleMode = function(mode){
+cc.core.utils.Viewport.prototype.setScaleMode = function(mode){
     this.settings.scaleMode = mode;
     //console.log('setScaleMode: ' + mode);
     //choose the aspect handler
@@ -1556,7 +1557,7 @@ alex.utils.Viewport.prototype.setScaleMode = function(mode){
  * enable choosing scaleMode (match height, match width, etc)
  * @param config
  */
-alex.utils.Viewport.prototype.createSettings = function(config){
+cc.core.utils.Viewport.prototype.createSettings = function(config){
     var settings = {};
     settings.windowWidth = -1;
     settings.windowHeight = -1;
@@ -1584,7 +1585,7 @@ alex.utils.Viewport.prototype.createSettings = function(config){
  *
  * @returns {Object || null}
  */
-alex.utils.Viewport.prototype.getSize = function(){
+cc.core.utils.Viewport.prototype.getSize = function(){
     //***********************************************
     //show landscape only image on rotation...!
     var dimensions = this.checkWindowSize();
@@ -1601,7 +1602,7 @@ alex.utils.Viewport.prototype.getSize = function(){
 /**
  * @method checkWindowSize
  */
-alex.utils.Viewport.prototype.checkWindowSize = function(){
+cc.core.utils.Viewport.prototype.checkWindowSize = function(){
     var dstW, dstH;
     try{
         dstW = window.innerWidth;
@@ -1636,7 +1637,7 @@ alex.utils.Viewport.prototype.checkWindowSize = function(){
 /**
  *
  */
-alex.utils.Viewport.prototype.restoreDefaults = function(){
+cc.core.utils.Viewport.prototype.restoreDefaults = function(){
     this.settings.pixelWidth = this.DEFAULT_W;
     this.settings.pointWidth = this.DEFAULT_W;
     this.settings.windowWidth = this.DEFAULT_W;
@@ -1656,7 +1657,7 @@ alex.utils.Viewport.prototype.restoreDefaults = function(){
  * @param dstW
  * @param dstH
  */
-alex.utils.Viewport.prototype._matchWidth = function(dstW, dstH){
+cc.core.utils.Viewport.prototype._matchWidth = function(dstW, dstH){
     var fullW = this.DEFAULT_W,
         fullH = this.DEFAULT_H;
     //
@@ -1735,7 +1736,7 @@ alex.utils.Viewport.prototype._matchWidth = function(dstW, dstH){
  * @param dstH
  * @private
  */
-alex.utils.Viewport.prototype._matchHeight = function(dstW, dstH){       
+cc.core.utils.Viewport.prototype._matchHeight = function(dstW, dstH){       
     var fullW = this.DEFAULT_W,
         fullH = this.DEFAULT_H;
     //
@@ -1803,7 +1804,7 @@ alex.utils.Viewport.prototype._matchHeight = function(dstW, dstH){
  * @param hh
  * @returns {boolean}
  */
-alex.utils.Viewport.prototype.checkRotation = function(ww, hh){
+cc.core.utils.Viewport.prototype.checkRotation = function(ww, hh){
     var showRotate = false;
     if (this.CHECK_ORIENTATION){
         if(this.settings.orientation === this.settings.ORIENTATION_LANDSCAPE && hh > ww){
@@ -1829,7 +1830,7 @@ alex.utils.Viewport.prototype.checkRotation = function(ww, hh){
 /**
  *
  */
-Object.defineProperties(alex.utils.Viewport.prototype, {
+Object.defineProperties(cc.core.utils.Viewport.prototype, {
         height: {
             get: function(){
                 return this.settings.height;
@@ -1848,7 +1849,7 @@ Object.defineProperties(alex.utils.Viewport.prototype, {
  * @class PauseController
  * @constructor
  */
-alex.utils.PauseController = function(){
+cc.core.utils.PauseController = function(){
     this.isPaused = false;
     this.wrongOrientation = false;//whether it was going portrait that caused the pause (need to know whether to restart..)
     this.pause = this._pause.bind(this);
@@ -1859,7 +1860,7 @@ alex.utils.PauseController = function(){
  * 
  * @param config
  */
-alex.utils.PauseController.prototype.init = function(config){
+cc.core.utils.PauseController.prototype.init = function(config){
     this.updateLoop = config.updateLoop;
     this.renderLoop = config.renderLoop;
     this.snd = config.snd;
@@ -1870,7 +1871,7 @@ alex.utils.PauseController.prototype.init = function(config){
 /**
  * 
  */
-alex.utils.PauseController.prototype.initPageHidden = function(){
+cc.core.utils.PauseController.prototype.initPageHidden = function(){
     var self = this;
     // blur / focus
     window.addEventListener("blur", function(){
@@ -1911,7 +1912,7 @@ alex.utils.PauseController.prototype.initPageHidden = function(){
  * @param event
  * @private
  */
-alex.utils.PauseController.prototype._resized = function(event){
+cc.core.utils.PauseController.prototype._resized = function(event){
     if(event.wrongOrientation){
         //pause the game
         if(!this.isPaused) {
@@ -1932,7 +1933,7 @@ alex.utils.PauseController.prototype._resized = function(event){
  * @param p_state
  * @private
  */
-alex.utils.PauseController.prototype._pause = function(p_state){
+cc.core.utils.PauseController.prototype._pause = function(p_state){
     if(p_state && !this.isPaused){
         console.log("PauseController -> " + p_state);
         TWEEN.pause();
@@ -1962,7 +1963,7 @@ alex.utils.PauseController.prototype._pause = function(p_state){
  * class UpdateList
  * @constructor
  */
-alex.utils.UpdateList = function(){
+cc.core.utils.UpdateList = function(){
     this.updateItems = [];
 	this.removeItems = [];
 };
@@ -1971,20 +1972,20 @@ alex.utils.UpdateList = function(){
  * could have been called apply....
  * @param target
  */
-alex.utils.UpdateList.prototype.mixin = function(target){
+cc.core.utils.UpdateList.prototype.mixin = function(target){
     target.updateItems = [];
 	target.removeItems = [];
-	target.update = alex.utils.UpdateList.prototype.update;
-    target.addUpdateItem = alex.utils.UpdateList.prototype.addUpdateItem;
-	target.removeUpdateItem = alex.utils.UpdateList.prototype.removeUpdateItem;
-    target.purge = alex.utils.UpdateList.prototype.purge;
+	target.update = cc.core.utils.UpdateList.prototype.update;
+    target.addUpdateItem = cc.core.utils.UpdateList.prototype.addUpdateItem;
+	target.removeUpdateItem = cc.core.utils.UpdateList.prototype.removeUpdateItem;
+    target.purge = cc.core.utils.UpdateList.prototype.purge;
 };
 
 /**
  *
  * @param p_delta
  */
-alex.utils.UpdateList.prototype.update = function(p_delta){
+cc.core.utils.UpdateList.prototype.update = function(p_delta){
     var n = this.updateItems.length;
     var item, i;
     for(i = n-1; i > -1; i--){
@@ -2005,16 +2006,16 @@ alex.utils.UpdateList.prototype.update = function(p_delta){
 /**
  *
  */
-alex.utils.UpdateList.prototype.purge = function(){
+cc.core.utils.UpdateList.prototype.purge = function(){
     this.updateItems.length = 0;
     this.removeItems.length = 0;
 };
 
 /**
  *
- * @type {alex.utils.UpdateList.add}
+ * @type {cc.core.utils.UpdateList.add}
  */
-alex.utils.UpdateList.prototype.addUpdateItem = alex.utils.UpdateList.prototype.add = function(p_item){
+cc.core.utils.UpdateList.prototype.addUpdateItem = cc.core.utils.UpdateList.prototype.add = function(p_item){
     //don't allow adding more than once!
     if(this.updateItems.indexOf(p_item) === -1){
         this.updateItems[this.updateItems.length] = p_item;
@@ -2023,17 +2024,17 @@ alex.utils.UpdateList.prototype.addUpdateItem = alex.utils.UpdateList.prototype.
 
 /**
  * this just adds to the remove list so that items aren't removed mid-loop
- * @type {alex.utils.UpdateList.remove}
+ * @type {cc.core.utils.UpdateList.remove}
  */
-alex.utils.UpdateList.prototype.removeUpdateItem = alex.utils.UpdateList.prototype.remove = function(p_item){
+cc.core.utils.UpdateList.prototype.removeUpdateItem = cc.core.utils.UpdateList.prototype.remove = function(p_item){
     this.removeItems[this.removeItems.length] = p_item;
 };
 
 /**
  * actually remove the item...
- * @type {alex.utils.UpdateList._remove}
+ * @type {cc.core.utils.UpdateList._remove}
  */
-alex.utils.UpdateList.prototype.removeUpdateItem = alex.utils.UpdateList.prototype._remove = function(p_item){
+cc.core.utils.UpdateList.prototype.removeUpdateItem = cc.core.utils.UpdateList.prototype._remove = function(p_item){
     var index = this.updateItems.indexOf(p_item);
     if(index > -1) this.updateItems.splice(index,1);
 };
@@ -2041,7 +2042,7 @@ alex.utils.UpdateList.prototype.removeUpdateItem = alex.utils.UpdateList.prototy
 /**
  *
  */
-Object.defineProperty(alex.utils.UpdateList.prototype, 'length', {
+Object.defineProperty(cc.core.utils.UpdateList.prototype, 'length', {
     get: function(){
         return this.updateItems.length;
     }
@@ -2052,7 +2053,7 @@ Object.defineProperty(alex.utils.UpdateList.prototype, 'length', {
  * @param randomise
  * @constructor
  */
-alex.utils.Sequence = function(stuff, randomise){
+cc.core.utils.Sequence = function(stuff, randomise){
 	this.list = [];
 	if(stuff){
 		this.add(stuff, randomise);
@@ -2063,7 +2064,7 @@ alex.utils.Sequence = function(stuff, randomise){
  * @param stuff
  * @param randomise
  */
-alex.utils.Sequence.prototype.add = function(stuff, randomise){
+cc.core.utils.Sequence.prototype.add = function(stuff, randomise){
 	if(Array.isArray(stuff)){
 		var i, n = stuff.length;
 		for(i =0; i < n;i++){
@@ -2078,7 +2079,7 @@ alex.utils.Sequence.prototype.add = function(stuff, randomise){
  *
  * @param stuff
  */
-alex.utils.Sequence.prototype.remove = function(stuff){
+cc.core.utils.Sequence.prototype.remove = function(stuff){
 	var index;
 	if(Array.isArray(stuff)){
 		var i, n = stuff.length, item;
@@ -2095,14 +2096,14 @@ alex.utils.Sequence.prototype.remove = function(stuff){
 /**
  *
  */
-alex.utils.Sequence.prototype.randomise = function(){
-	alex.utils.Randomise.randomise(this.list);
+cc.core.utils.Sequence.prototype.randomise = function(){
+	cc.core.utils.Randomise.randomise(this.list);
 };
 /**
  *
  * @returns {*}
  */
-alex.utils.Sequence.prototype.next = function(){
+cc.core.utils.Sequence.prototype.next = function(){
 	var item = null;
 	if(this.list.length > 0){
 		item = this.list.shift();
@@ -2113,7 +2114,7 @@ alex.utils.Sequence.prototype.next = function(){
 /**
  *
  */
-Object.defineProperty(alex.utils.Sequence.prototype, 'length', {
+Object.defineProperty(cc.core.utils.Sequence.prototype, 'length', {
 	get: function(){
 		return this.list.length;
 	}
@@ -2123,7 +2124,7 @@ Object.defineProperty(alex.utils.Sequence.prototype, 'length', {
  * @class Save
  * @constructor
  */
-alex.utils.Save = function(key){
+cc.core.utils.Save = function(key){
     this.key = key || 'game_data';
 
     this.isSupported = this.checkSupported();
@@ -2133,7 +2134,7 @@ alex.utils.Save = function(key){
  *
  * @param config
  */
-alex.utils.Save.prototype.init = function(config){
+cc.core.utils.Save.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
@@ -2141,7 +2142,7 @@ alex.utils.Save.prototype.init = function(config){
  *
  * @param data
  */
-alex.utils.Save.prototype.save = function(data){
+cc.core.utils.Save.prototype.save = function(data){
     if(this.isSupported && data){
         if(typeof data !== 'string') data = JSON.stringify(data);
 
@@ -2153,7 +2154,7 @@ alex.utils.Save.prototype.save = function(data){
  *
  * @returns {Object}
  */
-alex.utils.Save.prototype.restore = function(){
+cc.core.utils.Save.prototype.restore = function(){
     if(this.isSupported){
         try {
             var stringValue = localStorage[this.key];
@@ -2163,7 +2164,7 @@ alex.utils.Save.prototype.restore = function(){
                 return data;
             }
         } catch(e){
-            console.log('ERROR - alex.utils.Save.restore:');
+            console.log('ERROR - cc.core.utils.Save.restore:');
             console.log(e);
         }
     }
@@ -2175,7 +2176,7 @@ alex.utils.Save.prototype.restore = function(){
  * @returns {boolean}
  * @private
  */
-alex.utils.Save.prototype.checkSupported = function(){
+cc.core.utils.Save.prototype.checkSupported = function(){
     try {
         return 'localStorage' in window && window['localStorage'] !== null;
     } catch (e) {
@@ -2190,7 +2191,7 @@ alex.utils.Save.prototype.checkSupported = function(){
  * @returns {boolean}
  * @private
  */
-alex.utils.Save.prototype._saveItem = function(p_key, p_value){
+cc.core.utils.Save.prototype._saveItem = function(p_key, p_value){
     var success = true;
     try{
         localStorage.removeItem(p_key);
@@ -2205,7 +2206,7 @@ alex.utils.Save.prototype._saveItem = function(p_key, p_value){
 /**
  * Collection of useful maths functions for dealing with vectors, etc
  */
-alex.utils.Maths = {
+cc.core.utils.Maths = {
 
     /**
      * @method rotate
@@ -2369,15 +2370,15 @@ example usage (in main game js)
     };
 
  */
-alex.load.BootStrap = function(){
+cc.core.load.BootStrap = function(){
     this.resolution = 2;//default
     this.stageW = 568;//default
     this.stage = null;
     this.barColor = 0xffffff;
 };
-alex.load.BootStrap.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.load.BootStrap.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
-alex.load.BootStrap.prototype.init = function(config) {
+cc.core.load.BootStrap.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
 
     //define the bundle to load
@@ -2395,11 +2396,11 @@ alex.load.BootStrap.prototype.init = function(config) {
 };
 
 //override this
-alex.load.BootStrap.prototype.defineBundle = function(){
+cc.core.load.BootStrap.prototype.defineBundle = function(){
     //for example
 
-    /*var imgFolder = alex.statics.IMG_DIR;
-    var jsonFolder = alex.statics.JSON_DIR;
+    /*var imgFolder = cc.core.statics.IMG_DIR;
+    var jsonFolder = cc.core.statics.JSON_DIR;
 
     this.addJson({
         src: imgFolder + 'loader_@' + this.resolution + 'x.json',
@@ -2413,25 +2414,25 @@ alex.load.BootStrap.prototype.defineBundle = function(){
 
 };
 
-alex.load.BootStrap.prototype.start = function(){
+cc.core.load.BootStrap.prototype.start = function(){
     //start loading
     this.loadJson();
 };
 
-alex.load.BootStrap.prototype.addJson = function(item){
+cc.core.load.BootStrap.prototype.addJson = function(item){
     this.bundle.json[this.bundle.json.length] = item;
 };
 
-alex.load.BootStrap.prototype.addImage = function(item){
+cc.core.load.BootStrap.prototype.addImage = function(item){
     this.bundle.images[this.bundle.images.length] = item;
 };
 
-alex.load.BootStrap.prototype.loadJson = function () {
+cc.core.load.BootStrap.prototype.loadJson = function () {
     var items = this.bundle.json;
     if(items.length === 0){
         this.loadImages();
     } else {
-        var loader = new alex.load.JsonQueue();
+        var loader = new cc.core.load.JsonQueue();
         var self = this;
         loader.on('loaded', function (event) {
             game_shell.json[event.id] = event.jsonData;
@@ -2451,7 +2452,7 @@ alex.load.BootStrap.prototype.loadJson = function () {
     }
 };
 
-alex.load.BootStrap.prototype.loadImages = function(){
+cc.core.load.BootStrap.prototype.loadImages = function(){
     var items = this.bundle.images, n = items.length;
 
     this.loadedImages = 0;
@@ -2465,7 +2466,7 @@ alex.load.BootStrap.prototype.loadImages = function(){
     }
 };
 
-alex.load.BootStrap.prototype.loadImage = function(item){
+cc.core.load.BootStrap.prototype.loadImage = function(item){
     var id = item.id, self = this;
     game_shell.loader.urls.add(item);
     var baseTexture = PIXI.BaseTexture.fromImage(item.src, false);
@@ -2478,7 +2479,7 @@ alex.load.BootStrap.prototype.loadImage = function(item){
     }
 }
 
-alex.load.BootStrap.prototype.imageLoaded = function(baseTexture, id){
+cc.core.load.BootStrap.prototype.imageLoaded = function(baseTexture, id){
     this.loadedImages++;
 
     //check if there was a matching json file
@@ -2506,20 +2507,20 @@ alex.load.BootStrap.prototype.imageLoaded = function(baseTexture, id){
     }
 };
 
-alex.load.BootStrap.prototype.createLoadBar = function(){
+cc.core.load.BootStrap.prototype.createLoadBar = function(){
     var w = 10, h = 20;
-    this.bar = new alex.display.Quad(w, h, this.barColor);
+    this.bar = new cc.core.display.Quad(w, h, this.barColor);
     this.bar.x = (this.stageW * -0.5);
     //put it at the bottom!
     this.bar.y = (this.stageH * 0.5) - (h * 0.5);
     this.stage.addChild(this.bar);
 };
 
-alex.load.BootStrap.prototype.growBar = function(){
+cc.core.load.BootStrap.prototype.growBar = function(){
     new TWEEN.Tween(this.bar).to({width: this.bar.width + this.step}, 50).start();
 };
 
-alex.load.BootStrap.prototype.finished = function(){
+cc.core.load.BootStrap.prototype.finished = function(){
     this.stage.removeChild(this.bar);
     this.emit({type:'complete'});
 };
@@ -2527,8 +2528,8 @@ alex.load.BootStrap.prototype.finished = function(){
  * @class ImageLoader
  * @constructor
  */
-alex.load.ImageLoader = function () {
-    alex.utils.EventDispatcher.call(this);
+cc.core.load.ImageLoader = function () {
+    cc.core.utils.EventDispatcher.call(this);
     this.manifest = null;//array of objects with src and id strings > {src:"./img/bg1.jpg", id:"bg"},
 
     this.eventLoaded = {
@@ -2540,14 +2541,14 @@ alex.load.ImageLoader = function () {
     }
 
 };
-alex.load.ImageLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.ImageLoader.prototype.constructor = alex.load.ImageLoader;
+cc.core.load.ImageLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.ImageLoader.prototype.constructor = cc.core.load.ImageLoader;
 
 /**
  * asset load manifest
  @param: items < Array of objects with src and id strings eg {src:"./img/bg1.jpg", id:"bg"},
  */
-alex.load.ImageLoader.prototype.load = function (items) {
+cc.core.load.ImageLoader.prototype.load = function (items) {
     this.numTotal = items.length;
     this.numLoaded = 0;
     //set loadstate flags
@@ -2568,7 +2569,7 @@ alex.load.ImageLoader.prototype.load = function (items) {
  *
  * @returns {Object}
  */
-alex.load.ImageLoader.prototype.findNext = function () {
+cc.core.load.ImageLoader.prototype.findNext = function () {
     //find next item that is not loaded
     var checkObj, assetData = null, n = this.manifest.length;
     for (var i = 0; i < n; i++) {
@@ -2585,7 +2586,7 @@ alex.load.ImageLoader.prototype.findNext = function () {
 /**
  *
  */
-alex.load.ImageLoader.prototype.loadNext = function () {
+cc.core.load.ImageLoader.prototype.loadNext = function () {
     var assetData = this.findNext();
     //create an Image instance to load the item
     if (assetData) {
@@ -2603,7 +2604,7 @@ alex.load.ImageLoader.prototype.loadNext = function () {
  * @param assetData
  * @returns {Image}
  */
-alex.load.ImageLoader.prototype.loadImage = function (assetData) {
+cc.core.load.ImageLoader.prototype.loadImage = function (assetData) {
     var img = new Image();
     var self = this;
     img.onload = function () {
@@ -2630,7 +2631,7 @@ alex.load.ImageLoader.prototype.loadImage = function (assetData) {
  * @param img
  * @param assetData
  */
-alex.load.ImageLoader.prototype.imageLoaded = function (img, assetData) {
+cc.core.load.ImageLoader.prototype.imageLoaded = function (img, assetData) {
     this.numLoaded++;
 
     this.eventLoaded.progress = this.numLoaded / this.numTotal;
@@ -2645,7 +2646,7 @@ alex.load.ImageLoader.prototype.imageLoaded = function (img, assetData) {
 /**
  *
  */
-alex.load.ImageLoader.prototype.loadComplete = function () {
+cc.core.load.ImageLoader.prototype.loadComplete = function () {
     this.emit({type: "complete"});
 };
 
@@ -2654,7 +2655,7 @@ alex.load.ImageLoader.prototype.loadComplete = function () {
  * @class LoadManifest
  * @constructor
  */
-alex.load.LoadManifest = function(){
+cc.core.load.LoadManifest = function(){
     this.bulkLoader = null;
     //
     this.resolution = 1;
@@ -2668,7 +2669,7 @@ alex.load.LoadManifest = function(){
  *
  * @param config
  */
-alex.load.LoadManifest.prototype.init = function(config){
+cc.core.load.LoadManifest.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
     this.resolution = this.bulkLoader.resolution;
     this.audioType = this.bulkLoader.audioType;
@@ -2678,9 +2679,9 @@ alex.load.LoadManifest.prototype.init = function(config){
 /**
  * load the manifest json file
  */
-alex.load.LoadManifest.prototype.load = function(){
+cc.core.load.LoadManifest.prototype.load = function(){
     var path = this.bulkLoader.manifestPath;
-    var loader = new alex.load.JsonLoader(path);
+    var loader = new cc.core.load.JsonLoader(path);
     var self = this;
     loader.on("loaded",function(event){
         var jsonData = event.data;
@@ -2710,7 +2711,7 @@ alex.load.LoadManifest.prototype.load = function(){
  *
  * @param p_data
  */
-alex.load.LoadManifest.prototype.parseConfig = function(p_data){
+cc.core.load.LoadManifest.prototype.parseConfig = function(p_data){
     //NOTE - this is no longer compatible with hd / sd format!
     this.manifest = p_data;
 
@@ -2724,19 +2725,19 @@ alex.load.LoadManifest.prototype.parseConfig = function(p_data){
     // revert to hd / sd if res version not found...
     bulkLoader.jsonManifest = this.getManifestSection('json_', res, fallback);
     //fix the paths of the atlas json - to image dir!
-    this.setRoot(bulkLoader.jsonManifest, alex.settings.IMG_DIR);
+    this.setRoot(bulkLoader.jsonManifest, cc.core.settings.IMG_DIR);
     //
     bulkLoader.imgManifest = this.getManifestSection('img_', res, fallback);
     bulkLoader.fontManifest = this.getManifestSection('bm_font_', res, fallback);
 
     //get it to load non resolutionified json too
     if(this.manifest.hasOwnProperty("json")){
-        this.setRoot(this.manifest.json, alex.settings.JSON_DIR);//fix json root
+        this.setRoot(this.manifest.json, cc.core.settings.JSON_DIR);//fix json root
         bulkLoader.jsonManifest = bulkLoader.jsonManifest.concat(this.manifest.json);
     }
     //fix the other paths
-    bulkLoader.imgManifest = this.setRoot(bulkLoader.imgManifest, alex.settings.IMG_DIR);
-    bulkLoader.fontManifest = this.setRoot(bulkLoader.fontManifest, alex.settings.FONT_DIR);
+    bulkLoader.imgManifest = this.setRoot(bulkLoader.imgManifest, cc.core.settings.IMG_DIR);
+    bulkLoader.fontManifest = this.setRoot(bulkLoader.fontManifest, cc.core.settings.FONT_DIR);
 
 
     bulkLoader.urls.storeLookup(bulkLoader.jsonManifest);
@@ -2754,7 +2755,7 @@ alex.load.LoadManifest.prototype.parseConfig = function(p_data){
  * @param root
  * @returns {*}
  */
-alex.load.LoadManifest.prototype.setRoot = function(list, root){
+cc.core.load.LoadManifest.prototype.setRoot = function(list, root){
     if(!list) return [];//allow missing manifest section
     var item;
     var n = list.length;
@@ -2775,7 +2776,7 @@ alex.load.LoadManifest.prototype.setRoot = function(list, root){
  * @param fallback
  * @returns {*}
  */
-alex.load.LoadManifest.prototype.getManifestSection = function(name, res, fallback){
+cc.core.load.LoadManifest.prototype.getManifestSection = function(name, res, fallback){
     var list = null;
     var nameWithResolution = name + res;
     if(this.manifest.hasOwnProperty(nameWithResolution)){
@@ -2797,7 +2798,7 @@ alex.load.LoadManifest.prototype.getManifestSection = function(name, res, fallba
  * @param input
  * @returns {*}
  */
-alex.load.LoadManifest.prototype.parseAudio = function(input){
+cc.core.load.LoadManifest.prototype.parseAudio = function(input){
     if(!input) return [];//allow missing manifest section
     var item, folder = this.audioFolder;
     var n = input.length;
@@ -2808,7 +2809,7 @@ alex.load.LoadManifest.prototype.parseAudio = function(input){
     return input;
 };
 
-Object.defineProperties(alex.load.LoadManifest.prototype, {
+Object.defineProperties(cc.core.load.LoadManifest.prototype, {
     /**
      * @property isEmpty
      * type {boolean} true if no files in manifest
@@ -2829,20 +2830,20 @@ Object.defineProperties(alex.load.LoadManifest.prototype, {
  */
 
 // JSON
-alex.load.JSONLoadState = function(){
+cc.core.load.JSONLoadState = function(){
     this.bulkLoader = null;
     this.jsonCache = null;
     this.numLoaded = 0;
     this.numTotal = 0;
 };
 
-alex.load.JSONLoadState.prototype.init = function(config){
+cc.core.load.JSONLoadState.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
     this.jsonLoaded = this._jsonLoaded.bind(this);
 };
 
 
-alex.load.JSONLoadState.prototype.unload = function(ids){
+cc.core.load.JSONLoadState.prototype.unload = function(ids){
     var i, id, n = ids.length;
     for(i = 0; i < n; i++){
         id = ids[i];
@@ -2850,9 +2851,9 @@ alex.load.JSONLoadState.prototype.unload = function(ids){
     }
 };
 
-alex.load.JSONLoadState.prototype.load = function(){
+cc.core.load.JSONLoadState.prototype.load = function(){
     var self = this;
-    this.queue = new alex.load.JsonQueue();
+    this.queue = new cc.core.load.JsonQueue();
     this.queue.on("complete", function(){
         self.bulkLoader.sequence.next();
     });
@@ -2861,7 +2862,7 @@ alex.load.JSONLoadState.prototype.load = function(){
 
 };
 
-alex.load.JSONLoadState.prototype._jsonLoaded = function(event){
+cc.core.load.JSONLoadState.prototype._jsonLoaded = function(event){
     var filePath = event.url;
     var assetData = this.bulkLoader.urls.getAssetData(filePath);
     //store the jsonData on the assetData
@@ -2879,11 +2880,11 @@ alex.load.JSONLoadState.prototype._jsonLoaded = function(event){
 };
 
 //progress event
-alex.load.JSONLoadState.prototype.jsonProgress = function(numLoaded, total){
+cc.core.load.JSONLoadState.prototype.jsonProgress = function(numLoaded, total){
     this.bulkLoader.jsonLoaded(numLoaded / total);
 };
 
-alex.load.JSONLoadState.prototype.toString = function(){
+cc.core.load.JSONLoadState.prototype.toString = function(){
     return "[JSONLoadState]";
 };
 
@@ -2893,7 +2894,7 @@ alex.load.JSONLoadState.prototype.toString = function(){
  * @param jsonData
  * @param jsonFilePath
  */
-alex.load.JSONLoadState.prototype.addImageToQueue = function(id, jsonData, jsonFilePath){
+cc.core.load.JSONLoadState.prototype.addImageToQueue = function(id, jsonData, jsonFilePath){
     var imgFilename = jsonData.meta.image;
     var imgManifest = this.bulkLoader.imgManifest;
     var n = imgManifest.length;
@@ -2928,10 +2929,10 @@ alex.load.JSONLoadState.prototype.addImageToQueue = function(id, jsonData, jsonF
  *
  * @constructor
  */
-alex.load.ImageLoadState = function () {
+cc.core.load.ImageLoadState = function () {
     this.bulkLoader = null;
 
-    this.imageLoader = new alex.load.ImageLoader();
+    this.imageLoader = new cc.core.load.ImageLoader();
 
     //store loaded assets
     this._assets = {};//TODO - is this actually used for anything?
@@ -2944,7 +2945,7 @@ alex.load.ImageLoadState = function () {
  * @method init
  * @param config
  */
-alex.load.ImageLoadState.prototype.init = function (config) {
+cc.core.load.ImageLoadState.prototype.init = function (config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
     this.imageLoaded = this._imageLoaded.bind(this);
     this.imageProgress = this._imageProgress.bind(this);
@@ -2954,7 +2955,7 @@ alex.load.ImageLoadState.prototype.init = function (config) {
 /**
  *
  */
-alex.load.ImageLoadState.prototype.load = function () {
+cc.core.load.ImageLoadState.prototype.load = function () {
     //allow not having images
     var files = this.bulkLoader.imgManifest;
     if (files.length === 0) {
@@ -2976,7 +2977,7 @@ alex.load.ImageLoadState.prototype.load = function () {
  * @param event
  * @private
  */
-alex.load.ImageLoadState.prototype._imageLoaded = function (event) {
+cc.core.load.ImageLoadState.prototype._imageLoaded = function (event) {
     var img = event.img,
         success = event.success,
         assetData = event.data;
@@ -2996,7 +2997,7 @@ alex.load.ImageLoadState.prototype._imageLoaded = function (event) {
     this.imageProgress(event);
 };
 
-alex.load.ImageLoadState.prototype.getAsset = function (id) {
+cc.core.load.ImageLoadState.prototype.getAsset = function (id) {
     return this._assets[id];
 };
 
@@ -3005,7 +3006,7 @@ alex.load.ImageLoadState.prototype.getAsset = function (id) {
  * @param event
  * @private
  */
-alex.load.ImageLoadState.prototype._imageProgress = function (event) {
+cc.core.load.ImageLoadState.prototype._imageProgress = function (event) {
     this.bulkLoader.imageLoaded(event.progress);
 };
 
@@ -3013,7 +3014,7 @@ alex.load.ImageLoadState.prototype._imageProgress = function (event) {
  * source paths are used when unloading
  * @param files
  */
-alex.load.ImageLoadState.prototype.storeSourcePaths = function (files) {
+cc.core.load.ImageLoadState.prototype.storeSourcePaths = function (files) {
     var item, i, n = files.length;
     for (i = 0; i < n; i++) {
         item = files[i];
@@ -3025,7 +3026,7 @@ alex.load.ImageLoadState.prototype.storeSourcePaths = function (files) {
  *
  * @private
  */
-alex.load.ImageLoadState.prototype._loadComplete = function () {
+cc.core.load.ImageLoadState.prototype._loadComplete = function () {
     this.imageLoader.offAll();//remove all listeners!
     // now continue
     this.bulkLoader.sequence.next()
@@ -3037,7 +3038,7 @@ alex.load.ImageLoadState.prototype._loadComplete = function () {
  * @param src
  * @returns {Texture}
  */
-alex.load.ImageLoadState.prototype.addTexture = function (img, src) {
+cc.core.load.ImageLoadState.prototype.addTexture = function (img, src) {
     var tx = null;
     //bare in mind that the img could be null if load failed!
     if (img !== null) {
@@ -3054,7 +3055,7 @@ alex.load.ImageLoadState.prototype.addTexture = function (img, src) {
  * @param src
  * @returns {PIXI.BaseTexture}
  */
-alex.load.ImageLoadState.prototype.createBaseTexture = function (img, src) {
+cc.core.load.ImageLoadState.prototype.createBaseTexture = function (img, src) {
     var baseTexture = new PIXI.BaseTexture(img, null, PIXI.utils.getResolutionOfUrl(src));
     baseTexture.imageUrl = src;
     PIXI.utils.BaseTextureCache[src] = baseTexture;
@@ -3067,7 +3068,7 @@ alex.load.ImageLoadState.prototype.createBaseTexture = function (img, src) {
  * @param p_json
  * @param p_src
  */
-alex.load.ImageLoadState.prototype.addAtlas = function (p_img, p_json, p_src) {
+cc.core.load.ImageLoadState.prototype.addAtlas = function (p_img, p_json, p_src) {
     var baseTexture = this.createBaseTexture(p_img, p_src);
     this.addAtlasData(baseTexture, p_json);
 };
@@ -3077,7 +3078,7 @@ alex.load.ImageLoadState.prototype.addAtlas = function (p_img, p_json, p_src) {
  * @param baseTexture
  * @param p_json
  */
-alex.load.ImageLoadState.prototype.addAtlasData = function (baseTexture, p_json) {
+cc.core.load.ImageLoadState.prototype.addAtlasData = function (baseTexture, p_json) {
     var frameData = p_json.frames;
     var frameId, item;
     //check if it is an array!
@@ -3104,7 +3105,7 @@ alex.load.ImageLoadState.prototype.addAtlasData = function (baseTexture, p_json)
  * @param baseTexture
  * @returns {*}
  */
-alex.load.ImageLoadState.prototype.addAtlasFrame = function (item, key, baseTexture) {
+cc.core.load.ImageLoadState.prototype.addAtlasFrame = function (item, key, baseTexture) {
     var rect = item.frame,
         tx = null,
         resolution = this.resolution;
@@ -3144,14 +3145,14 @@ alex.load.ImageLoadState.prototype.addAtlasFrame = function (item, key, baseText
 };
 
 
-alex.load.ImageLoadState.prototype.purge = function () {
+cc.core.load.ImageLoadState.prototype.purge = function () {
     this._assets = {};
 };
 /**
  *
  * @param id
  */
-alex.load.ImageLoadState.prototype.unloadImage = function (id) {
+cc.core.load.ImageLoadState.prototype.unloadImage = function (id) {
     delete this._assets[id];
     //need to remove any textures from the texturecache...
     //need the original src path to do that...
@@ -3164,7 +3165,7 @@ alex.load.ImageLoadState.prototype.unloadImage = function (id) {
 /**
  * @param src
  */
-alex.load.ImageLoadState.prototype.unloadTextures = function (src) {
+cc.core.load.ImageLoadState.prototype.unloadTextures = function (src) {
     // - if it was an atlas then work out if any subtextures came from it
     // and delete the.
     var baseTextureCache = PIXI.utils.BaseTextureCache;
@@ -3189,7 +3190,7 @@ alex.load.ImageLoadState.prototype.unloadTextures = function (src) {
  *
  * @param items
  */
-alex.load.ImageLoadState.prototype.unload = function (items) {
+cc.core.load.ImageLoadState.prototype.unload = function (items) {
     var i, n = items.length, id;
     for (i = 0; i < n; i++) {
         id = items[i];
@@ -3207,7 +3208,7 @@ alex.load.ImageLoadState.prototype.unload = function (items) {
  * @param p_bulkLoader
  * @constructor
  */
-alex.load.AudioLoadState = function(){
+cc.core.load.AudioLoadState = function(){
     this.bulkLoader = null;
     this.soundLoader = null;
 };
@@ -3216,14 +3217,14 @@ alex.load.AudioLoadState = function(){
  *
  * @param config
  */
-alex.load.AudioLoadState.prototype.init = function(config){
+cc.core.load.AudioLoadState.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
 /**
  *
  */
-alex.load.AudioLoadState.prototype.load = function(){
+cc.core.load.AudioLoadState.prototype.load = function(){
     var bulkLoader = this.bulkLoader;
     var soundLoader = this.soundLoader;
     //allow having no sounds
@@ -3253,7 +3254,7 @@ alex.load.AudioLoadState.prototype.load = function(){
  * @class FontLoadState
  * @constructor
  */
-alex.load.FontLoadState = function(){
+cc.core.load.FontLoadState = function(){
     this.bulkLoader = null;
     this.loadedFonts = [];
     this.resolution = 1;
@@ -3263,14 +3264,14 @@ alex.load.FontLoadState = function(){
  *
  * @param config
  */
-alex.load.FontLoadState.prototype.init = function(config){
+cc.core.load.FontLoadState.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
 /**
  *
  */
-alex.load.FontLoadState.prototype.unload = function(){
+cc.core.load.FontLoadState.prototype.unload = function(){
     var i, n = this.loadedFonts.length;
     for(i = 0; i < n; i++){
         this.removeFont(this.loadedFonts[i]);
@@ -3281,7 +3282,7 @@ alex.load.FontLoadState.prototype.unload = function(){
  * @method removeFont
  * @param fontName
  */
-alex.load.FontLoadState.prototype.removeFont = function(fontName){
+cc.core.load.FontLoadState.prototype.removeFont = function(fontName){
     var fontCache = PIXI.extras.BitmapText.fonts;
     //validate!
     if(fontCache.hasOwnProperty(fontName)){
@@ -3299,7 +3300,7 @@ alex.load.FontLoadState.prototype.removeFont = function(fontName){
 /**
  * @method load
  */
-alex.load.FontLoadState.prototype.load = function(){
+cc.core.load.FontLoadState.prototype.load = function(){
     var files = this.bulkLoader.fontManifest;
     var n = files.length;
     if(n === 0){
@@ -3314,7 +3315,7 @@ alex.load.FontLoadState.prototype.load = function(){
         var self = this;
         for(var i = 0; i < n;i++){
             dataItem = files[i];
-            loader = new alex.load.BitmapFontLoader(dataItem.src, this.resolution);
+            loader = new cc.core.load.BitmapFontLoader(dataItem.src, this.resolution);
             loader.on('loaded', function(event){
                 numLoaded++;
                 bulkLoader.fontLoaded(numLoaded / n);
@@ -3338,8 +3339,8 @@ alex.load.FontLoadState.prototype.load = function(){
         }
     }
 };
-alex.load.BulkLoader = function(){
-	alex.utils.EventDispatcher.call(this);
+cc.core.load.BulkLoader = function(){
+	cc.core.utils.EventDispatcher.call(this);
 
     this.resolution = 1;
     //reference to game_shell.json
@@ -3355,14 +3356,14 @@ alex.load.BulkLoader = function(){
 
 };
 //*******************************
-alex.load.BulkLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.BulkLoader.prototype.constructor = alex.load.BulkLoader;
+cc.core.load.BulkLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.BulkLoader.prototype.constructor = cc.core.load.BulkLoader;
 
 /**
  *
  * @param config
  */
-alex.load.BulkLoader.prototype.init = function(config){
+cc.core.load.BulkLoader.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 
     this.webAudio = this.settings.WEB_AUDIO_ENABLED && this.system.webAudio;//bool
@@ -3370,7 +3371,7 @@ alex.load.BulkLoader.prototype.init = function(config){
     //**************************************
     //loaders
     //**************************************
-    alex.load.soundLoader = new alex.audio.SoundLoader();
+    cc.core.load.soundLoader = new cc.core.audio.SoundLoader();
     //**************************************
     //load states
     //**************************************
@@ -3383,17 +3384,17 @@ alex.load.BulkLoader.prototype.init = function(config){
     //**************************************
     // Sequence control (Switch statement)
     //**************************************
-    this.sequence = new alex.load.LoadingSequence(this, this.webAudio);
+    this.sequence = new cc.core.load.LoadingSequence(this, this.webAudio);
 
     //**************************************
     // url lookup component
     //**************************************
-    this.urls = new alex.utils.UrlLookup();//use for id lookup
+    this.urls = new cc.core.utils.UrlLookup();//use for id lookup
 
     //**************************************
     // OVERALL PROGRESS
     //**************************************
-    this.progressTracker = new alex.load.ProgressTracker(this.webAudio);
+    this.progressTracker = new cc.core.load.ProgressTracker(this.webAudio);
 };
 
 
@@ -3404,7 +3405,7 @@ alex.load.BulkLoader.prototype.init = function(config){
  * @param type
  * @returns {*}
  */
-alex.load.BulkLoader.prototype.addFile = function(filepath, id, type){
+cc.core.load.BulkLoader.prototype.addFile = function(filepath, id, type){
     var manifest = this.getManifestByExtension(filepath);
     var item = null;
     if(manifest !== null){
@@ -3421,7 +3422,7 @@ alex.load.BulkLoader.prototype.addFile = function(filepath, id, type){
     return item;//return then can modify if necessary
 };
 
-alex.load.BulkLoader.prototype.getManifest = function(){
+cc.core.load.BulkLoader.prototype.getManifest = function(){
     return this.loadManifest.manifest;
 };
 
@@ -3431,7 +3432,7 @@ alex.load.BulkLoader.prototype.getManifest = function(){
  * @param file
  * @returns {*}
  */
-alex.load.BulkLoader.prototype.getManifestByExtension = function(file){
+cc.core.load.BulkLoader.prototype.getManifestByExtension = function(file){
     //choose appropriate manifest
     var ext = file.match(/\.(\w+)$/)[0];
     var manifest = null;
@@ -3463,7 +3464,7 @@ alex.load.BulkLoader.prototype.getManifestByExtension = function(file){
  * @param file
  * @returns {boolean}
  */
-alex.load.BulkLoader.prototype.contains = function(file){
+cc.core.load.BulkLoader.prototype.contains = function(file){
     var manifest = this.getManifestByExtension(file);
     var item = null, i, n = manifest.length, itemFound = false;
     for(i = 0; i < n; i++){
@@ -3483,7 +3484,7 @@ alex.load.BulkLoader.prototype.contains = function(file){
  * @param fileType
  * @returns {boolean}
  */
-alex.load.BulkLoader.prototype.containsId = function(id, fileType){
+cc.core.load.BulkLoader.prototype.containsId = function(id, fileType){
     var manifest = this.getManifestByExtension(fileType);
     var item = null, i, n = manifest.length, itemFound = false;
     for(i = 0; i < n; i++){
@@ -3500,7 +3501,7 @@ alex.load.BulkLoader.prototype.containsId = function(id, fileType){
 //**************************************
 // START LOAD
 //**************************************
-alex.load.BulkLoader.prototype.load = function(manifestPath){
+cc.core.load.BulkLoader.prototype.load = function(manifestPath){
     this.manifestPath = manifestPath;
     this.progressTracker.reset();
     this.sequence.reset();
@@ -3510,28 +3511,28 @@ alex.load.BulkLoader.prototype.load = function(manifestPath){
 /**
  *
  */
-alex.load.BulkLoader.prototype.loadProgress = function(){
+cc.core.load.BulkLoader.prototype.loadProgress = function(){
     var overallProgress = this.progressTracker.overallProgress();
     //TODO - event reuse
     this.emit({type:"progress", value: overallProgress});
 };
 
-alex.load.BulkLoader.prototype.fontLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.fontLoaded = function(percent){
     this.progressTracker.progressFonts = percent;
     this.loadProgress();
 };
 
-alex.load.BulkLoader.prototype.imageLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.imageLoaded = function(percent){
     this.progressTracker.progressImages = percent;
     this.loadProgress();
 };
 
-alex.load.BulkLoader.prototype.jsonLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.jsonLoaded = function(percent){
     this.progressTracker.progressJSON = percent;
     this.loadProgress();
 };
 
-alex.load.BulkLoader.prototype.audioLoaded = function(percent){
+cc.core.load.BulkLoader.prototype.audioLoaded = function(percent){
     this.progressTracker.progressSounds = percent;
     this.loadProgress();
 };
@@ -3539,7 +3540,7 @@ alex.load.BulkLoader.prototype.audioLoaded = function(percent){
 /**
  * pass sounds over to sound manager
  */
-alex.load.BulkLoader.prototype.addSounds = function(){
+cc.core.load.BulkLoader.prototype.addSounds = function(){
     var soundData = {};
     if(this.webAudio){
         //get the loaded sound assets
@@ -3551,7 +3552,7 @@ alex.load.BulkLoader.prototype.addSounds = function(){
         soundData.autoplay = true;
         soundData.sprites = (manifestData.sprites)? manifestData.sprites : null;
         soundData.src = null;
-        if(manifestData.src) soundData.src = alex.settings.SND_DIR + manifestData.src;       
+        if(manifestData.src) soundData.src = cc.core.settings.SND_DIR + manifestData.src;       
         game_shell.snd.addSounds(soundData);
     }
 };
@@ -3559,7 +3560,7 @@ alex.load.BulkLoader.prototype.addSounds = function(){
 /**
  *
  */
-alex.load.BulkLoader.prototype.loadComplete = function(){
+cc.core.load.BulkLoader.prototype.loadComplete = function(){
 
     this.addSounds();
 
@@ -3572,14 +3573,14 @@ alex.load.BulkLoader.prototype.loadComplete = function(){
 // UN-LOAD
 //**************************************
         
-alex.load.BulkLoader.prototype.unload = function(){
+cc.core.load.BulkLoader.prototype.unload = function(){
     // - get the manifest json data
     var jsonData = this.loadManifest.manifest;
     if(jsonData){
         // - unload the images
         this.imageLoad.unload(this.getIds(this.imgManifest));
         // - unload the sounds
-        alex.load.soundLoader.unload(this.getIds(this.webAudioManifest));
+        cc.core.load.soundLoader.unload(this.getIds(this.webAudioManifest));
         // - unload the fonts
         this.fontLoad.unload();
         // - unload the json
@@ -3600,7 +3601,7 @@ alex.load.BulkLoader.prototype.unload = function(){
  * @param data
  * @returns {Array}
  */
-alex.load.BulkLoader.prototype.getIds = function(data){
+cc.core.load.BulkLoader.prototype.getIds = function(data){
     var ids = [];
     var n = data.length, i, item;
     for(i =0; i < n; i++){
@@ -3617,10 +3618,10 @@ alex.load.BulkLoader.prototype.getIds = function(data){
 
 /**
  *
- * @returns {alex.load.FontLoadState}
+ * @returns {cc.core.load.FontLoadState}
  */
-alex.load.BulkLoader.prototype.createFontLoad = function(){
-    var fontLoad = new alex.load.FontLoadState();
+cc.core.load.BulkLoader.prototype.createFontLoad = function(){
+    var fontLoad = new cc.core.load.FontLoadState();
     fontLoad.init({
         resolution: this.resolution,
         bulkLoader: this
@@ -3630,23 +3631,23 @@ alex.load.BulkLoader.prototype.createFontLoad = function(){
 
 /**
  *
- * @returns {alex.load.AudioLoadState}
+ * @returns {cc.core.load.AudioLoadState}
  */
-alex.load.BulkLoader.prototype.createAudioLoad = function(){
-    var audioLoad = new alex.load.AudioLoadState();
+cc.core.load.BulkLoader.prototype.createAudioLoad = function(){
+    var audioLoad = new cc.core.load.AudioLoadState();
     audioLoad.init({
         bulkLoader: this,
-        soundLoader: alex.load.soundLoader
+        soundLoader: cc.core.load.soundLoader
     });
     return audioLoad;
 };
 
 /**
  *
- * @returns {alex.load.ImageLoadState}
+ * @returns {cc.core.load.ImageLoadState}
  */
-alex.load.BulkLoader.prototype.createImageLoad = function(){
-    var imageLoad = new alex.load.ImageLoadState(this);
+cc.core.load.BulkLoader.prototype.createImageLoad = function(){
+    var imageLoad = new cc.core.load.ImageLoadState(this);
     imageLoad.init({
         resolution: this.resolution,
         bulkLoader: this
@@ -3656,10 +3657,10 @@ alex.load.BulkLoader.prototype.createImageLoad = function(){
 
 /**
  *
- * @returns {alex.load.LoadManifest}
+ * @returns {cc.core.load.LoadManifest}
  */
-alex.load.BulkLoader.prototype.createLoadManifest = function(){
-    var loadManifest = new alex.load.LoadManifest();
+cc.core.load.BulkLoader.prototype.createLoadManifest = function(){
+    var loadManifest = new cc.core.load.LoadManifest();
     loadManifest.init({
         resolution: this.resolution,
         bulkLoader: this
@@ -3669,10 +3670,10 @@ alex.load.BulkLoader.prototype.createLoadManifest = function(){
 
 /**
  *
- * @returns {alex.load.JSONLoadState}
+ * @returns {cc.core.load.JSONLoadState}
  */
-alex.load.BulkLoader.prototype.createJsonLoad = function(){
-    var loader = new alex.load.JSONLoadState();
+cc.core.load.BulkLoader.prototype.createJsonLoad = function(){
+    var loader = new cc.core.load.JSONLoadState();
     loader.init({
         resolution: this.resolution,
         bulkLoader: this,
@@ -3685,7 +3686,7 @@ alex.load.BulkLoader.prototype.createJsonLoad = function(){
 // json -> image -> sound -> end
 //or
 //json -> image -> end (if no web audio)
-alex.load.LoadingSequence = function(p_loader, webAudio){
+cc.core.load.LoadingSequence = function(p_loader, webAudio){
 
     this.loader = p_loader;
     this.webAudio = webAudio;
@@ -3695,12 +3696,12 @@ alex.load.LoadingSequence = function(p_loader, webAudio){
 
 };
 
-alex.load.LoadingSequence.prototype.reset = function(){
+cc.core.load.LoadingSequence.prototype.reset = function(){
     this.currentState = null;
 };
 
 
-alex.load.LoadingSequence.prototype.next = function(){
+cc.core.load.LoadingSequence.prototype.next = function(){
     switch(this.currentState){
         case null:
             this.currentState = this.loader.loadManifest;
@@ -3741,7 +3742,7 @@ alex.load.LoadingSequence.prototype.next = function(){
  * asset url lookup helper
  * @constructor
  */
-alex.utils.UrlLookup = function(){
+cc.core.utils.UrlLookup = function(){
 
 };
 
@@ -3749,7 +3750,7 @@ alex.utils.UrlLookup = function(){
  * allow id reference rather than full path
  * @param p_list
  */
-alex.utils.UrlLookup.prototype.storeLookup = function(p_list){
+cc.core.utils.UrlLookup.prototype.storeLookup = function(p_list){
     if(p_list){
         //TODO - this fails if use for both json and image with same id!
         var n = p_list.length;
@@ -3764,7 +3765,7 @@ alex.utils.UrlLookup.prototype.storeLookup = function(p_list){
  *
  * @param item
  */
-alex.utils.UrlLookup.prototype.add = function(item){
+cc.core.utils.UrlLookup.prototype.add = function(item){
     this[item.src] = item;
     this[item.id] = item;
 };
@@ -3774,7 +3775,7 @@ alex.utils.UrlLookup.prototype.add = function(item){
  * @param key
  * @returns {*}
  */
-alex.utils.UrlLookup.prototype.getAssetData = function(key){
+cc.core.utils.UrlLookup.prototype.getAssetData = function(key){
     return this[key];
 };
 
@@ -3783,7 +3784,7 @@ alex.utils.UrlLookup.prototype.getAssetData = function(key){
  * @param key
  * @returns {*}
  */
-alex.utils.UrlLookup.prototype.getURL = function(key){
+cc.core.utils.UrlLookup.prototype.getURL = function(key){
     var assetData = this[key];
     if(!assetData){
         console.log("ERROR - no asset found for key  -> " + key);
@@ -3798,7 +3799,7 @@ alex.utils.UrlLookup.prototype.getURL = function(key){
  * @param fileName
  * @returns {*}
  */
-alex.utils.UrlLookup.prototype.pathForFile = function(fileName){
+cc.core.utils.UrlLookup.prototype.pathForFile = function(fileName){
     var id, item, foundPath = null;
     for(id in this){
         if(this.hasOwnProperty(id)){
@@ -3814,31 +3815,31 @@ alex.utils.UrlLookup.prototype.pathForFile = function(fileName){
     return foundPath;
 };
 // progress tracker
-alex.load.ProgressTracker = function(webAudio){
+cc.core.load.ProgressTracker = function(webAudio){
     this.webAudio = webAudio;
     this.reset();
     this.total = (this.webAudio)? 4 : 3;	
 };
 
 //
-alex.load.ProgressTracker.prototype.totalProgress = function(){
+cc.core.load.ProgressTracker.prototype.totalProgress = function(){
     var prg = this.progressJSON + this.progressImages + this.progressFonts;
     if(this.webAudio) prg += this.progressSounds;
     return prg;
 };
 //
-alex.load.ProgressTracker.prototype.overallProgress = function(){
+cc.core.load.ProgressTracker.prototype.overallProgress = function(){
     var prg = this.totalProgress();
     return prg / this.total;
 };
 
 //
-alex.load.ProgressTracker.prototype.reset = function(){
+cc.core.load.ProgressTracker.prototype.reset = function(){
     this.progressJSON = 0;  this.progressImages = 0;
     this.progressSounds = 0;  this.progressFonts = 0;
 };
 
-alex.load.ProgressTracker.prototype.debugLog = function(){
+cc.core.load.ProgressTracker.prototype.debugLog = function(){
     var s = "* ProgressTracker: \n\r";
     s += " - total: " + this.total + " \n\r";
     s += " - overall: " + this.totalProgress() + " \n\r";
@@ -3849,18 +3850,18 @@ alex.load.ProgressTracker.prototype.debugLog = function(){
     return s;
 };
 //
-alex.load.JsonLoader = function(url){
-	alex.utils.EventDispatcher.call(this);
+cc.core.load.JsonLoader = function(url){
+	cc.core.utils.EventDispatcher.call(this);
 	this.url = url;
 	this.id = null;
 };
-alex.load.JsonLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.JsonLoader.prototype.constructor = alex.load.JsonLoader;
+cc.core.load.JsonLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.JsonLoader.prototype.constructor = cc.core.load.JsonLoader;
 
 /**
  * This will begin loading the JSON file
  */
-alex.load.JsonLoader.prototype.load = function(){
+cc.core.load.JsonLoader.prototype.load = function(){
 	this.ajaxRequest = new PIXI.AjaxRequest();
 	var scope = this;
 	this.ajaxRequest.onreadystatechange = function() {
@@ -3874,7 +3875,7 @@ alex.load.JsonLoader.prototype.load = function(){
 
 /**
  */
-alex.load.JsonLoader.prototype.onJSONLoaded = function(){
+cc.core.load.JsonLoader.prototype.onJSONLoaded = function(){
 	if (this.ajaxRequest.readyState === 4) {
         if(this.ajaxRequest.status === 200){
             this.responseText = this.ajaxRequest.responseText;//also store the plain text... needed for spine
@@ -3907,18 +3908,18 @@ PIXI.AjaxRequest = function() {
     }
 };
 
-alex.load.JsonQueue = function(){
-	alex.utils.EventDispatcher.call(this);
+cc.core.load.JsonQueue = function(){
+	cc.core.utils.EventDispatcher.call(this);
 	this.queue = [];//an array
 	this.results = {};
 };
-alex.load.JsonQueue.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.JsonQueue.prototype.constructor = alex.load.JsonQueue;
+cc.core.load.JsonQueue.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.JsonQueue.prototype.constructor = cc.core.load.JsonQueue;
 
 /*
 manifest is a list of objects with name and path 
 */
-alex.load.JsonQueue.prototype.load = function(p_manifest){
+cc.core.load.JsonQueue.prototype.load = function(p_manifest){
 	this.queue = this.queue.concat(p_manifest);
 	this.numTotal = this.queue.length;
 	this.numLoaded = 0;
@@ -3927,7 +3928,7 @@ alex.load.JsonQueue.prototype.load = function(p_manifest){
 	this.loadNext();
 };
 
-alex.load.JsonQueue.prototype.loadNext = function(){
+cc.core.load.JsonQueue.prototype.loadNext = function(){
 	if(this.queue.length > 0){
 		// - don't load the list backwards!
 		//use shift!
@@ -3935,7 +3936,7 @@ alex.load.JsonQueue.prototype.loadNext = function(){
 		var id = obj.id, src = obj.src;
 		this.results[id] = null;
 		//
-		var loader = new alex.load.JsonLoader(src);
+		var loader = new cc.core.load.JsonLoader(src);
 		loader.id = id;
 		loader.on("loaded",this.boundCallback);
 		loader.load();
@@ -3946,8 +3947,8 @@ alex.load.JsonQueue.prototype.loadNext = function(){
 	}	
 };
 
-alex.load.JsonQueue.prototype._jsonLoaded = function(p_evt){
-	//console.log("alex.utils.JsonQueue.prototype.onJsonLoaded: " + p_evt)
+cc.core.load.JsonQueue.prototype._jsonLoaded = function(p_evt){
+	//console.log("cc.core.utils.JsonQueue.prototype.onJsonLoaded: " + p_evt)
 	var loader = p_evt.target;
 	var jsonData = loader.jsonData;
 	var id = loader.id;
@@ -3971,18 +3972,18 @@ alex.load.JsonQueue.prototype._jsonLoaded = function(p_evt){
  * @param url
  * @constructor
  */
-alex.load.BitmapFontLoader = function (url, resolution) {
-    alex.utils.EventDispatcher.call(this);
+cc.core.load.BitmapFontLoader = function (url, resolution) {
+    cc.core.utils.EventDispatcher.call(this);
     this.url = url;
     this.resolution = resolution;
 };
-alex.load.BitmapFontLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.load.BitmapFontLoader.prototype.constructor = alex.load.BitmapFontLoader;
+cc.core.load.BitmapFontLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.load.BitmapFontLoader.prototype.constructor = cc.core.load.BitmapFontLoader;
 
 /**
  * begin loading the font xml file
  */
-alex.load.BitmapFontLoader.prototype.load = function () {
+cc.core.load.BitmapFontLoader.prototype.load = function () {
     this.ajaxRequest = new PIXI.AjaxRequest();
     var self = this;
     this.ajaxRequest.onreadystatechange = function () {
@@ -3998,7 +3999,7 @@ alex.load.BitmapFontLoader.prototype.load = function () {
  * if xml loaded succesfully then load the font image
  * @method onXMLLoaded
  */
-alex.load.BitmapFontLoader.prototype.onXMLLoaded = function () {
+cc.core.load.BitmapFontLoader.prototype.onXMLLoaded = function () {
     if (this.ajaxRequest.readyState === 4) {
         if (this.ajaxRequest.status === 200) {
             //get the response xml
@@ -4025,7 +4026,7 @@ alex.load.BitmapFontLoader.prototype.onXMLLoaded = function () {
  * @method loadFontImage
  * @param responseXML
  */
-alex.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
+cc.core.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
     //get the file name
     var imageFile = responseXML.getElementsByTagName('page')[0].getAttribute('file');
     var slashIndex = this.url.lastIndexOf('/');
@@ -4042,7 +4043,7 @@ alex.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
             self = this;
         img.onload = function () {
             //create image
-            var baseTexture = alex.load.ImageLoadState.prototype.createBaseTexture(img, textureUrl);
+            var baseTexture = cc.core.load.ImageLoadState.prototype.createBaseTexture(img, textureUrl);
             texture = new PIXI.Texture(baseTexture);
             PIXI.utils.TextureCache[textureUrl] = texture;
             self.parseFontData(responseXML, texture)
@@ -4058,7 +4059,7 @@ alex.load.BitmapFontLoader.prototype.loadFontImage = function (responseXML) {
  * @param texture
  * @returns {{}}
  */
-alex.load.BitmapFontLoader.prototype.parseFontData = function (responseXML, texture) {
+cc.core.load.BitmapFontLoader.prototype.parseFontData = function (responseXML, texture) {
     var data = {};
     var info = responseXML.getElementsByTagName('info')[0];
     var common = responseXML.getElementsByTagName('common')[0];
@@ -4120,7 +4121,7 @@ alex.load.BitmapFontLoader.prototype.parseFontData = function (responseXML, text
  * @param value
  * @returns {number}
  */
-alex.load.BitmapFontLoader.prototype.scaleValue = function (value) {
+cc.core.load.BitmapFontLoader.prototype.scaleValue = function (value) {
     return value / this.resolution;
 };
 /**
@@ -4128,8 +4129,8 @@ alex.load.BitmapFontLoader.prototype.scaleValue = function (value) {
  * @param config
  * @constructor
  */
-alex.audio.MusicLoop = function(config){    
-    this.type = alex.audio.AudioModes.MUSIC_LOOP;
+cc.core.audio.MusicLoop = function(config){    
+    this.type = cc.core.audio.AudioModes.MUSIC_LOOP;
     //this.sound = this.initSnd(config);
     if(config){
         for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
@@ -4144,7 +4145,7 @@ alex.audio.MusicLoop = function(config){
  *
  * @param config
  */
-alex.audio.MusicLoop.prototype.init = function(config){
+cc.core.audio.MusicLoop.prototype.init = function(config){
     this.sound = this.initSnd(config);
 };
 
@@ -4153,7 +4154,7 @@ alex.audio.MusicLoop.prototype.init = function(config){
  * @param config
  * @returns {Element}
  */
-alex.audio.MusicLoop.prototype.initSnd = function(config){
+cc.core.audio.MusicLoop.prototype.initSnd = function(config){
     //choose appopriate audio file
     config.src += config.audioType;
     var snd = document.createElement('audio');
@@ -4185,7 +4186,7 @@ alex.audio.MusicLoop.prototype.initSnd = function(config){
 };
 
 //************************
-alex.audio.MusicLoop.prototype.pause = function(b){
+cc.core.audio.MusicLoop.prototype.pause = function(b){
     this.isPaused = b;
     //TODO - perhaps check its loaded, etc
     if(this.isPaused){
@@ -4194,32 +4195,32 @@ alex.audio.MusicLoop.prototype.pause = function(b){
         this.sound.play();
     }
 };
-alex.audio.MusicLoop.prototype.isPlaying = function() {
+cc.core.audio.MusicLoop.prototype.isPlaying = function() {
     return !this.isPaused;
 };
 //************************
-alex.audio.MusicLoop.prototype.update = function(elapsedTime){
+cc.core.audio.MusicLoop.prototype.update = function(elapsedTime){
     //TODO?
 };
 //************************
-alex.audio.MusicLoop.prototype.dispose = function(){
+cc.core.audio.MusicLoop.prototype.dispose = function(){
     if(this.sound !== null){
         this.sound.pause();
         this.sound = null;
     }
 };
 //************************
-alex.audio.MusicLoop.prototype.mute = function(bool){
+cc.core.audio.MusicLoop.prototype.mute = function(bool){
     this.isMuted = bool;
     this.sound.muted = bool;
     this.sound.volume = (bool)? 0 : this.volume;
 };
-alex.audio.MusicLoop.prototype.muteGroup = function(grp, bool){
+cc.core.audio.MusicLoop.prototype.muteGroup = function(grp, bool){
     if(grp == this.grp){
         this.mute(bool);
     }
 };
-alex.audio.MusicLoop.prototype.isGroupMuted = function(grp){
+cc.core.audio.MusicLoop.prototype.isGroupMuted = function(grp){
     if(grp == this.grp){
         return this.isMuted;
     } else {
@@ -4228,27 +4229,27 @@ alex.audio.MusicLoop.prototype.isGroupMuted = function(grp){
 };
 
 //************************
-/*alex.audio.MusicLoop.prototype.start = function(){
+/*cc.core.audio.MusicLoop.prototype.start = function(){
     this.sound.play();
 };
 
-alex.audio.MusicLoop.prototype.end = function(){
+cc.core.audio.MusicLoop.prototype.end = function(){
     this.sound.pause();
 };*/
 //************************
-alex.audio.MusicLoop.prototype.play = function(p_id, p_vol, p_loop){
+cc.core.audio.MusicLoop.prototype.play = function(p_id, p_vol, p_loop){
    this.sound.play();
 };
-alex.audio.MusicLoop.prototype.preload = function(p_id){
+cc.core.audio.MusicLoop.prototype.preload = function(p_id){
     //ignore
 };
-alex.audio.MusicLoop.prototype.stop = function(p_id){
+cc.core.audio.MusicLoop.prototype.stop = function(p_id){
     this.sound.pause();
 };
-alex.audio.MusicLoop.prototype.addSounds = function(p_id){
+cc.core.audio.MusicLoop.prototype.addSounds = function(p_id){
     //ignore
 };
-alex.audio.MusicLoop.prototype.stopAll = function(){
+cc.core.audio.MusicLoop.prototype.stopAll = function(){
     //ignore
 };
 //************************
@@ -4261,7 +4262,7 @@ alex.audio.MusicLoop.prototype.stopAll = function(){
  */
 
 //null object for completely disabled sound...
-alex.audio.SndNone = function(){
+cc.core.audio.SndNone = function(){
     this.mute = function(b){ };
     this.muteGroup = function(grp,b){ };
     this.muteAllGroups = function(b){ };
@@ -4281,8 +4282,8 @@ alex.audio.SndNone = function(){
  * Time: 3:29 PM
  * To change this template use File | Settings | File Templates.
  */
-alex.audio.SoundLoader = function(){
-    alex.utils.EventDispatcher.call(this);
+cc.core.audio.SoundLoader = function(){
+    cc.core.utils.EventDispatcher.call(this);
     //
     this.assets = {};
     this.manifest = null;
@@ -4291,13 +4292,13 @@ alex.audio.SoundLoader = function(){
     this.evtProgress = {type:'progress', value: 0};
     this.evtComplete = {type:'complete', value: 1};
 };
-alex.audio.SoundLoader.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.audio.SoundLoader.prototype.constructor = alex.audio.SoundLoader;
+cc.core.audio.SoundLoader.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.audio.SoundLoader.prototype.constructor = cc.core.audio.SoundLoader;
 /*
  * asset load manifest
  @param: items < Array of objects with src and id strings eg {src:"./img/bg1.jpg", id:"bg"},
  */
-alex.audio.SoundLoader.prototype.load = function(items){
+cc.core.audio.SoundLoader.prototype.load = function(items){
     if(!this.context) this.initContext();//only create context if not already in existence!
     if(!this.manifest){
         this.manifest = items;
@@ -4311,17 +4312,17 @@ alex.audio.SoundLoader.prototype.load = function(items){
 // UNLOADING
 // *****************************************************
 
-alex.audio.SoundLoader.prototype.purge = function(){
+cc.core.audio.SoundLoader.prototype.purge = function(){
     //remove references to loaded content
     //quick way is to ditch the whole assets object
     this.assets = {};
 };
 
-alex.audio.SoundLoader.prototype.unloadSound = function(id){
+cc.core.audio.SoundLoader.prototype.unloadSound = function(id){
     delete this.assets[id];
 };
 
-alex.audio.SoundLoader.prototype.unload = function(sounds){
+cc.core.audio.SoundLoader.prototype.unload = function(sounds){
     var i, n = sounds.length, id;
     for(i = 0; i < n; i++){
         id = sounds[i];
@@ -4330,7 +4331,7 @@ alex.audio.SoundLoader.prototype.unload = function(sounds){
 };
 // *****************************************************
 
-alex.audio.SoundLoader.prototype.initContext = function(){
+cc.core.audio.SoundLoader.prototype.initContext = function(){
     if (window.AudioContext) {
         this.context = new AudioContext();
     } else if (window.webkitAudioContext) {
@@ -4338,7 +4339,7 @@ alex.audio.SoundLoader.prototype.initContext = function(){
     }
 };
 
-alex.audio.SoundLoader.prototype.nextItem = function(){
+cc.core.audio.SoundLoader.prototype.nextItem = function(){
     //find next item that is not loaded
     var checkObj;
     var foundObj = null;
@@ -4354,7 +4355,7 @@ alex.audio.SoundLoader.prototype.nextItem = function(){
     return foundObj;
 };
 
-alex.audio.SoundLoader.prototype.countLoaded = function(){
+cc.core.audio.SoundLoader.prototype.countLoaded = function(){
     //find next item that is not loaded
     var checkObj, n = this.manifest.length;
     this.numLoaded = 0;
@@ -4367,7 +4368,7 @@ alex.audio.SoundLoader.prototype.countLoaded = function(){
     }
 };
 
-alex.audio.SoundLoader.prototype.loadNext = function(){
+cc.core.audio.SoundLoader.prototype.loadNext = function(){
     //find next item that is not loaded
     var itemData = this.nextItem();
     this.countLoaded();
@@ -4423,7 +4424,7 @@ alex.audio.SoundLoader.prototype.loadNext = function(){
     }
 };
 
-alex.audio.SoundLoader.prototype.onSoundLoaded = function(itemData, request) {
+cc.core.audio.SoundLoader.prototype.onSoundLoaded = function(itemData, request) {
     var self = this;
     var id = itemData.id;
    // console.log('onSoundLoaded ' + id)
@@ -4464,7 +4465,7 @@ alex.audio.SoundLoader.prototype.onSoundLoaded = function(itemData, request) {
     }
 };
 
-alex.audio.SoundLoader.prototype.loadProgress = function(progress){
+cc.core.audio.SoundLoader.prototype.loadProgress = function(progress){
     if(progress === undefined) progress = 0;
     var total = this.manifest.length;
     var amount = (this.numLoaded + progress) / total;
@@ -4473,7 +4474,7 @@ alex.audio.SoundLoader.prototype.loadProgress = function(progress){
     this.emit(this.evtProgress);
 };
 
-alex.audio.SoundLoader.prototype.loadComplete = function(){
+cc.core.audio.SoundLoader.prototype.loadComplete = function(){
     this.emit(this.evtComplete);
 };
 /**
@@ -4483,10 +4484,10 @@ alex.audio.SoundLoader.prototype.loadComplete = function(){
  * Time: 4:39 PM
  * To change this template use File | Settings | File Templates.
  */
-alex.audio.SndSprite = function(config){
-    alex.utils.EventDispatcher.call(this);
+cc.core.audio.SndSprite = function(config){
+    cc.core.utils.EventDispatcher.call(this);
     //************************
-    this.type = alex.audio.AudioModes.AUDIO_SPRITE;
+    this.type = cc.core.audio.AudioModes.AUDIO_SPRITE;
     //************************
     //playback vars
     this.endTime = -1;
@@ -4512,11 +4513,11 @@ alex.audio.SndSprite = function(config){
     }
     
 };
-alex.audio.SndSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.audio.SndSprite.prototype.constructor = alex.audio.SndSprite;
+cc.core.audio.SndSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.audio.SndSprite.prototype.constructor = cc.core.audio.SndSprite;
 //
-alex.audio.SndSprite.prototype.addSoundGroup = function(p_id){
-    var group = new alex.audio.SoundGroup(p_id);
+cc.core.audio.SndSprite.prototype.addSoundGroup = function(p_id){
+    var group = new cc.core.audio.SoundGroup(p_id);
     this.soundGroups[p_id] = group;
     return group;
 };
@@ -4525,7 +4526,7 @@ alex.audio.SndSprite.prototype.addSoundGroup = function(p_id){
 // SETUP
 // ***************************************
 //NOTE- this actually overwrites the old sounds, so setSounds would have been a better name..     
-alex.audio.SndSprite.prototype.setSounds = function(config){
+cc.core.audio.SndSprite.prototype.setSounds = function(config){
 
     this.sprites = this.parseManifest(config.sprites);
     //
@@ -4538,7 +4539,7 @@ alex.audio.SndSprite.prototype.setSounds = function(config){
 
 
 
-alex.audio.SndSprite.prototype.parseManifest = function(p_data){
+cc.core.audio.SndSprite.prototype.parseManifest = function(p_data){
     if(!p_data) return [];
     var obj, i, n = p_data.length, soundData = [], soundGroup;
     for(i = 0;i < n;i++){
@@ -4557,7 +4558,7 @@ alex.audio.SndSprite.prototype.parseManifest = function(p_data){
     return soundData;
 };
 
-alex.audio.SndSprite.prototype.initSnd = function(config){
+cc.core.audio.SndSprite.prototype.initSnd = function(config){
     if(!config.src) return null;
     //choose appopriate audio file
     config.src += this.audioType;//config.fileType;
@@ -4582,7 +4583,7 @@ alex.audio.SndSprite.prototype.initSnd = function(config){
     return snd;
 };
 
-alex.audio.SndSprite.prototype.preload = function(){
+cc.core.audio.SndSprite.prototype.preload = function(){
     if(this.sound){
         this.sound.autoplay = true;
         //play 2.5 secs of silence at start to buffer it
@@ -4598,7 +4599,7 @@ alex.audio.SndSprite.prototype.preload = function(){
 /*
  * TODO p_vol & p_loop are currently ignored
  */
-alex.audio.SndSprite.prototype.play = function(p_id,p_vol,p_loop){
+cc.core.audio.SndSprite.prototype.play = function(p_id,p_vol,p_loop){
     //trace("play " + p_id)
     //trace("bufferingComplete " + bufferingComplete)
     if (!this.bufferingComplete) return false;
@@ -4648,7 +4649,7 @@ alex.audio.SndSprite.prototype.play = function(p_id,p_vol,p_loop){
         return false;
     }
 };
-alex.audio.SndSprite.prototype.stop = function(p_id){
+cc.core.audio.SndSprite.prototype.stop = function(p_id){
     if(this.sound){
         //trace("SndSprite.stop");
         this.sound.pause();
@@ -4659,7 +4660,7 @@ alex.audio.SndSprite.prototype.stop = function(p_id){
 /*
  *
  */
-alex.audio.SndSprite.prototype.stopAll = function(){
+cc.core.audio.SndSprite.prototype.stopAll = function(){
     if(this.sound){
         this.sound.pause();
         this.endTime = -1;
@@ -4669,7 +4670,7 @@ alex.audio.SndSprite.prototype.stopAll = function(){
 /*
  *
  */
-alex.audio.SndSprite.prototype.dispose = function(){
+cc.core.audio.SndSprite.prototype.dispose = function(){
     if(this.sound){
         this.sound.pause();
         this.endTime = -1;
@@ -4677,7 +4678,7 @@ alex.audio.SndSprite.prototype.dispose = function(){
     }
 };
 
-alex.audio.SndSprite.prototype.getSpriteData = function(id){
+cc.core.audio.SndSprite.prototype.getSpriteData = function(id){
     var obj;
     var foundObj = null;
     var n = this.sprites.length;
@@ -4691,7 +4692,7 @@ alex.audio.SndSprite.prototype.getSpriteData = function(id){
     return foundObj;
 };
 
-alex.audio.SndSprite.prototype.isPlaying = function() {
+cc.core.audio.SndSprite.prototype.isPlaying = function() {
     //NOTE - this could also check if endTime > -1!
     if(!this.sound) return false;
     return !this.sound.paused;
@@ -4700,7 +4701,7 @@ alex.audio.SndSprite.prototype.isPlaying = function() {
 /*
  * this needs to be called while playing
  */
-alex.audio.SndSprite.prototype.update = function(elapsedTime){
+cc.core.audio.SndSprite.prototype.update = function(elapsedTime){
     if(!this.loadeddata) return;
     //
     if(!this.bufferingComplete){
@@ -4742,19 +4743,19 @@ alex.audio.SndSprite.prototype.update = function(elapsedTime){
 // MUTE HANDLING
 // ***************************************
 
-alex.audio.SndSprite.prototype.mute = function(bool){
+cc.core.audio.SndSprite.prototype.mute = function(bool){
     this.isMuted = bool;
     if(bool){
         this.stop();
     }
 };
 
-alex.audio.SndSprite.prototype.muteGroup = function(grp,bool){
+cc.core.audio.SndSprite.prototype.muteGroup = function(grp,bool){
     var soundGroup = this.soundGroups[grp];
     soundGroup.isMuted = bool;
 };
 
-alex.audio.SndSprite.prototype.muteAllGroups = function(b){
+cc.core.audio.SndSprite.prototype.muteAllGroups = function(b){
     for(var s in this.soundGroups){
         if(this.soundGroups.hasOwnProperty(s)){
             this.muteGroup(s, b);
@@ -4762,13 +4763,13 @@ alex.audio.SndSprite.prototype.muteAllGroups = function(b){
     }
 };
 
-alex.audio.SndSprite.prototype.isGroupMuted = function(groupId){
+cc.core.audio.SndSprite.prototype.isGroupMuted = function(groupId){
     var soundGroup = this.soundGroups[groupId];
     //validate
     return (soundGroup === undefined)? false : soundGroup.isMuted;
 };
 
-alex.audio.SndSprite.prototype.pause = function(b){
+cc.core.audio.SndSprite.prototype.pause = function(b){
     this.isGamePaused = b;
     if(b){
         this.stop();
@@ -4779,7 +4780,7 @@ alex.audio.SndSprite.prototype.pause = function(b){
 /**
  * Created by Alex on 2014/10/09.
  */
-alex.audio.SoundGroup = function(name){
+cc.core.audio.SoundGroup = function(name){
     this.id = name;
     this.sounds = [];
     this.isMuted = false;
@@ -4794,8 +4795,8 @@ alex.audio.SoundGroup = function(name){
  * @param config
  * @constructor
  */
-alex.audio.Channel = function(config){
-    alex.utils.EventDispatcher.call(this);
+cc.core.audio.Channel = function(config){
+    cc.core.utils.EventDispatcher.call(this);
     this.id = config.id;
     this.context = config.context;
     this.channel = null;//AudioBufferSourceNode 
@@ -4819,14 +4820,14 @@ alex.audio.Channel = function(config){
     //fader tween
     this.tw = null;//only create if needed
 };
-alex.audio.Channel.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.audio.Channel.prototype.constructor = alex.audio.Channel;
+cc.core.audio.Channel.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.audio.Channel.prototype.constructor = cc.core.audio.Channel;
 
 /**
  *
  * @param config
  */
-alex.audio.Channel.prototype.createChannel = function(config){
+cc.core.audio.Channel.prototype.createChannel = function(config){
     var self = this;
     this.channel = this.context.createBufferSource();//AudioBufferSourceNode 
     this.channel.buffer = config.buffer;
@@ -4846,7 +4847,7 @@ alex.audio.Channel.prototype.createChannel = function(config){
  *
  * @returns {Gain Node}
  */
-alex.audio.Channel.prototype.createGainNode = function(){
+cc.core.audio.Channel.prototype.createGainNode = function(){
     if(this.context.createGainNode){
         return this.context.createGainNode();
     } else if(this.context.createGain){
@@ -4860,7 +4861,7 @@ alex.audio.Channel.prototype.createGainNode = function(){
  *
  * @param p_muteNode
  */
-alex.audio.Channel.prototype.connect = function(p_muteNode){
+cc.core.audio.Channel.prototype.connect = function(p_muteNode){
     this.muteNode = p_muteNode;
     // Connect the gain node to the destination via the muteNode
     this.gainNode.connect(this.muteNode);
@@ -4873,7 +4874,7 @@ alex.audio.Channel.prototype.connect = function(p_muteNode){
 /**
  *
  */
-alex.audio.Channel.prototype.play = function(){
+cc.core.audio.Channel.prototype.play = function(){
     /*
      https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode.start
      Parameters
@@ -4910,7 +4911,7 @@ alex.audio.Channel.prototype.play = function(){
 /**
  *
  */
-alex.audio.Channel.prototype.stop = function(){
+cc.core.audio.Channel.prototype.stop = function(){
     if(this.channel !== null){
         try{
             if(this.channel.stop){
@@ -4934,7 +4935,7 @@ alex.audio.Channel.prototype.stop = function(){
 // **********************************************
 // VOLUME
 // **********************************************
-Object.defineProperty(alex.audio.Channel.prototype, 'volume', {
+Object.defineProperty(cc.core.audio.Channel.prototype, 'volume', {
     get: function() {
         return this.gainNode? this.gainNode.gain.value : 0;
     },
@@ -4951,7 +4952,7 @@ Object.defineProperty(alex.audio.Channel.prototype, 'volume', {
  * Fade the track out then stop.
  * @param p_time
  */
-alex.audio.Channel.prototype.fadeOut = function(p_time){
+cc.core.audio.Channel.prototype.fadeOut = function(p_time){
     var time = (p_time === undefined)? 1000 : p_time;
     //use TWEEN with callback
     if(!this.tw) this.tw = this.createTween();
@@ -4964,7 +4965,7 @@ alex.audio.Channel.prototype.fadeOut = function(p_time){
  * @param p_vol
  * @param p_time
  */
-alex.audio.Channel.prototype.fadeIn = function(p_vol, p_time){
+cc.core.audio.Channel.prototype.fadeIn = function(p_vol, p_time){
     var time = (p_time === undefined)? 1000 : p_time;
     if(p_vol > 1) p_vol = 1;//safety measure!
     //use TWEEN with callback
@@ -4978,7 +4979,7 @@ alex.audio.Channel.prototype.fadeIn = function(p_vol, p_time){
  * @param p_vol
  * @param p_secs
  */
-alex.audio.Channel.prototype.fadeTo = function(p_vol, p_secs){
+cc.core.audio.Channel.prototype.fadeTo = function(p_vol, p_secs){
     var time = (p_secs === undefined)? 1 : p_secs;
     this.gainNode.gain.linearRampToValueAtTime(p_vol, this.context.currentTime + time);
     //would have to use update cycle with timeout or something like that
@@ -4988,7 +4989,7 @@ alex.audio.Channel.prototype.fadeTo = function(p_vol, p_secs){
  *
  * @returns {TWEEN.Tween}
  */
-alex.audio.Channel.prototype.createTween = function(){
+cc.core.audio.Channel.prototype.createTween = function(){
     //tween for fading
     var tw = new TWEEN.Tween(this);
     var self = this;
@@ -5006,7 +5007,7 @@ alex.audio.Channel.prototype.createTween = function(){
 /**
  *
  */
-alex.audio.Channel.prototype.dispose = function(){
+cc.core.audio.Channel.prototype.dispose = function(){
     this.removeEventListeners();
     // - cancel any tweening!
     if(this.tw) {
@@ -5027,9 +5028,9 @@ alex.audio.Channel.prototype.dispose = function(){
  * @param config
  * @constructor
  */
-alex.audio.WebAudioMgr = function(config){
+cc.core.audio.WebAudioMgr = function(config){
     //************************************
-    this.type = alex.audio.AudioModes.WEB_AUDIO;
+    this.type = cc.core.audio.AudioModes.WEB_AUDIO;
     //************************************
     this.context = config.context || this.createContext();
     //************************************
@@ -5040,7 +5041,7 @@ alex.audio.WebAudioMgr = function(config){
     //************************************
     // Global Mute
     //************************************
-    this.globalMute = new alex.audio.WebAudioSoundGroup('master', this.createGainNode());
+    this.globalMute = new cc.core.audio.WebAudioSoundGroup('master', this.createGainNode());
     this.globalMute.connect(this.context.destination);
     //************************************
     // default group keys
@@ -5064,7 +5065,7 @@ alex.audio.WebAudioMgr = function(config){
  *
  * @returns {*}
  */
-alex.audio.WebAudioMgr.prototype.createContext = function(){
+cc.core.audio.WebAudioMgr.prototype.createContext = function(){
     var ctx;
     if (window.AudioContext) {
         ctx = new AudioContext();
@@ -5078,7 +5079,7 @@ alex.audio.WebAudioMgr.prototype.createContext = function(){
  *
  * @returns {*}
  */
-alex.audio.WebAudioMgr.prototype.createGainNode = function(){
+cc.core.audio.WebAudioMgr.prototype.createGainNode = function(){
     if(this.context.createGainNode){
         return this.context.createGainNode();
     } else if(this.context.createGain){
@@ -5097,7 +5098,7 @@ alex.audio.WebAudioMgr.prototype.createGainNode = function(){
  * @param p_loop
  * @returns {*}
  */
-alex.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
+cc.core.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
 
     // - need to be able to reference sprites, not just files!
     //need a new lookup called catalog or something that references sprites with start times
@@ -5125,7 +5126,7 @@ alex.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
             duration: duration,
             volume: vol
         };
-        channel = new alex.audio.Channel(config);
+        channel = new cc.core.audio.Channel(config);
         var self = this;
         channel.on("complete", function(event){
             self.stopChannel(event.target);
@@ -5145,7 +5146,7 @@ alex.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
  * @param id
  * @returns {boolean}
  */
-alex.audio.WebAudioMgr.prototype.isPlaying = function(id){
+cc.core.audio.WebAudioMgr.prototype.isPlaying = function(id){
     return this.channels.hasOwnProperty(id);
 };
 
@@ -5153,7 +5154,7 @@ alex.audio.WebAudioMgr.prototype.isPlaying = function(id){
  * stop sound by id
  * @param id
  */
-alex.audio.WebAudioMgr.prototype.stop = function(id){
+cc.core.audio.WebAudioMgr.prototype.stop = function(id){
     if(this.channels.hasOwnProperty(id)){
         var channel = this.channels[id];
         this.stopChannel(channel);
@@ -5162,7 +5163,7 @@ alex.audio.WebAudioMgr.prototype.stop = function(id){
 /*
  * stop ALL sounds...!
  */
-alex.audio.WebAudioMgr.prototype.stopAll = function(){
+cc.core.audio.WebAudioMgr.prototype.stopAll = function(){
     var id, channel;
     for(id in this.channels){
         if(this.channels.hasOwnProperty(id)){
@@ -5176,7 +5177,7 @@ alex.audio.WebAudioMgr.prototype.stopAll = function(){
  *
  * @param channel
  */
-alex.audio.WebAudioMgr.prototype.stopChannel = function(channel){
+cc.core.audio.WebAudioMgr.prototype.stopChannel = function(channel){
     var id = channel.id;
     //only delete the channel if it is a reference to the same channel object!
     //otherwise can get orphaned channel issues...
@@ -5192,7 +5193,7 @@ alex.audio.WebAudioMgr.prototype.stopChannel = function(channel){
 // Fade
 ///****************************************************
 //fade out
-alex.audio.WebAudioMgr.prototype.fadeOut = function(id, p_time){
+cc.core.audio.WebAudioMgr.prototype.fadeOut = function(id, p_time){
     //console.log("* WebAudioMgr - fadeOut " + id);
     if(this.channels.hasOwnProperty(id)){
         var channel = this.channels[id];
@@ -5201,7 +5202,7 @@ alex.audio.WebAudioMgr.prototype.fadeOut = function(id, p_time){
     }
 };
 //fade in
-alex.audio.WebAudioMgr.prototype.fadeIn = function(id, p_vol, p_time){
+cc.core.audio.WebAudioMgr.prototype.fadeIn = function(id, p_vol, p_time){
     if(this.channels.hasOwnProperty(id)){
         var channel = this.channels[id];
         if(channel){
@@ -5216,7 +5217,7 @@ alex.audio.WebAudioMgr.prototype.fadeIn = function(id, p_vol, p_time){
 ///****************************************************
 // Populate
 ///****************************************************
-alex.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
+cc.core.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
     var audioData, jsonData, id;//String
     //changed this, the assets dictionary now holds data objects, the sound buffer is a property of that object
 
@@ -5227,7 +5228,7 @@ alex.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
                 jsonData = p_assets[id];
                 //only register ones that loaded succesfully
                 if(jsonData.soundData !== null) {
-                    audioData = new alex.audio.WebAudioData(jsonData);
+                    audioData = new cc.core.audio.WebAudioData(jsonData);
                     this.sounds[id] = audioData;
                     this.addToCatalog(audioData);
                 }
@@ -5240,7 +5241,7 @@ alex.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
  *
  * @param webAudioManifest
  */
-alex.audio.WebAudioMgr.prototype.removeSounds = function(webAudioManifest){
+cc.core.audio.WebAudioMgr.prototype.removeSounds = function(webAudioManifest){
     var i, n = webAudioManifest.length, data;
     for(i = 0; i < n; i++){
         data = webAudioManifest[i];
@@ -5253,7 +5254,7 @@ alex.audio.WebAudioMgr.prototype.removeSounds = function(webAudioManifest){
 /**
  *
  */
-alex.audio.WebAudioMgr.prototype.purge = function(){
+cc.core.audio.WebAudioMgr.prototype.purge = function(){
     for(var s in this.sounds){
         if(this.sounds.hasOwnProperty(s)){
             delete this.sounds[s];
@@ -5265,7 +5266,7 @@ alex.audio.WebAudioMgr.prototype.purge = function(){
  *
  * @param audioData
  */
-alex.audio.WebAudioMgr.prototype.addToCatalog = function(audioData){
+cc.core.audio.WebAudioMgr.prototype.addToCatalog = function(audioData){
     if(!audioData.sprites){
         this.catalog[audioData.id] = audioData;
     } else {
@@ -5283,7 +5284,7 @@ alex.audio.WebAudioMgr.prototype.addToCatalog = function(audioData){
  * @param config
  * @constructor
  */
-alex.audio.WebAudioData = function(config){
+cc.core.audio.WebAudioData = function(config){
     this.src = config.src;
     this.soundData = config.soundData;
     this.id = config.id;
@@ -5336,15 +5337,15 @@ alex.audio.WebAudioData = function(config){
 // Sound Group handling
 ///****************************************************
 
-alex.audio.WebAudioMgr.prototype.addSoundGroup = function(p_id){
+cc.core.audio.WebAudioMgr.prototype.addSoundGroup = function(p_id){
     var gainNode = this.createGainNode();
-    var group = new alex.audio.WebAudioSoundGroup(p_id, gainNode);
+    var group = new cc.core.audio.WebAudioSoundGroup(p_id, gainNode);
     group.connect(this.globalMute.node);
     this.soundGroups[p_id] = group;
     return group;
 };
 
-alex.audio.WebAudioMgr.prototype.isGroupMuted = function(groupId){
+cc.core.audio.WebAudioMgr.prototype.isGroupMuted = function(groupId){
     var group = this.soundGroups[groupId];
     //validate
     return (group === undefined)? false : group.isMuted;
@@ -5357,19 +5358,19 @@ alex.audio.WebAudioMgr.prototype.isGroupMuted = function(groupId){
 //************************************
 
 //
-alex.audio.WebAudioMgr.prototype.mute = function(b){
+cc.core.audio.WebAudioMgr.prototype.mute = function(b){
     this.globalMute.isMuted = b;
     //muteNode.gain.value = b? 0 : 1.0;
     this.globalMute.volume = b? 0 : 1.0;
 };
 
-alex.audio.WebAudioMgr.prototype.muteGroup = function(grp,b){
+cc.core.audio.WebAudioMgr.prototype.muteGroup = function(grp,b){
     var grpNode = this.soundGroups[grp];  //TODO - validate?
     grpNode.volume = b? 0 : 1.0;
     grpNode.isMuted = b;
 };
 
-alex.audio.WebAudioMgr.prototype.muteAllGroups = function(b){
+cc.core.audio.WebAudioMgr.prototype.muteAllGroups = function(b){
     for(var s in this.soundGroups){
         if(this.soundGroups.hasOwnProperty(s)){
             this.muteGroup(s, b);
@@ -5378,7 +5379,7 @@ alex.audio.WebAudioMgr.prototype.muteAllGroups = function(b){
 };
 
 //bit of a cheat... mute instead of pause
-alex.audio.WebAudioMgr.prototype.pause = function(bool){
+cc.core.audio.WebAudioMgr.prototype.pause = function(bool){
     if(bool){
         this.globalMute.volume = 0;
     } else {
@@ -5388,14 +5389,14 @@ alex.audio.WebAudioMgr.prototype.pause = function(bool){
     }
 };
 
-alex.audio.WebAudioMgr.prototype.update = function(delta){
+cc.core.audio.WebAudioMgr.prototype.update = function(delta){
     //nothing for now...
 };
 ///****************************************************
 /*
  * call this in response to a touch event to wake the audio system on iOS!
  */
-alex.audio.WebAudioMgr.prototype.wakeAudioSystem = function(){
+cc.core.audio.WebAudioMgr.prototype.wakeAudioSystem = function(){
     // create empty buffer
     var buffer = this.context.createBuffer(1, 1, 22050);
     var source = this.context.createBufferSource();
@@ -5416,7 +5417,7 @@ alex.audio.WebAudioMgr.prototype.wakeAudioSystem = function(){
  * @param gainNode
  * @constructor
  */
-alex.audio.WebAudioSoundGroup = function(name, gainNode){
+cc.core.audio.WebAudioSoundGroup = function(name, gainNode){
     this.id = name;
     this.node = gainNode;
     this.isMuted = false;
@@ -5425,7 +5426,7 @@ alex.audio.WebAudioSoundGroup = function(name, gainNode){
     };
 };
 
-Object.defineProperty(alex.audio.WebAudioSoundGroup.prototype,'volume', {
+Object.defineProperty(cc.core.audio.WebAudioSoundGroup.prototype,'volume', {
     get: function() {
         return this.node.gain.value;
     },
@@ -5437,23 +5438,23 @@ Object.defineProperty(alex.audio.WebAudioSoundGroup.prototype,'volume', {
  * @class SndMgr
  * @constructor
  */
-alex.audio.SndMgr = function(){
+cc.core.audio.SndMgr = function(){
     //use null object pattern here to begin with...
-    this.snd = new alex.audio.SndNone();
-    this.audioModes = alex.audio.AudioModes;
+    this.snd = new cc.core.audio.SndNone();
+    this.audioModes = cc.core.audio.AudioModes;
     this.audioType = null;
     //
     this.mode = -1; //no mode
     this.isMuted = false;
 
-    this.updateList = new alex.utils.UpdateList();
+    this.updateList = new cc.core.utils.UpdateList();
 };
 
 /**
  *
  * @type {{NONE: number, WEB_AUDIO: number, AUDIO_SPRITE: number, MUSIC_LOOP: number}}
  */
-alex.audio.AudioModes = {
+cc.core.audio.AudioModes = {
     NONE: 0,//no sound
     WEB_AUDIO: 1,// web audio sound
     AUDIO_SPRITE: 2,//html5 audio tag sfx
@@ -5465,7 +5466,7 @@ alex.audio.AudioModes = {
  * @param config
  * @returns {number|*}
  */
-alex.audio.SndMgr.prototype.init = function(config){
+cc.core.audio.SndMgr.prototype.init = function(config){
     this.audioType = config.audioType;
     this.isMuted = config.isMuted;
     var isIOS = config.isIOS;
@@ -5475,7 +5476,7 @@ alex.audio.SndMgr.prototype.init = function(config){
     if(!audioEnabled){
         //Null object
         this.initNone();
-    } else if(webAudioEnabled && alex.utils.system.webAudio){
+    } else if(webAudioEnabled && cc.core.utils.system.webAudio){
         // web audio
         this.createWebAudio(config);
         if(!isIOS) this.prepare();
@@ -5503,7 +5504,7 @@ alex.audio.SndMgr.prototype.init = function(config){
  * TODO - where is this called from? ScreenMgr.addSounds?
  * @param data
  */
-alex.audio.SndMgr.prototype.addSounds = function(data){
+cc.core.audio.SndMgr.prototype.addSounds = function(data){
     if(this.webAudio){
         this.snd.addSounds(data);
     } else {
@@ -5534,8 +5535,8 @@ alex.audio.SndMgr.prototype.addSounds = function(data){
  *
  * @param config
  */
-alex.audio.SndMgr.prototype.createWebAudio = function(config){
-    this.snd = new alex.audio.WebAudioMgr(config);
+cc.core.audio.SndMgr.prototype.createWebAudio = function(config){
+    this.snd = new cc.core.audio.WebAudioMgr(config);
     this.mode = this.audioModes.WEB_AUDIO;
 };
 
@@ -5543,12 +5544,12 @@ alex.audio.SndMgr.prototype.createWebAudio = function(config){
  *
  * @param config
  */
-alex.audio.SndMgr.prototype.createAudioSprite = function(config){
+cc.core.audio.SndMgr.prototype.createAudioSprite = function(config){
     //kill previous
     if(this.snd){
         this.snd.dispose();
     }
-    this.snd = new alex.audio.SndSprite(config);
+    this.snd = new cc.core.audio.SndSprite(config);
     this.mode = this.audioModes.AUDIO_SPRITE;
 };
 
@@ -5556,12 +5557,12 @@ alex.audio.SndMgr.prototype.createAudioSprite = function(config){
  *
  * @param config
  */
-alex.audio.SndMgr.prototype.createAudioLoop = function(config){
+cc.core.audio.SndMgr.prototype.createAudioLoop = function(config){
     //kill previous
     if(this.snd){
         this.snd.dispose();
     }
-    this.snd = new alex.audio.MusicLoop();
+    this.snd = new cc.core.audio.MusicLoop();
     this.snd.init(config);
     this.mode = this.audioModes.MUSIC_LOOP;
 };
@@ -5574,7 +5575,7 @@ alex.audio.SndMgr.prototype.createAudioLoop = function(config){
  *
  * @param p_b
  */
-alex.audio.SndMgr.prototype.pause = function(p_b){
+cc.core.audio.SndMgr.prototype.pause = function(p_b){
     this.snd.pause(p_b);
 };
 
@@ -5584,7 +5585,7 @@ alex.audio.SndMgr.prototype.pause = function(p_b){
  * @param p_vol
  * @param p_loop
  */
-alex.audio.SndMgr.prototype.play = function(p_id, p_vol, p_loop){
+cc.core.audio.SndMgr.prototype.play = function(p_id, p_vol, p_loop){
     return this.snd.play(p_id, p_vol, p_loop);
 };
 
@@ -5592,12 +5593,12 @@ alex.audio.SndMgr.prototype.play = function(p_id, p_vol, p_loop){
  *
  * @param id
  */
-alex.audio.SndMgr.prototype.stop = function(id){ this.snd.stop(id); };
+cc.core.audio.SndMgr.prototype.stop = function(id){ this.snd.stop(id); };
 
 /**
  *
  */
-alex.audio.SndMgr.prototype.stopAll = function(){ this.snd.stopAll(); };
+cc.core.audio.SndMgr.prototype.stopAll = function(){ this.snd.stopAll(); };
 
 /**
  *
@@ -5607,7 +5608,7 @@ alex.audio.SndMgr.prototype.stopAll = function(){ this.snd.stopAll(); };
  * @param p_loop
  * @returns {*}
  */
-alex.audio.SndMgr.prototype.playWithDelay = function(p_id, p_delay, p_vol, p_loop){
+cc.core.audio.SndMgr.prototype.playWithDelay = function(p_id, p_delay, p_vol, p_loop){
     var snd = this.snd;
     return new TWEEN.Tween({w:0}).to({w:1}, p_delay).onComplete(function(){
         snd.play(p_id, p_vol, p_loop);
@@ -5619,7 +5620,7 @@ alex.audio.SndMgr.prototype.playWithDelay = function(p_id, p_delay, p_vol, p_loo
  * @param id
  * @returns {boolean}
  */
-alex.audio.SndMgr.prototype.isPlaying = function(id){
+cc.core.audio.SndMgr.prototype.isPlaying = function(id){
     if(this.webAudio){
         return this.snd.isPlaying(id);
     } else {
@@ -5629,7 +5630,7 @@ alex.audio.SndMgr.prototype.isPlaying = function(id){
 /*
  * used for sound sprite so it can detect end of sounds
  */
-alex.audio.SndMgr.prototype.update = function(delta){ 
+cc.core.audio.SndMgr.prototype.update = function(delta){ 
     this.updateList.update(delta);
     this.snd.update(delta); 
 };
@@ -5642,7 +5643,7 @@ alex.audio.SndMgr.prototype.update = function(delta){
  * @param id
  * @param time
  */
-alex.audio.SndMgr.prototype.fadeOut = function(id, time){
+cc.core.audio.SndMgr.prototype.fadeOut = function(id, time){
     if(this.webAudio) {
         this.snd.fadeOut(id, time);
     }
@@ -5653,7 +5654,7 @@ alex.audio.SndMgr.prototype.fadeOut = function(id, time){
  * @param id
  * @param time
  */
-alex.audio.SndMgr.prototype.fadeIn = function(id, time){
+cc.core.audio.SndMgr.prototype.fadeIn = function(id, time){
     if(this.webAudio) {
         this.snd.fadeIn(id, time);
     } else {
@@ -5665,7 +5666,7 @@ alex.audio.SndMgr.prototype.fadeIn = function(id, time){
  *
  * @param bool
  */
-alex.audio.SndMgr.prototype.mute = function(bool){
+cc.core.audio.SndMgr.prototype.mute = function(bool){
     this.isMuted = bool;
     this.snd.mute(bool);
 };
@@ -5675,7 +5676,7 @@ alex.audio.SndMgr.prototype.mute = function(bool){
  * @param grp
  * @param bool
  */
-alex.audio.SndMgr.prototype.muteGroup = function(grp, bool){
+cc.core.audio.SndMgr.prototype.muteGroup = function(grp, bool){
     this.snd.muteGroup(grp, bool);
 };
 
@@ -5683,7 +5684,7 @@ alex.audio.SndMgr.prototype.muteGroup = function(grp, bool){
  *
  * @param groupId
  */
-alex.audio.SndMgr.prototype.isGroupMuted = function(groupId){
+cc.core.audio.SndMgr.prototype.isGroupMuted = function(groupId){
     return this.snd.isGroupMuted(groupId);
 };
 
@@ -5691,14 +5692,14 @@ alex.audio.SndMgr.prototype.isGroupMuted = function(groupId){
  *
  * @param bool
  */
-alex.audio.SndMgr.prototype.muteAllGroups = function(bool){
+cc.core.audio.SndMgr.prototype.muteAllGroups = function(bool){
     this.snd.muteAllGroups(bool);
 };
 
 /**
  * on ios need to fire up in response to a touch event
  */
-alex.audio.SndMgr.prototype.prepare = function(){
+cc.core.audio.SndMgr.prototype.prepare = function(){
     if(this.webAudio){
         this.snd.wakeAudioSystem();
     } else {
@@ -5715,7 +5716,7 @@ alex.audio.SndMgr.prototype.prepare = function(){
  *
  * @param data
  */
-alex.audio.SndMgr.prototype.removeSounds = function(data){
+cc.core.audio.SndMgr.prototype.removeSounds = function(data){
     if(this.webAudio && data){
         this.snd.removeSounds(data);
     } else {
@@ -5726,7 +5727,7 @@ alex.audio.SndMgr.prototype.removeSounds = function(data){
 /**
  *
  */
-alex.audio.SndMgr.prototype.purge = function(){
+cc.core.audio.SndMgr.prototype.purge = function(){
     if(this.webAudio){
         this.snd.purge();
     } else {
@@ -5740,23 +5741,23 @@ alex.audio.SndMgr.prototype.purge = function(){
 /**
  *
  */
-alex.audio.SndMgr.prototype.initNone = function(){
+cc.core.audio.SndMgr.prototype.initNone = function(){
     if(this.snd){
         this.snd.dispose();
     }
     this.mode = this.audioModes.NONE;
-    this.snd = new alex.audio.SndNone();
+    this.snd = new cc.core.audio.SndNone();
 };
 
 //**********************************************
 // CHECK
 //**********************************************
 //this is redundant since start with null object!
-alex.audio.SndMgr.prototype.checkReady = function(){
+cc.core.audio.SndMgr.prototype.checkReady = function(){
     return this.snd !== null;
 };
 
-Object.defineProperties(alex.audio.SndMgr.prototype, {
+Object.defineProperties(cc.core.audio.SndMgr.prototype, {
     isReady: {
         get: function() {
             return this.checkReady();//snd !== null;
@@ -5764,7 +5765,7 @@ Object.defineProperties(alex.audio.SndMgr.prototype, {
     },
     webAudio: {
         get: function() {
-            return this.mode === alex.audio.AudioModes.WEB_AUDIO;
+            return this.mode === cc.core.audio.AudioModes.WEB_AUDIO;
         }
     }
 });
@@ -5775,16 +5776,16 @@ Object.defineProperties(alex.audio.SndMgr.prototype, {
  * Time: 8:59 AM
  * To change this template use File | Settings | File Templates.
  */
-alex.display.Stage = function(){  
+cc.core.display.Stage = function(){  
     this.centerV = true;//whether to vertically align
-    this.scaleModes = alex.settings.SCALE_MODES;
+    this.scaleModes = cc.core.settings.SCALE_MODES;
 };
 
 /**
  *
  * @param config
  */
-alex.display.Stage.prototype.init = function(config){
+cc.core.display.Stage.prototype.init = function(config){
 
     this.forceCanvas = config.forceCanvas;
 
@@ -5801,7 +5802,7 @@ alex.display.Stage.prototype.init = function(config){
  *
  * @param config
  */
-alex.display.Stage.prototype.createRenderer = function(config){
+cc.core.display.Stage.prototype.createRenderer = function(config){
     /*
     * @param [options] {object} The optional renderer parameters
     * @param [options.resolution=1] {number} the resolution of the renderer retina would be 2
@@ -5830,14 +5831,14 @@ alex.display.Stage.prototype.createRenderer = function(config){
  * content holder - centered
  * @param config
  */
-alex.display.Stage.prototype.createHolder = function(config){
+cc.core.display.Stage.prototype.createHolder = function(config){
     this.content = new PIXI.Container();
     this.content.x = config.width * 0.5;
     this.stage.addChild(this.content);
 };
 
 //TODO - rename to render?
-alex.display.Stage.prototype.draw = function(){
+cc.core.display.Stage.prototype.draw = function(){
     this.renderer.render(this.stage);
 };
 
@@ -5845,7 +5846,7 @@ alex.display.Stage.prototype.draw = function(){
  *
  * @param settings
  */
-alex.display.Stage.prototype.resize = function(settings){
+cc.core.display.Stage.prototype.resize = function(settings){
     var resolution = this.renderer.resolution;
     var pixelW = settings.pixelWidth / resolution;
     var pixelH = settings.pixelHeight / resolution;
@@ -5871,7 +5872,7 @@ alex.display.Stage.prototype.resize = function(settings){
 /**
  *
  */
-alex.display.Stage.prototype.addToDOM = function(){
+cc.core.display.Stage.prototype.addToDOM = function(){
     // add the renderer view element to the DOM
     var view = this.renderer.view;
     //get the parent div
@@ -5881,7 +5882,7 @@ alex.display.Stage.prototype.addToDOM = function(){
     view.style.marginRight = "auto";
     view.style.display = "block";
 };
-alex.display.Quad = function(p_w, p_h, p_color, p_alpha){
+cc.core.display.Quad = function(p_w, p_h, p_color, p_alpha){
 	PIXI.Graphics.call(this);
 	//set defaults
 	if(typeof p_color === "undefined") p_color = 0xFF0000;
@@ -5906,10 +5907,10 @@ alex.display.Quad = function(p_w, p_h, p_color, p_alpha){
     this.hitArea = new PIXI.Rectangle(0, 0, this._width, this._height);
 
 };
-alex.display.Quad.prototype = Object.create( PIXI.Graphics.prototype );
-alex.display.Quad.prototype.constructor = alex.display.Quad;
+cc.core.display.Quad.prototype = Object.create( PIXI.Graphics.prototype );
+cc.core.display.Quad.prototype.constructor = cc.core.display.Quad;
 
-alex.display.Quad.prototype.fromRect = function(rect){
+cc.core.display.Quad.prototype.fromRect = function(rect){
     this._width = this.hitArea.width = rect.width;
     this._height = this.hitArea.height = rect.height;
     this.x = rect.x;
@@ -5918,14 +5919,14 @@ alex.display.Quad.prototype.fromRect = function(rect){
     this.drawQuad();
 };
 
-alex.display.Quad.prototype.drawQuad = function(){
+cc.core.display.Quad.prototype.drawQuad = function(){
     this.clear();
     this.beginFill(this.tint);
     this.drawRect(0, 0, this._width, this._height);
     this.endFill();
 };
 
-Object.defineProperties(alex.display.Quad.prototype, {
+Object.defineProperties(cc.core.display.Quad.prototype, {
     width: {
         get: function() {
             return  this._width;
@@ -5954,17 +5955,17 @@ Object.defineProperties(alex.display.Quad.prototype, {
  * @param p_color
  * @constructor
  */
-alex.display.Circle = function(p_radius, p_color){
+cc.core.display.Circle = function(p_radius, p_color){
 	PIXI.Graphics.call(this);
 	//
 	this.tint = (typeof p_color !== "undefined")? p_color : 0xff0000;
 	//now draw
 	this.radius = (typeof p_radius !== "undefined")? p_radius : 50;
 };
-alex.display.Circle.prototype = Object.create( PIXI.Graphics.prototype );
-alex.display.Circle.prototype.constructor = alex.display.Circle;
+cc.core.display.Circle.prototype = Object.create( PIXI.Graphics.prototype );
+cc.core.display.Circle.prototype.constructor = cc.core.display.Circle;
 //
-Object.defineProperty(alex.display.Circle.prototype, 'radius', {
+Object.defineProperty(cc.core.display.Circle.prototype, 'radius', {
     get: function() {
         return  this._radius;
     },
@@ -5982,7 +5983,7 @@ Object.defineProperty(alex.display.Circle.prototype, 'radius', {
  * @param p_downImgId {String|PIXI.Texture}
  * @param p_disabledImgId {String|PIXI.Texture}
  */
-alex.display.Button = function(p_upImgId, p_downImgId, p_disabledImgId){
+cc.core.display.Button = function(p_upImgId, p_downImgId, p_disabledImgId){
     if(typeof p_upImgId === 'string'){
         this.txUp = PIXI.utils.TextureCache[p_upImgId];
     } else {
@@ -6019,15 +6020,15 @@ alex.display.Button = function(p_upImgId, p_downImgId, p_disabledImgId){
 
     this.setAdditionalTextures(p_downImgId, p_disabledImgId);
 };
-alex.display.Button.prototype = Object.create(PIXI.Sprite.prototype);
-alex.display.Button.prototype.constructor = alex.display.Button;
+cc.core.display.Button.prototype = Object.create(PIXI.Sprite.prototype);
+cc.core.display.Button.prototype.constructor = cc.core.display.Button;
 
 /**
  * @method setAdditionalTextures
  * @param p_downImgId
  * @param p_disabledImgId
  */
-alex.display.Button.prototype.setAdditionalTextures = function(p_downImgId, p_disabledImgId) {
+cc.core.display.Button.prototype.setAdditionalTextures = function(p_downImgId, p_disabledImgId) {
 //NOTE center reg point only applies when no down state!
     var downType = typeof p_downImgId;
 
@@ -6066,7 +6067,7 @@ alex.display.Button.prototype.setAdditionalTextures = function(p_downImgId, p_di
 /**
  *
  */
-alex.display.Button.prototype.createHitArea = function() {
+cc.core.display.Button.prototype.createHitArea = function() {
     //this.resolution = this.txUp.baseTexture.resolution;
     var w = this.txUp.frame.width;//(this.txUp.frame.width / this.resolution);
     var h = this.txUp.frame.height;//(this.txUp.frame.height / this.resolution);
@@ -6077,7 +6078,7 @@ alex.display.Button.prototype.createHitArea = function() {
  *
  * @private
  */
-alex.display.Button.prototype._touchstart = function() {
+cc.core.display.Button.prototype._touchstart = function() {
     if(!this.txDown){
         this.scale.x = this.scale.y = this.downScale;
     } else {
@@ -6091,7 +6092,7 @@ alex.display.Button.prototype._touchstart = function() {
  *
  * @private
  */
-alex.display.Button.prototype._touchend = function() {
+cc.core.display.Button.prototype._touchend = function() {
     if(this._pressed){
         this._pressed = false;
         this.restore();
@@ -6103,7 +6104,7 @@ alex.display.Button.prototype._touchend = function() {
  *
  * @private
  */
-alex.display.Button.prototype._touchendoutside = function() {
+cc.core.display.Button.prototype._touchendoutside = function() {
     if(this._pressed){
         this._pressed = false;
         this.restore();
@@ -6115,7 +6116,7 @@ alex.display.Button.prototype._touchendoutside = function() {
  *
  * @private
  */
-alex.display.Button.prototype.restore = function() {
+cc.core.display.Button.prototype.restore = function() {
     if(this.downScale < 1){
         this.scale.x = this.scale.y = this.upScale;
     } 
@@ -6128,7 +6129,7 @@ alex.display.Button.prototype.restore = function() {
  *
  * @private
  */
-Object.defineProperty(alex.display.Button.prototype, 'enabled', {
+Object.defineProperty(cc.core.display.Button.prototype, 'enabled', {
     get: function() {
         return  this.interactive;
     },
@@ -6152,7 +6153,7 @@ Object.defineProperty(alex.display.Button.prototype, 'enabled', {
  * @param p_on
  * @constructor
  */
-alex.display.Toggle = function (p_onImg, p_offImg, p_on) {
+cc.core.display.Toggle = function (p_onImg, p_offImg, p_on) {
     this.isOn = (p_on !== false);
     //*******************************
     // - support the arguments being textures
@@ -6192,15 +6193,15 @@ alex.display.Toggle = function (p_onImg, p_offImg, p_on) {
     this.enabled = true;
 
 };
-alex.display.Toggle.prototype = Object.create(PIXI.Sprite.prototype);
-alex.display.Toggle.prototype.constructor = alex.display.Toggle;
+cc.core.display.Toggle.prototype = Object.create(PIXI.Sprite.prototype);
+cc.core.display.Toggle.prototype.constructor = cc.core.display.Toggle;
 
 /**
  * @method getTexture
  * @param p_img
  * @returns {PIXI.Texture}
  */
-alex.display.Toggle.prototype.getTexture = function (p_img) {
+cc.core.display.Toggle.prototype.getTexture = function (p_img) {
     var tx = null;
     if (typeof p_img === 'string') {
         tx = PIXI.utils.TextureCache[p_img];
@@ -6214,7 +6215,7 @@ alex.display.Toggle.prototype.getTexture = function (p_img) {
 /**
  *
  */
-alex.display.Toggle.prototype.createHitArea = function () {
+cc.core.display.Toggle.prototype.createHitArea = function () {
     //this.resolution = this.txOn.baseTexture.resolution;
     var w = this.txOn.frame.width;
     var h = this.txOn.frame.height;
@@ -6226,7 +6227,7 @@ alex.display.Toggle.prototype.createHitArea = function () {
 /**
  *
  */
-alex.display.Toggle.prototype._touchstart = function (event) {
+cc.core.display.Toggle.prototype._touchstart = function (event) {
     this._pressed = true;
     this.scale.x = this.scale.y = this.downScale;
 };
@@ -6234,7 +6235,7 @@ alex.display.Toggle.prototype._touchstart = function (event) {
 /**
  *
  */
-alex.display.Toggle.prototype._touchend = function (event) {
+cc.core.display.Toggle.prototype._touchend = function (event) {
     if (this._pressed) {
         this._pressed = false;
         if(this.downScale < 1) this.scale.x = this.scale.y = this.upScale;
@@ -6245,7 +6246,7 @@ alex.display.Toggle.prototype._touchend = function (event) {
 /**
  *
  */
-alex.display.Toggle.prototype._touchendoutside = function (event) {
+cc.core.display.Toggle.prototype._touchendoutside = function (event) {
     if (this._pressed) {
         if(this.downScale < 1) this.scale.x = this.scale.y = this.upScale;
         this._pressed = false;
@@ -6255,7 +6256,7 @@ alex.display.Toggle.prototype._touchendoutside = function (event) {
 /**
  *
  */
-alex.display.Toggle.prototype.toggle = function () {
+cc.core.display.Toggle.prototype.toggle = function () {
     this.isOn = !this.isOn;
     if (this.isOn) {
         this.texture = this.txOn;
@@ -6268,7 +6269,7 @@ alex.display.Toggle.prototype.toggle = function () {
 /**
  *
  */
-alex.display.Toggle.prototype.setOff = function () {
+cc.core.display.Toggle.prototype.setOff = function () {
     this.texture = this.txOff;
     this.isOn = false;
 };
@@ -6276,7 +6277,7 @@ alex.display.Toggle.prototype.setOff = function () {
 /**
  *
  */
-alex.display.Toggle.prototype.setOn = function () {
+cc.core.display.Toggle.prototype.setOn = function () {
     this.texture = this.txOn;
     this.isOn = true;
 };
@@ -6284,7 +6285,7 @@ alex.display.Toggle.prototype.setOn = function () {
 /**
  *
  */
-Object.defineProperty(alex.display.Toggle.prototype, 'enabled', {
+Object.defineProperty(cc.core.display.Toggle.prototype, 'enabled', {
     get: function () {
         return this.interactive;
     },
@@ -6298,10 +6299,10 @@ Object.defineProperty(alex.display.Toggle.prototype, 'enabled', {
  * @param textures
  * @constructor
  */
-alex.display.MovieClip = function(textures) {
+cc.core.display.MovieClip = function(textures) {
     PIXI.Sprite.call(this, textures[0]);
     //make it dispatch events
-    // alex.utils.EventDispatcher.prototype.apply(this);
+    // cc.core.utils.EventDispatcher.prototype.apply(this);
     //
     this.textures = textures;
     this.eventComplete = "complete";//{type:"complete"};
@@ -6316,15 +6317,15 @@ alex.display.MovieClip = function(textures) {
 
     this.setDuration();
 };
-alex.display.MovieClip.prototype = Object.create( PIXI.Sprite.prototype );
-alex.display.MovieClip.prototype.constructor = alex.display.MovieClip;
+cc.core.display.MovieClip.prototype = Object.create( PIXI.Sprite.prototype );
+cc.core.display.MovieClip.prototype.constructor = cc.core.display.MovieClip;
 
 /**
  * @method gotoAndPlay
  * @param frameNumber
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.gotoAndPlay = function(frameNumber) {
+cc.core.display.MovieClip.prototype.gotoAndPlay = function(frameNumber) {
     this.gotoAndStop(frameNumber);
     this.playing = true;
     return this;
@@ -6333,9 +6334,9 @@ alex.display.MovieClip.prototype.gotoAndPlay = function(frameNumber) {
 /**
  * @method gotoAndStop
  * @param frameNumber
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.gotoAndStop = function(frameNumber) {
+cc.core.display.MovieClip.prototype.gotoAndStop = function(frameNumber) {
     this.playing = false;
     this.currentTime = frameNumber * (1000 / this._fps);
     this.currentFrame = frameNumber;
@@ -6347,18 +6348,18 @@ alex.display.MovieClip.prototype.gotoAndStop = function(frameNumber) {
 
 /**
  *
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.stop = function()  {
+cc.core.display.MovieClip.prototype.stop = function()  {
     this.playing = false;
     return this;
 };
 
 /**
  *
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.play = function() {
+cc.core.display.MovieClip.prototype.play = function() {
     this.playing = true;
     return this;
 };
@@ -6366,9 +6367,9 @@ alex.display.MovieClip.prototype.play = function() {
 /**
  *
  * @param fps
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.setFPS = function(fps) {
+cc.core.display.MovieClip.prototype.setFPS = function(fps) {
     this._fps = fps;
     this.setDuration();
     return this;
@@ -6377,15 +6378,15 @@ alex.display.MovieClip.prototype.setFPS = function(fps) {
 /**
  *
  */
-alex.display.MovieClip.prototype.updateTransform = function()  {
+cc.core.display.MovieClip.prototype.updateTransform = function()  {
     PIXI.Sprite.prototype.updateTransform.call(this);
 };
 
 /**
  *
- * @returns {alex.display.MovieClip}
+ * @returns {cc.core.display.MovieClip}
  */
-alex.display.MovieClip.prototype.setDuration = function(){
+cc.core.display.MovieClip.prototype.setDuration = function(){
     var l = this.textures.length;
     this.duration = (1000 / this._fps) * l;
     this.lastFrame = l - 1;
@@ -6396,7 +6397,7 @@ alex.display.MovieClip.prototype.setDuration = function(){
  *
  * @param elapsed
  */
-alex.display.MovieClip.prototype.update = function(elapsed){//milliseconds
+cc.core.display.MovieClip.prototype.update = function(elapsed){//milliseconds
     if(this.playing){
         this.currentTime += elapsed;
         if(this.currentTime > this.duration){
@@ -6425,7 +6426,7 @@ alex.display.MovieClip.prototype.update = function(elapsed){//milliseconds
 /**
  *
  */
-Object.defineProperties(alex.display.MovieClip.prototype, {
+Object.defineProperties(cc.core.display.MovieClip.prototype, {
     totalFrames: {
         get: function() {
             return this.textures.length;
@@ -6441,7 +6442,7 @@ Object.defineProperties(alex.display.MovieClip.prototype, {
     }
 });
 
-alex.display.MaskJpeg = function(jpegImg,pngMask,callback){
+cc.core.display.MaskJpeg = function(jpegImg,pngMask,callback){
 	var txImg = jpegImg;
 	var txMask = pngMask;
 	//create new canvas object and draw each image into it
@@ -6467,22 +6468,22 @@ alex.display.MaskJpeg = function(jpegImg,pngMask,callback){
  * @class CropSprite
  * @constructor
  */
-alex.display.CropSprite = function(sprite){
+cc.core.display.CropSprite = function(sprite){
     this.sprite = null;
     this.useCopy = true;//if true then makes a new texture instance
-    alex.utils.EventDispatcher.call(this);
+    cc.core.utils.EventDispatcher.call(this);
 
     if(sprite){
         this.init({sprite: sprite});
     }
 };
-alex.display.CropSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.display.CropSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  * @method init
  * @param config
  */
-alex.display.CropSprite.prototype.init = function(config) {
+cc.core.display.CropSprite.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
 
     this.copyFrame();
@@ -6491,7 +6492,7 @@ alex.display.CropSprite.prototype.init = function(config) {
 /**
  *
  */
-alex.display.CropSprite.prototype.copyFrame = function() {
+cc.core.display.CropSprite.prototype.copyFrame = function() {
     this.realFrame = this.sprite.texture.frame;
     this.frame = new PIXI.Rectangle(
         this.realFrame.x,
@@ -6511,7 +6512,7 @@ alex.display.CropSprite.prototype.copyFrame = function() {
 /**
  *
  */
-Object.defineProperties(alex.display.CropSprite.prototype,{
+Object.defineProperties(cc.core.display.CropSprite.prototype,{
     width: {
         get: function(){
             return this.frame.width;
@@ -6576,7 +6577,7 @@ Object.defineProperties(alex.display.CropSprite.prototype,{
  *
  * @param value
  */
-alex.display.CropSprite.prototype.setWidth = function(value){
+cc.core.display.CropSprite.prototype.setWidth = function(value){
     this.frame.width = value;
     this.sprite.texture.crop.width = this.frame.width;
     this.sprite.texture.width = this.frame.width;
@@ -6589,7 +6590,7 @@ alex.display.CropSprite.prototype.setWidth = function(value){
  *
  * @param value
  */
-alex.display.CropSprite.prototype.setHeight = function(value){
+cc.core.display.CropSprite.prototype.setHeight = function(value){
     this.frame.height = value;
     this.sprite.texture.crop.height = this.frame.height;
     this.sprite.texture.height = this.frame.height;
@@ -6602,7 +6603,7 @@ alex.display.CropSprite.prototype.setHeight = function(value){
  * I think this adjusts y position at the same time as height
  * @param value
  */
-alex.display.CropSprite.prototype.setHeightAlt = function(value){
+cc.core.display.CropSprite.prototype.setHeightAlt = function(value){
     this.setHeight(value);
     this.frame.y = this.realFrame.y + this.realFrame.height - value;
     this.sprite.texture.crop.y = this.frame.y;
@@ -6611,7 +6612,7 @@ alex.display.CropSprite.prototype.setHeightAlt = function(value){
 /**
  *
  */
-alex.display.CropSprite.prototype.restore = function(){
+cc.core.display.CropSprite.prototype.restore = function(){
     this.sprite.texture.frame = this.realFrame;
     this.sprite.texture.crop.width = this.realFrame.width;
     this.sprite.texture.width = this.realFrame.width;
@@ -6628,7 +6629,7 @@ alex.display.CropSprite.prototype.restore = function(){
  * @param time
  * @param amount
  */
-alex.display.CropSprite.prototype.slideUp = function(y, time, amount) {
+cc.core.display.CropSprite.prototype.slideUp = function(y, time, amount) {
     var fullH = amount || this.realFrame.height;
     var distY = (fullH / this.resolution);
     this.y = y + distY;
@@ -6646,7 +6647,7 @@ alex.display.CropSprite.prototype.slideUp = function(y, time, amount) {
  * @param time
  * @param amount
  */
-alex.display.CropSprite.prototype.revealUp = function(y, time, amount) {
+cc.core.display.CropSprite.prototype.revealUp = function(y, time, amount) {
     var fullH = amount || this.realFrame.height;
     if(!time) time = 600;
     this.heightAlt = 0;
@@ -6662,7 +6663,7 @@ alex.display.CropSprite.prototype.revealUp = function(y, time, amount) {
  * @param time
  * @param amount
  */
-alex.display.CropSprite.prototype.revealDown = function(time, amount) {
+cc.core.display.CropSprite.prototype.revealDown = function(time, amount) {
     new TWEEN.Tween(this)
         .to({heightAlt: 0}, time)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -6675,7 +6676,7 @@ alex.display.CropSprite.prototype.revealDown = function(time, amount) {
  * @param time
  * @param delay
  */
-alex.display.CropSprite.prototype.slideDown = function(time, delay) {
+cc.core.display.CropSprite.prototype.slideDown = function(time, delay) {
     var y = this.y, delay = delay || 0;
     var targetY = y + (this.height / this.resolution);
     new TWEEN.Tween(this)
@@ -6686,16 +6687,16 @@ alex.display.CropSprite.prototype.slideDown = function(time, delay) {
         .start();
 };
 
-alex.display.CropSprite.prototype.onUp = function() { };
+cc.core.display.CropSprite.prototype.onUp = function() { };
 
-alex.display.CropSprite.prototype.onDown = function() { };
+cc.core.display.CropSprite.prototype.onDown = function() { };
 
 /**
  * @class ScreenBase
  * @param config
  * @constructor
  */
-alex.screens.ScreenBase = function(config){
+cc.core.screens.ScreenBase = function(config){
 	PIXI.Container.call(this);
 	//these vars all come from config
     this.screenW = 0; this.screenH = 0;
@@ -6707,25 +6708,25 @@ alex.screens.ScreenBase = function(config){
     //get screenW, screenH, defaultW, defaultH - actual screen width in points
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
     //
-    alex.utils.UpdateList.prototype.mixin(this);
+    cc.core.utils.UpdateList.prototype.mixin(this);
     //add a delayedAction by default!
-    this.delayedAction = new alex.utils.DelayedAction();
+    this.delayedAction = new cc.core.utils.DelayedAction();
     this.addUpdateItem(this.delayedAction);
 };
-alex.screens.ScreenBase.prototype = Object.create(PIXI.Container.prototype);
-alex.screens.ScreenBase.prototype.constructor = alex.screens.ScreenBase;
+cc.core.screens.ScreenBase.prototype = Object.create(PIXI.Container.prototype);
+cc.core.screens.ScreenBase.prototype.constructor = cc.core.screens.ScreenBase;
 
 /**
  * set up screen content
  */
-alex.screens.ScreenBase.prototype.run = function(){};
+cc.core.screens.ScreenBase.prototype.run = function(){};
 
 /**
  *
  * @param p_w
  * @param p_h
  */
-alex.screens.ScreenBase.prototype.resize = function(p_w, p_h){
+cc.core.screens.ScreenBase.prototype.resize = function(p_w, p_h){
     this.screenW = p_w;
     this.screenH = p_h;
 };
@@ -6733,7 +6734,7 @@ alex.screens.ScreenBase.prototype.resize = function(p_w, p_h){
 /**
  *
  */
-alex.screens.ScreenBase.prototype.getSceneConfig  = function(){
+cc.core.screens.ScreenBase.prototype.getSceneConfig  = function(){
     return {
         screenW: this.screenW, screenH: this.screenH,
         defaultW: this.defaultW, defaultH: this.defaultH,
@@ -6746,7 +6747,7 @@ alex.screens.ScreenBase.prototype.getSceneConfig  = function(){
 /**
  * @param SceneClass {class}
  */
-alex.screens.ScreenBase.prototype.createScene  = function(SceneClass){
+cc.core.screens.ScreenBase.prototype.createScene  = function(SceneClass){
     var scene = new SceneClass();
     scene.init(this.getSceneConfig());
     this.addChild(scene.root);
@@ -6763,7 +6764,7 @@ alex.screens.ScreenBase.prototype.createScene  = function(SceneClass){
  * @param callback
  * @param p_ms
  */
-alex.screens.ScreenBase.prototype.delay = function(callback, p_ms){
+cc.core.screens.ScreenBase.prototype.delay = function(callback, p_ms){
     this.delayedAction.delay(callback, p_ms);
 };
 
@@ -6771,13 +6772,13 @@ alex.screens.ScreenBase.prototype.delay = function(callback, p_ms){
  * use this to run dragonBones content or anything needing to run off RAF
  * @param delta
  */
-alex.screens.ScreenBase.prototype.render = function(delta){};
+cc.core.screens.ScreenBase.prototype.render = function(delta){};
 
 /**
  *
  * @param p_screenId
  */
-alex.screens.ScreenBase.prototype.newScreen = function(p_screenId){
+cc.core.screens.ScreenBase.prototype.newScreen = function(p_screenId){
     var event;
     if(typeof p_screenId === 'string'){
         event = {type: "new_screen", screenId: p_screenId};
@@ -6791,7 +6792,7 @@ alex.screens.ScreenBase.prototype.newScreen = function(p_screenId){
 /**
  *
  */
-alex.screens.ScreenBase.prototype.dispose = function(){
+cc.core.screens.ScreenBase.prototype.dispose = function(){
 	//remove self!
 	this.removeFromParent();
 	//destroy screen content
@@ -6806,16 +6807,16 @@ alex.screens.ScreenBase.prototype.dispose = function(){
  * @param config
  * @constructor
  */
-alex.screens.LoadScreen = function(config){
-	alex.screens.ScreenBase.call(this, config);
+cc.core.screens.LoadScreen = function(config){
+	cc.core.screens.ScreenBase.call(this, config);
 };
-alex.screens.LoadScreen.prototype = Object.create(alex.screens.ScreenBase.prototype);
-alex.screens.LoadScreen.prototype.constructor = alex.screens.LoadScreen;
+cc.core.screens.LoadScreen.prototype = Object.create(cc.core.screens.ScreenBase.prototype);
+cc.core.screens.LoadScreen.prototype.constructor = cc.core.screens.LoadScreen;
 
 /**
  *
  */
-alex.screens.LoadScreen.prototype.run  = function(){
+cc.core.screens.LoadScreen.prototype.run  = function(){
     this.loadBar = this.createBar();
 
     //NOTE - loader events are automatically removed on complete
@@ -6833,7 +6834,7 @@ alex.screens.LoadScreen.prototype.run  = function(){
 /**
  *
  */
-alex.screens.LoadScreen.prototype.fadeOut = function(){
+cc.core.screens.LoadScreen.prototype.fadeOut = function(){
     var self = this;
     new TWEEN.Tween(this.loadBar)
             .to({alpha: 0}, 500)
@@ -6845,29 +6846,29 @@ alex.screens.LoadScreen.prototype.fadeOut = function(){
 
 /**
  *
- * @returns {alex.ui.LoadBar}
+ * @returns {cc.core.ui.LoadBar}
  */
-alex.screens.LoadScreen.prototype.createBar = function(){
+cc.core.screens.LoadScreen.prototype.createBar = function(){
     var w = 200, h = 30;
-    var loadBar = new alex.ui.LoadBar(w, h, 0x000000, 0xffffff);
+    var loadBar = new cc.core.ui.LoadBar(w, h, 0x000000, 0xffffff);
     loadBar.pivot.x = w * 0.5; loadBar.pivot.y = h * 0.5;
     this.addChild(loadBar);
     return loadBar;
 };
-alex.screens.TitleScreen = function(config){
-	alex.screens.ScreenBase.call(this, config);
+cc.core.screens.TitleScreen = function(config){
+	cc.core.screens.ScreenBase.call(this, config);
 };
-alex.screens.TitleScreen.prototype = Object.create(alex.screens.ScreenBase.prototype);
-alex.screens.TitleScreen.prototype.constructor = alex.screens.TitleScreen;
+cc.core.screens.TitleScreen.prototype = Object.create(cc.core.screens.ScreenBase.prototype);
+cc.core.screens.TitleScreen.prototype.constructor = cc.core.screens.TitleScreen;
 //
-alex.screens.TitleScreen.prototype.run  = function(){
+cc.core.screens.TitleScreen.prototype.run  = function(){
     //your code goes here
 };
 /**
  * @class ScreenMgr
  * @constructor
  */
-alex.screens.ScreenMgr = function(){
+cc.core.screens.ScreenMgr = function(){
     this.currentScreen = null;
     this.lastScreenId = null;
     this.stage = null;
@@ -6876,14 +6877,14 @@ alex.screens.ScreenMgr = function(){
     //
     this.resolution = 1;
 };
-alex.screens.ScreenMgr.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.screens.ScreenMgr.prototype.constructor = alex.screens.ScreenMgr;
+cc.core.screens.ScreenMgr.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.screens.ScreenMgr.prototype.constructor = cc.core.screens.ScreenMgr;
 
 /**
  * @method init
  * @param config
  */
-alex.screens.ScreenMgr.prototype.init = function(config){
+cc.core.screens.ScreenMgr.prototype.init = function(config){
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
     
     this.showScreen = this._showScreen.bind(this);
@@ -6896,7 +6897,7 @@ alex.screens.ScreenMgr.prototype.init = function(config){
  * @param p_event
  * @returns {{screenId: *}}
  */
-alex.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
+cc.core.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
     var config = (typeof p_event === "string")? {screenId: p_event} : p_event;
     config.screenW = this.settings.STAGE_W;
     config.screenH = this.settings.STAGE_H;
@@ -6906,7 +6907,7 @@ alex.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
     config.eventQueue = this.eventQueue;
     config.lastScreenId = this.lastScreenId;
     config.snd = this.snd;
-    //decided not to pass through alex.settings, its a bit redundant
+    //decided not to pass through cc.core.settings, its a bit redundant
     //config.settings = this.settings;
     return config; 
 };
@@ -6915,7 +6916,7 @@ alex.screens.ScreenMgr.prototype.getScreenConfig = function(p_event){
  * @method resize
  * @param settings
  */
-alex.screens.ScreenMgr.prototype.resize = function(settings){
+cc.core.screens.ScreenMgr.prototype.resize = function(settings){
     if(this.currentScreen !== null){
         //call resize on current screen
         var pointW = settings.pointWidth;
@@ -6928,7 +6929,7 @@ alex.screens.ScreenMgr.prototype.resize = function(settings){
  * @method displayScreen
  * @param p_event
  */
-alex.screens.ScreenMgr.prototype.displayScreen = function(event){
+cc.core.screens.ScreenMgr.prototype.displayScreen = function(event){
     //kill old screen
     this.disposeScreen();
     var config = this.getScreenConfig(event);
@@ -6942,7 +6943,7 @@ alex.screens.ScreenMgr.prototype.displayScreen = function(event){
  * @param data
  * @param callback
  */
-alex.screens.ScreenMgr.prototype._showScreen = function(data, callback){
+cc.core.screens.ScreenMgr.prototype._showScreen = function(data, callback){
     var config = (typeof data === "string")? {screenId: data} : data;
     var screenId = config.screenId;
     var manifest = this.getManifestPath(screenId);
@@ -6967,7 +6968,7 @@ alex.screens.ScreenMgr.prototype._showScreen = function(data, callback){
  * @param manifest
  * @param callback
  */
-alex.screens.ScreenMgr.prototype.loadWithManifest = function(screenId, manifest, callback){
+cc.core.screens.ScreenMgr.prototype.loadWithManifest = function(screenId, manifest, callback){
     this.currentManifest = manifest;
     //NOTE - loader removes event listeners on load complete
     var self = this;
@@ -6992,7 +6993,7 @@ alex.screens.ScreenMgr.prototype.loadWithManifest = function(screenId, manifest,
 };
 
 //append source array content to target array
-alex.screens.ScreenMgr.prototype.merge = function(target, source){
+cc.core.screens.ScreenMgr.prototype.merge = function(target, source){
     var i, n = source.length;
     for(i = 0; i < n; i++){
         target[target.length] = source[i];
@@ -7004,9 +7005,9 @@ alex.screens.ScreenMgr.prototype.merge = function(target, source){
  * @param screenId
  * @returns {string}
  */
-alex.screens.ScreenMgr.prototype.getManifestPath = function(screenId){
+cc.core.screens.ScreenMgr.prototype.getManifestPath = function(screenId){
     //override this, just return default
-    return alex.settings.JSON_DIR + 'asset_manifest.json';
+    return cc.core.settings.JSON_DIR + 'asset_manifest.json';
 };
 
 /**
@@ -7014,7 +7015,7 @@ alex.screens.ScreenMgr.prototype.getManifestPath = function(screenId){
  * @param screenId
  * @param jsonData
  */
-alex.screens.ScreenMgr.prototype.addToManifestJSON = function(screenId, jsonData){
+cc.core.screens.ScreenMgr.prototype.addToManifestJSON = function(screenId, jsonData){
     //override this
 };
 
@@ -7023,14 +7024,14 @@ alex.screens.ScreenMgr.prototype.addToManifestJSON = function(screenId, jsonData
  * @param screenId
  * @param data
  */
-alex.screens.ScreenMgr.prototype.customizeManifest = function(screenId, data){
+cc.core.screens.ScreenMgr.prototype.customizeManifest = function(screenId, data){
     //override this
 };
 
 /**
  *
  */
-alex.screens.ScreenMgr.prototype.unloadScreen = function(){
+cc.core.screens.ScreenMgr.prototype.unloadScreen = function(){
     if(game_shell.spineUtils) game_shell.spineUtils.purge();
     game_shell.snd.removeSounds(game_shell.loader.webAudioManifest);//NOTE - could also call purge
     game_shell.loader.unload();
@@ -7041,8 +7042,8 @@ alex.screens.ScreenMgr.prototype.unloadScreen = function(){
  * @param p_event
  * @returns {*}
  */
-alex.screens.ScreenMgr.prototype.createScreen = function(p_event){
-    var screen, scr = alex.screens;
+cc.core.screens.ScreenMgr.prototype.createScreen = function(p_event){
+    var screen, scr = cc.core.screens;
     var screenId = (typeof p_event === "string")? p_event : p_event.screenId;
     switch(screenId){
         case "load": screen = new scr.LoadScreen(p_event); break;
@@ -7055,7 +7056,7 @@ alex.screens.ScreenMgr.prototype.createScreen = function(p_event){
  *
  * @param p_time
  */
-alex.screens.ScreenMgr.prototype.update = function(p_time){
+cc.core.screens.ScreenMgr.prototype.update = function(p_time){
     if(this.currentScreen) this.currentScreen.update(p_time);
 };
 
@@ -7063,14 +7064,14 @@ alex.screens.ScreenMgr.prototype.update = function(p_time){
  *
  * @param p_delta
  */
-alex.screens.ScreenMgr.prototype.render = function(p_delta){
+cc.core.screens.ScreenMgr.prototype.render = function(p_delta){
     if(this.currentScreen) this.currentScreen.render(p_delta);
 };
 
 /**
  *
  */
-alex.screens.ScreenMgr.prototype.disposeScreen = function(){
+cc.core.screens.ScreenMgr.prototype.disposeScreen = function(){
     if(this.currentScreen !== null){
         //ignore the load screen!
         if(this.currentScreen.screenId !== 'load'){
@@ -7085,7 +7086,7 @@ alex.screens.ScreenMgr.prototype.disposeScreen = function(){
  * @class SceneBuilder
  * @constructor
  */
-alex.screens.SceneBuilder = function(){
+cc.core.screens.SceneBuilder = function(){
     this.scene = null;
     this.root = null;
     this.screenW = 0;
@@ -7097,12 +7098,12 @@ alex.screens.SceneBuilder = function(){
  * @method init
  * @param config
  */
-alex.screens.SceneBuilder.prototype.init = function(config) {
+cc.core.screens.SceneBuilder.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
     //
     this.scene.root = new PIXI.Container();
-    this.scene.timeout = new alex.utils.DelayedAction();
-    this.scene.updateList = this.updateList = new alex.utils.UpdateList();
+    this.scene.timeout = new cc.core.utils.DelayedAction();
+    this.scene.updateList = this.updateList = new cc.core.utils.UpdateList();
     //add screen to update
     this.updateList.add(this.scene);
 };
@@ -7113,7 +7114,7 @@ alex.screens.SceneBuilder.prototype.init = function(config) {
  * Time: 10:20 AM
  * Default loading bar
  */
-alex.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
+cc.core.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
     PIXI.Container.call(this);
     //
     
@@ -7135,7 +7136,7 @@ alex.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
     
     this.fullW = barW;
 
-    var prgBar =  new alex.display.Quad(barW, barH, c2);
+    var prgBar =  new cc.core.display.Quad(barW, barH, c2);
     prgBar.x = -half;
     prgBar.y = -half;
     //
@@ -7167,11 +7168,11 @@ alex.ui.LoadBar = function(p_w, p_h, p_color, p_color2){
     this.addChild(prgBar);
 
 };
-alex.ui.LoadBar.prototype = Object.create(PIXI.Container.prototype);
-alex.ui.LoadBar.prototype.constructor = alex.ui.LoadBar;
+cc.core.ui.LoadBar.prototype = Object.create(PIXI.Container.prototype);
+cc.core.ui.LoadBar.prototype.constructor = cc.core.ui.LoadBar;
 
 //
-alex.ui.PopupBase = function(){
+cc.core.ui.PopupBase = function(){
 	this.quadAlpha = 0.5;
 	this.fadeTime = 250;
 	this.tweenTime = 750;
@@ -7193,23 +7194,23 @@ alex.ui.PopupBase = function(){
 
 };
 //*******************************
-alex.ui.PopupBase.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.ui.PopupBase.prototype.constructor = alex.ui.PopupBase;
+cc.core.ui.PopupBase.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.ui.PopupBase.prototype.constructor = cc.core.ui.PopupBase;
 //*******************************************************
 // CREATE STUFF
 //*******************************************************
 
-alex.ui.PopupBase.prototype.createQuad = function(){
-	var w = alex.settings.DEFAULT_W + 2,
-        h = alex.settings.DEFAULT_H;
-	var bgQuad = new alex.display.Quad(w, h, 0x000000);
+cc.core.ui.PopupBase.prototype.createQuad = function(){
+	var w = cc.core.settings.DEFAULT_W + 2,
+        h = cc.core.settings.DEFAULT_H;
+	var bgQuad = new cc.core.display.Quad(w, h, 0x000000);
 	bgQuad.alpha = 0;
     bgQuad.x = w * -0.5; bgQuad.y = h * -0.5;
 	this.root.addChild(bgQuad);
 	return bgQuad;
 };
 
-alex.ui.PopupBase.prototype.createContentHolder = function(){
+cc.core.ui.PopupBase.prototype.createContentHolder = function(){
 	var content = new PIXI.Container();
 	this.root.addChild(content);
 	return content;
@@ -7219,7 +7220,7 @@ alex.ui.PopupBase.prototype.createContentHolder = function(){
 // SHOW
 //*******************************************************
 
-alex.ui.PopupBase.prototype.show = function(){
+cc.core.ui.PopupBase.prototype.show = function(){
 	if(this.state === this.states.HIDDEN){
         this.state = this.states.OPENING;
         this.bgQuad.alpha = 0;
@@ -7231,15 +7232,15 @@ alex.ui.PopupBase.prototype.show = function(){
     }   
 };
 
-alex.ui.PopupBase.prototype.createTweenQuadIn = function(){
+cc.core.ui.PopupBase.prototype.createTweenQuadIn = function(){
     return new TWEEN.Tween(this.bgQuad).to({alpha:this.quadAlpha}, this.fadeTime);
 };
 
-alex.ui.PopupBase.prototype.createTweenQuadOut = function(){
+cc.core.ui.PopupBase.prototype.createTweenQuadOut = function(){
     return new TWEEN.Tween(this.bgQuad).to({alpha: 0}, this.fadeTime);
 };
 
-alex.ui.PopupBase.prototype.createTweenOpen = function(){
+cc.core.ui.PopupBase.prototype.createTweenOpen = function(){
     var self = this;
     return new TWEEN.Tween(this.content.scale)
                 .to({x: 1, y: 1}, this.tweenTime)
@@ -7250,7 +7251,7 @@ alex.ui.PopupBase.prototype.createTweenOpen = function(){
                 });
 };
 
-alex.ui.PopupBase.prototype.onShown = function(){
+cc.core.ui.PopupBase.prototype.onShown = function(){
 	//override this
     this.emit(this.eventOpen);
 };
@@ -7259,7 +7260,7 @@ alex.ui.PopupBase.prototype.onShown = function(){
 // HIDE
 //*******************************************************
 
-alex.ui.PopupBase.prototype.hide = function(){
+cc.core.ui.PopupBase.prototype.hide = function(){
     if(this.state !== this.states.CLOSING){
         this.state = this.states.CLOSING;
         this.tweenQuadOut.start();
@@ -7267,7 +7268,7 @@ alex.ui.PopupBase.prototype.hide = function(){
     }   
 };
 
-alex.ui.PopupBase.prototype.createTweenShut = function(){
+cc.core.ui.PopupBase.prototype.createTweenShut = function(){
     var self = this;
     return new TWEEN.Tween(this.content.scale)
                 .to({x: this.minScale, y: this.minScale}, this.tweenTime)
@@ -7278,12 +7279,12 @@ alex.ui.PopupBase.prototype.createTweenShut = function(){
                 });
 };
 
-alex.ui.PopupBase.prototype.onHidden = function(){
+cc.core.ui.PopupBase.prototype.onHidden = function(){
 	this.emit(this.eventShut);
 };
 
 //make isShown into a getter
-Object.defineProperty(alex.ui.PopupBase.prototype, "isShown", {
+Object.defineProperty(cc.core.ui.PopupBase.prototype, "isShown", {
     get:function(){
         var isShownVar = this.state === this.states.SHOWN;
         var isOpening = this.state === this.states.OPENING;
@@ -7291,8 +7292,8 @@ Object.defineProperty(alex.ui.PopupBase.prototype, "isShown", {
     }
 });
 
-alex.motion.Wiggle = function(p_displayObj, p_maxRotation){
-	alex.utils.EventDispatcher.call(this);
+cc.core.motion.Wiggle = function(p_displayObj, p_maxRotation){
+	cc.core.utils.EventDispatcher.call(this);
 	//*************************************
 	this.img = p_displayObj;
 	this.baseR = p_displayObj.rotation;
@@ -7308,18 +7309,18 @@ alex.motion.Wiggle = function(p_displayObj, p_maxRotation){
 
 };
 //*******************************
-alex.motion.Wiggle.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.motion.Wiggle.prototype.constructor = alex.motion.Wiggle;
+cc.core.motion.Wiggle.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.motion.Wiggle.prototype.constructor = cc.core.motion.Wiggle;
 
-alex.motion.Wiggle.prototype.startWiggle = function() {
+cc.core.motion.Wiggle.prototype.startWiggle = function() {
 	this.counter = 0;
 };
 
-alex.motion.Wiggle.prototype.update = function(delta) {
+cc.core.motion.Wiggle.prototype.update = function(delta) {
 	this.wiggle(delta);
 };
 
-alex.motion.Wiggle.prototype.wiggle = function(time) {
+cc.core.motion.Wiggle.prototype.wiggle = function(time) {
 	this.counter += (this.speed * time);
 	var l_nSin = Math.sin(this.counter);
 	var l_nNewRotation = this.baseR - (l_nSin * this.maxR);
@@ -7327,8 +7328,8 @@ alex.motion.Wiggle.prototype.wiggle = function(time) {
 	return l_nNewRotation;
 };
 //add this to framework! (motion)
-alex.motion.Twanger = function(p_displayObj,p_max){
-	alex.motion.Wiggle.call(this,p_displayObj,p_max);
+cc.core.motion.Twanger = function(p_displayObj,p_max){
+	cc.core.motion.Wiggle.call(this,p_displayObj,p_max);
 	//**************************************************
 	//TODO - use a config object!
 	this.scale = 1.0;//flip to -1.0 to invert the twang!
@@ -7337,20 +7338,20 @@ alex.motion.Twanger = function(p_displayObj,p_max){
 	this.maxR = 0;
 	this.minR = 0.017;//0
 };
-alex.motion.Twanger.prototype = Object.create(alex.motion.Wiggle.prototype);
-alex.motion.Twanger.prototype.constructor = alex.motion.Twanger;
+cc.core.motion.Twanger.prototype = Object.create(cc.core.motion.Wiggle.prototype);
+cc.core.motion.Twanger.prototype.constructor = cc.core.motion.Twanger;
 
 /**
  *
  */
-alex.motion.Twanger.prototype.start = function() {
+cc.core.motion.Twanger.prototype.start = function() {
 	this.maxR = this.MAX_R;
 };
 
 /**
  * getter function for location point!
  */
-Object.defineProperty(alex.motion.Twanger.prototype, 'isTwanging', {
+Object.defineProperty(cc.core.motion.Twanger.prototype, 'isTwanging', {
     get: function() {
         return this.maxR > 0;
     }
@@ -7359,7 +7360,7 @@ Object.defineProperty(alex.motion.Twanger.prototype, 'isTwanging', {
 /**
  *
  */
-alex.motion.Twanger.prototype.update = function(time) {
+cc.core.motion.Twanger.prototype.update = function(time) {
 	//if (this.isTwanging) {
 	var isMoving = false;
 	if (this.maxR > this.minR) {
@@ -7377,7 +7378,7 @@ alex.motion.Twanger.prototype.update = function(time) {
 /**
  *
  */
-alex.motion.Twanger.prototype.wiggle = function(time) {
+cc.core.motion.Twanger.prototype.wiggle = function(time) {
 	this.counter += (this.speed * time);
 	var l_nSin = Math.sin(this.counter);
 	var l_nNewRotation = this.baseR - (l_nSin * this.maxR);
@@ -7387,7 +7388,7 @@ alex.motion.Twanger.prototype.wiggle = function(time) {
 /**
  *
  */
-alex.motion.Twanger.prototype.stopTwang = function() {
+cc.core.motion.Twanger.prototype.stopTwang = function() {
 	this.maxR = 0;
 	this.img.rotation = this.baseR;
 };
@@ -7399,7 +7400,7 @@ alex.motion.Twanger.prototype.stopTwang = function() {
  * Time: 2:56 PM
  * To change this template use File | Settings | File Templates.
  */
-alex.motion.Oscillator = function(){
+cc.core.motion.Oscillator = function(){
     this.speedX = 0.0005;
     this.speedY = 0.0005;
     this.time = 0;
@@ -7407,7 +7408,7 @@ alex.motion.Oscillator = function(){
     this.y = 0; 
 };
 
-alex.motion.Oscillator.prototype.init = function(config){
+cc.core.motion.Oscillator.prototype.init = function(config){
     if(config.speedX) this.speedX = config.speedX;
     if(config.speedY) this.speedY = config.speedY;
     if(config.time) this.time = config.time;
@@ -7415,18 +7416,18 @@ alex.motion.Oscillator.prototype.init = function(config){
     if(config.y) this.y = config.y;
 };
 
-alex.motion.Oscillator.prototype.randomise = function(){
+cc.core.motion.Oscillator.prototype.randomise = function(){
     this.speedX = 0.0005 + (Math.random() * 0.001);
     this.speedY = 0.0005 + (Math.random() * 0.001);
 };
 //
-alex.motion.Oscillator.prototype.reset = function(){
+cc.core.motion.Oscillator.prototype.reset = function(){
     this.time = 0;
     this.x = 0;
     this.y = 0; 
 };
 
-alex.motion.Oscillator.prototype.update = function(p_delta){
+cc.core.motion.Oscillator.prototype.update = function(p_delta){
     this.time += p_delta;
     this.x = Math.cos(this.time * this.speedX);
     this.y = Math.sin(this.time * this.speedY);
@@ -7434,7 +7435,7 @@ alex.motion.Oscillator.prototype.update = function(p_delta){
 
 
 
-alex.motion.SawTooth = function(){    
+cc.core.motion.SawTooth = function(){    
     this._value = 0;
     this._min = 0;
     this._max = 1;
@@ -7443,7 +7444,7 @@ alex.motion.SawTooth = function(){
     
 };
 
-alex.motion.SawTooth.prototype.update = function(delta){
+cc.core.motion.SawTooth.prototype.update = function(delta){
     var newValue = this._value + (delta * this._step);   
     if(newValue > this._max){
         newValue -= this._max; 
@@ -7451,24 +7452,24 @@ alex.motion.SawTooth.prototype.update = function(delta){
     this._value = newValue; 
 };
 
-alex.motion.SawTooth.prototype.reset = function(){
+cc.core.motion.SawTooth.prototype.reset = function(){
     this._value = 0;
 };
 
-Object.defineProperty(alex.motion.SawTooth.prototype, 'oscillationsPerSec', {
+Object.defineProperty(cc.core.motion.SawTooth.prototype, 'oscillationsPerSec', {
     set: function(oscillations){
         this._step = oscillations / 1000;   
     }
 });
 
-Object.defineProperty(alex.motion.SawTooth.prototype, 'value', {
+Object.defineProperty(cc.core.motion.SawTooth.prototype, 'value', {
     get: function(){
         return this._value;   
     }
 });
 
 
-alex.motion.TriangleWave = function(){    
+cc.core.motion.TriangleWave = function(){    
     this._value = 0;
     this._min = 0;
     this._max = 1;
@@ -7477,7 +7478,7 @@ alex.motion.TriangleWave = function(){
     
 };
 
-alex.motion.TriangleWave.prototype.update = function(delta){
+cc.core.motion.TriangleWave.prototype.update = function(delta){
     var newValue = this._value + (delta * this._step);   
     if(newValue > this._max){
         this._value = this._max; 
@@ -7491,18 +7492,18 @@ alex.motion.TriangleWave.prototype.update = function(delta){
     //console.log(this._value);
 };
 
-alex.motion.TriangleWave.prototype.reset = function(){
+cc.core.motion.TriangleWave.prototype.reset = function(){
     this._value = this._min;
     if(this._step < 0) this._step = -this._step;
 };
 
-Object.defineProperty(alex.motion.TriangleWave.prototype, 'oscillationsPerSec', {
+Object.defineProperty(cc.core.motion.TriangleWave.prototype, 'oscillationsPerSec', {
     set: function(oscillations){
         this._step = oscillations / 500; //half a second as has to go from one side to the other and back for an oscillation  
     }
 });
 
-Object.defineProperty(alex.motion.TriangleWave.prototype, 'value', {
+Object.defineProperty(cc.core.motion.TriangleWave.prototype, 'value', {
     get: function(){
         return this._value;   
     }
@@ -7514,8 +7515,8 @@ Object.defineProperty(alex.motion.TriangleWave.prototype, 'value', {
  * Time: 1:31 PM
  * To change this template use File | Settings | File Templates.
  */
-alex.motion.ScreenShaker = function(p_target){
-    alex.utils.EventDispatcher.call(this);
+cc.core.motion.ScreenShaker = function(p_target){
+    cc.core.utils.EventDispatcher.call(this);
     var time = 0;
     this.rootPt = new PIXI.Point();
     this.target = p_target;
@@ -7569,13 +7570,13 @@ alex.motion.ScreenShaker = function(p_target){
     };
 
 };
-alex.motion.ScreenShaker.prototype = Object.create(alex.utils.EventDispatcher.prototype);
-alex.motion.ScreenShaker.prototype.constructor = alex.motion.ScreenShaker;
+cc.core.motion.ScreenShaker.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
+cc.core.motion.ScreenShaker.prototype.constructor = cc.core.motion.ScreenShaker;
 /*
  -- example usage:
 
 game_shell.screens.TitleScreen.prototype.startPulse  = function(){
-    this.pulse = new alex.motion.Pulsar();
+    this.pulse = new cc.core.motion.Pulsar();
     this.pulse.init({
         scale: this.startBtn.scale,
         autostart: true
@@ -7584,7 +7585,7 @@ game_shell.screens.TitleScreen.prototype.startPulse  = function(){
 };
 
 */
-alex.motion.Pulsar = function(config){
+cc.core.motion.Pulsar = function(config){
 	if(typeof config !== 'undefined'){
 		this.init(config);
 	}
@@ -7598,7 +7599,7 @@ alex.motion.Pulsar = function(config){
 	config.autostart - default false
 	config.rate - default = 0.002
 */
-alex.motion.Pulsar.prototype.init = function(config){
+cc.core.motion.Pulsar.prototype.init = function(config){
 	//just reference the scale object directly, not store the sprite...
 	this.target = config.target;//actually could be useful to store the sprite too...
 	if(config.hasOwnProperty('target')){
@@ -7618,19 +7619,19 @@ alex.motion.Pulsar.prototype.init = function(config){
 	this.count = (startScale === this.maxScale)? 0 : Math.PI;
 };
 
-alex.motion.Pulsar.prototype.start = function(){
+cc.core.motion.Pulsar.prototype.start = function(){
 	this.active = true;
 };
 
-alex.motion.Pulsar.prototype.stop = function(){
+cc.core.motion.Pulsar.prototype.stop = function(){
 	this.active = false;
 };
 
-alex.motion.Pulsar.prototype.reset = function(){
+cc.core.motion.Pulsar.prototype.reset = function(){
 	this.count = 0;
 };
 
-alex.motion.Pulsar.prototype.update = function(delta){
+cc.core.motion.Pulsar.prototype.update = function(delta){
 	if(this.active){
 		this.count += delta * this.rate;
 		var sin = Math.sin(this.count);
@@ -7638,11 +7639,11 @@ alex.motion.Pulsar.prototype.update = function(delta){
 		this.scale.x = this.scale.y = scale;
 	}
 };
-alex.motion.Interpolation = {
+cc.core.motion.Interpolation = {
 	/**
     * A Catmull Rom Interpolation Method taken from Phaser.
     *
-    * @method alex.motion.Interpolation#catmullRomInterpolation
+    * @method cc.core.motion.Interpolation#catmullRomInterpolation
     * @param {Array} v - The input array of values to interpolate between.
     * @param {number} k - The percentage of interpolation, between 0 and 1.
     * @return {number} The interpolated value
@@ -7681,7 +7682,7 @@ alex.motion.Interpolation = {
     /**
     * Calculates a catmum rom value.
     *
-    * @method alex.motion.Interpolation#catmullRom
+    * @method cc.core.motion.Interpolation#catmullRom
     * @protected
     * @param {number} p0
     * @param {number} p1
@@ -7700,7 +7701,7 @@ alex.motion.Interpolation = {
     /**
     * A Bezier Interpolation Method taken from Phaser.
     *
-    * @method alex.motion.Interpolation#bezierInterpolation
+    * @method cc.core.motion.Interpolation#bezierInterpolation
     * @param {Array} v - The input array of values to interpolate between.
     * @param {number} k - The percentage of interpolation, between 0 and 1.
     * @return {number} The interpolated value
@@ -7722,7 +7723,7 @@ alex.motion.Interpolation = {
     /**
     * Calculates a linear (interpolation) value over t.
     *
-    * @method alex.motion.Interpolation#linear
+    * @method cc.core.motion.Interpolation#linear
     * @param {number} p0
     * @param {number} p1
     * @param {number} t
@@ -7734,7 +7735,7 @@ alex.motion.Interpolation = {
     /**
     * A Linear Interpolation Method taken from Phaser.
     *
-    * @method alex.motion.Interpolation#linearInterpolation
+    * @method cc.core.motion.Interpolation#linearInterpolation
     * @param {Array} v - The input array of values to interpolate between.
     * @param {number} k - The percentage of interpolation, between 0 and 1.
     * @return {number} The interpolated value
@@ -7759,7 +7760,7 @@ alex.motion.Interpolation = {
 
     }
 };
-alex.game.HitTest = {
+cc.core.game.HitTest = {
     intersects: function(Object1, Object2){
         var overlap = this._intersection(Object1, Object2);
         return overlap > 0;
@@ -7805,7 +7806,7 @@ alex.game.HitTest = {
     }
 };
 
-alex.game.Camera = function(){
+cc.core.game.Camera = function(){
     this.maxY = 0;
     this.minY = 0;
     this.maxX = 0;
@@ -7820,8 +7821,8 @@ alex.game.Camera = function(){
     */
     this.target = null;
 };
-alex.game.Camera.prototype = Object.create(alex.game.HitTest);
-alex.game.Camera.prototype.constructor = alex.game.Camera;
+cc.core.game.Camera.prototype = Object.create(cc.core.game.HitTest);
+cc.core.game.Camera.prototype.constructor = cc.core.game.Camera;
 
 /*
 
@@ -7831,7 +7832,7 @@ alex.game.Camera.prototype.constructor = alex.game.Camera;
  config.bgW <- width of background in points
 
  */
-alex.game.Camera.prototype.init = function(config){
+cc.core.game.Camera.prototype.init = function(config){
     //
     this.oldX = -100;
     this.defaultTrackX = this.trackX = 0;
@@ -7855,29 +7856,29 @@ alex.game.Camera.prototype.init = function(config){
     }
 };
 
-alex.game.Camera.prototype.reset = function(){
+cc.core.game.Camera.prototype.reset = function(){
     this.trackX = this.defaultTrackX;
     this.trackY = this.defaultTrackY;
 };
 
 //default is to just move x
-alex.game.Camera.prototype._update = function(delta){
+cc.core.game.Camera.prototype._update = function(delta){
     this.move(this.target.x);
 };
 
 //default is to just move x
-alex.game.Camera.prototype.move = function(px){
+cc.core.game.Camera.prototype.move = function(px){
     if (px !== this.oldX) {
         this.oldX = px;
         this.scrollX(px + this.trackX);
     }
 };
 
-alex.game.Camera.prototype._updateBoth = function(delta){
+cc.core.game.Camera.prototype._updateBoth = function(delta){
     this.moveBoth(this.target);
 };
 
-alex.game.Camera.prototype.moveBoth = function(pt){
+cc.core.game.Camera.prototype.moveBoth = function(pt){
     if (pt.x !== this.oldX) {
         this.oldX = pt.x;
         this.scrollX(pt.x + this.trackX);
@@ -7888,7 +7889,7 @@ alex.game.Camera.prototype.moveBoth = function(pt){
     }
 };
 
-alex.game.Camera.prototype.scrollX = function(px) {
+cc.core.game.Camera.prototype.scrollX = function(px) {
     //console.log('px: ' + px)
     if(px > this.maxX){
         px = this.maxX;
@@ -7902,7 +7903,7 @@ alex.game.Camera.prototype.scrollX = function(px) {
     this.viewport.x = px - (this.viewport.width * 0.5);
 };
 
-alex.game.Camera.prototype.scrollY = function(py) {
+cc.core.game.Camera.prototype.scrollY = function(py) {
     //console.log('px: ' + px)
     if(py > this.maxY){
         py = this.maxY;
@@ -7917,7 +7918,7 @@ alex.game.Camera.prototype.scrollY = function(py) {
 };
 
 
-alex.game.Camera.prototype._frameCheckPoint = function(x, y){
+cc.core.game.Camera.prototype._frameCheckPoint = function(x, y){
     if(this.moveY){
         var inX = (x > this.viewport.x && x < this.viewport.x + this.viewport.width);
         if(!inX) return false;
@@ -7928,7 +7929,7 @@ alex.game.Camera.prototype._frameCheckPoint = function(x, y){
     }    
 };
 
-alex.game.Camera.prototype._frameCheckRect = function(rect){
+cc.core.game.Camera.prototype._frameCheckRect = function(rect){
     if(this.moveY){
         return this.intersects(rect, this.viewport);
     } else {
@@ -7938,20 +7939,20 @@ alex.game.Camera.prototype._frameCheckRect = function(rect){
 };
 
 
-alex.game.Camera.prototype.getX = function(){
+cc.core.game.Camera.prototype.getX = function(){
     return this.scene.pivot.x;
 };
 
-alex.game.Camera.prototype.getY = function(){
+cc.core.game.Camera.prototype.getY = function(){
     return this.scene.pivot.y;
 };
-alex.game.CameraCull = function(){
+cc.core.game.CameraCull = function(){
 	this.gameObjects = [];
 	this.camera = null;
 	this.enabled = true;
 };
 
-alex.game.CameraCull.prototype.init = function(config) {
+cc.core.game.CameraCull.prototype.init = function(config) {
     for (var s in config) if (config.hasOwnProperty(s)) this[s] = config[s];
 
     if(!this.enabled){
@@ -7959,11 +7960,11 @@ alex.game.CameraCull.prototype.init = function(config) {
     }
 };
 
-alex.game.CameraCull.prototype.add = function(item){
+cc.core.game.CameraCull.prototype.add = function(item){
 	this.gameObjects[this.gameObjects.length] = item;
 };
 
-alex.game.CameraCull.prototype.update = function(delta){
+cc.core.game.CameraCull.prototype.update = function(delta){
     //**********************************
     var i, n = this.gameObjects.length, obj;
     //**************************************
@@ -7980,7 +7981,7 @@ alex.game.CameraCull.prototype.update = function(delta){
  * @class GameLoop
  * @constructor
  */
-alex.game.GameLoop = function(){
+cc.core.game.GameLoop = function(){
     this.gameObjects = [];
     this.itemsToRemove = [];//items to remove
     this.cameraCulling = false;
@@ -7990,34 +7991,34 @@ alex.game.GameLoop = function(){
 };
 
 //
-alex.game.GameLoop.prototype.init = function(config){
+cc.core.game.GameLoop.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 };
 
-alex.game.GameLoop.prototype.add = function(item){
+cc.core.game.GameLoop.prototype.add = function(item){
     var i = this.gameObjects.length;
     this.gameObjects[i] = item;
     return i;
 };
 
-alex.game.GameLoop.prototype.remove = function(item){
+cc.core.game.GameLoop.prototype.remove = function(item){
     this.itemsToRemove[this.itemsToRemove.length] = item;
 };
 
-alex.game.GameLoop.prototype.start = function(){
+cc.core.game.GameLoop.prototype.start = function(){
     this.isPaused = false;
 };
 
-alex.game.GameLoop.prototype.stop = function(){
+cc.core.game.GameLoop.prototype.stop = function(){
     this.isPaused = true;
 };
 
-alex.game.GameLoop.prototype.pause = function(bool){
+cc.core.game.GameLoop.prototype.pause = function(bool){
     this.isPaused = bool;
 };
 
 //
-alex.game.GameLoop.prototype.update = function(p_delta){
+cc.core.game.GameLoop.prototype.update = function(p_delta){
     if(!this.isPaused){
          //****************************
         //move game objects
@@ -8036,7 +8037,7 @@ alex.game.GameLoop.prototype.update = function(p_delta){
 /*
  * move game objects
  */
-alex.game.GameLoop.prototype.updateGameObjects = function(p_delta){
+cc.core.game.GameLoop.prototype.updateGameObjects = function(p_delta){
     //**********************************
     var i, n = this.gameObjects.length, obj;
     //**************************************
@@ -8053,7 +8054,7 @@ alex.game.GameLoop.prototype.updateGameObjects = function(p_delta){
 /*
  * bounds check
  */
-alex.game.GameLoop.prototype.postUpdate = function(p_delta){
+cc.core.game.GameLoop.prototype.postUpdate = function(p_delta){
     //**************************************
     //**********************************
     var i, n = this.itemsToRemove.length, obj, index;
@@ -8082,7 +8083,7 @@ alex.game.GameLoop.prototype.postUpdate = function(p_delta){
 /*
  * write all game co-ords to their display objects
  */
-alex.game.GameLoop.prototype.drawGameObjects = function(){
+cc.core.game.GameLoop.prototype.drawGameObjects = function(){
     var i, obj, n = this.gameObjects.length;
     for (i = 0; i < n; i++) {
         obj = this.gameObjects[i];
@@ -8094,7 +8095,7 @@ alex.game.GameLoop.prototype.drawGameObjects = function(){
 /*
  * 
  */
-alex.game.GameLoop.prototype.getGameObject = function(id){
+cc.core.game.GameLoop.prototype.getGameObject = function(id){
     var i, obj, n = this.gameObjects.length, target = null;
     for (i = 0; i < n; i++) {
         obj = this.gameObjects[i];
@@ -8110,7 +8111,7 @@ alex.game.GameLoop.prototype.getGameObject = function(id){
  * @param config
  * @constructor
  */
-alex.game.GameObject = function(config){
+cc.core.game.GameObject = function(config){
     this.body = null;
     this.shape = null;
     this.graphics = null;
@@ -8127,12 +8128,12 @@ alex.game.GameObject = function(config){
 
     this.frame = new PIXI.Rectangle();//AABB
 };
-alex.game.GameObject.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.game.GameObject.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  * @method createMultiShape
  */
-alex.game.GameObject.prototype.createMultiShape = function(config, isSensor){
+cc.core.game.GameObject.prototype.createMultiShape = function(config, isSensor){
     var x = config.x / this.scaling,
         y = config.y / this.scaling;
     //passing no mass value caused this to default to static body type
@@ -8161,7 +8162,7 @@ alex.game.GameObject.prototype.createMultiShape = function(config, isSensor){
 /**
  * @method createRectangle
  */
-alex.game.GameObject.prototype.createRectangle = function(config){
+cc.core.game.GameObject.prototype.createRectangle = function(config){
     var w = config.width / this.scaling,
         h = config.height / this.scaling,
         x = config.x / this.scaling,
@@ -8183,7 +8184,7 @@ alex.game.GameObject.prototype.createRectangle = function(config){
 /**
  * @method createCircle
  */
-alex.game.GameObject.prototype.createCircle = function(config){
+cc.core.game.GameObject.prototype.createCircle = function(config){
     var diameter = config.diameter / this.scaling,
         x = config.x / this.scaling,
         y = config.y / this.scaling;
@@ -8204,7 +8205,7 @@ alex.game.GameObject.prototype.createCircle = function(config){
  * @param config
  * @returns {null}
  */
-alex.game.GameObject.prototype.createPolygon = function (config) {
+cc.core.game.GameObject.prototype.createPolygon = function (config) {
     this.body = new p2.Body({
         position: [0, 0]
     });
@@ -8222,7 +8223,7 @@ alex.game.GameObject.prototype.createPolygon = function (config) {
     //uh-oh, they need to be anti clockwise!
     // - check whether clockwise
 
-    var isClockwise = alex.utils.Maths.isClockwise(vertices);
+    var isClockwise = cc.core.utils.Maths.isClockwise(vertices);
     if(isClockwise){
         vertices.reverse();
     }
@@ -8238,7 +8239,7 @@ alex.game.GameObject.prototype.createPolygon = function (config) {
 /**
  * @method draw
  */
-alex.game.GameObject.prototype.draw = function(force){
+cc.core.game.GameObject.prototype.draw = function(force){
     if(!this.graphics) return;
     if(!this.needsDraw && !force) return;
     var x = this.graphics.position.x = -(this.body.position[0] * this.scaling);
@@ -8253,7 +8254,7 @@ alex.game.GameObject.prototype.draw = function(force){
  * @method parse
  * @param config
  */
-alex.game.GameObject.prototype.parse = function(config){
+cc.core.game.GameObject.prototype.parse = function(config){
     this.resolution = config.resolution;
     this.setPosition(config);
     this.body.angle = (config.angle) || 0;
@@ -8271,7 +8272,7 @@ alex.game.GameObject.prototype.parse = function(config){
 /**
  * @method makeSprite
  */
-alex.game.GameObject.prototype.makeSprite = function(image){
+cc.core.game.GameObject.prototype.makeSprite = function(image){
     return new PIXI.Sprite(PIXI.utils.TextureCache[image]);
 };
 
@@ -8279,7 +8280,7 @@ alex.game.GameObject.prototype.makeSprite = function(image){
  * @method updateFrame
  * @returns {Object}
  */
-alex.game.GameObject.prototype.updateFrame = function(){
+cc.core.game.GameObject.prototype.updateFrame = function(){
     //hmmm... how to get the x & y?
     //var bounds = this.graphics.getLocalBounds();
     var bounds = this.graphics.getBounds();
@@ -8303,7 +8304,7 @@ alex.game.GameObject.prototype.updateFrame = function(){
 /**
  * @method 
  */
-alex.game.GameObject.prototype.setPosition = function(pt){
+cc.core.game.GameObject.prototype.setPosition = function(pt){
     this.body.position[0] = (pt.x / this.scaling);// || 0;
     this.body.position[1] = (pt.y / this.scaling);// || 0;
 };
@@ -8311,7 +8312,7 @@ alex.game.GameObject.prototype.setPosition = function(pt){
 /**
  * @method 
  */
-Object.defineProperties(alex.game.GameObject.prototype, {
+Object.defineProperties(cc.core.game.GameObject.prototype, {
     x: {
         get: function(){
             return this.body.position[0] * this.scaling;
@@ -8365,9 +8366,9 @@ Object.defineProperties(alex.game.GameObject.prototype, {
 // *****************************************************************
 // stubs
 
-alex.game.GameObject.prototype.update = function(time){ };
+cc.core.game.GameObject.prototype.update = function(time){ };
 
-alex.game.GameObject.prototype.preUpdate = function(time){ };
+cc.core.game.GameObject.prototype.preUpdate = function(time){ };
 
 // *****************************************************************
 
@@ -8375,7 +8376,7 @@ alex.game.GameObject.prototype.preUpdate = function(time){ };
  * draws multiple shapes, each with a different graphcis object
  * @method debugGraphics
  */
-alex.game.GameObject.prototype.debugGraphics = function(shapes, positions, parent){
+cc.core.game.GameObject.prototype.debugGraphics = function(shapes, positions, parent){
     var holder = parent || new PIXI.Container();
     var i, n = shapes.length, shape, gfx, position;
     for( i= 0; i < n; i++){
@@ -8390,7 +8391,7 @@ alex.game.GameObject.prototype.debugGraphics = function(shapes, positions, paren
     return holder;
 };
 
-alex.game.GameObject.prototype.debugCircle = function(shape){
+cc.core.game.GameObject.prototype.debugCircle = function(shape){
     var graphics = new PIXI.Graphics();
     var color = 0xff0000, fillAlpha =0.4;
     graphics.lineStyle(2, color);
@@ -8406,7 +8407,7 @@ alex.game.GameObject.prototype.debugCircle = function(shape){
  * creates a single graphics rect corresponding to a given box
  * @method graphicsRect
  */
-alex.game.GameObject.prototype.graphicsRect = function(boxShape){
+cc.core.game.GameObject.prototype.graphicsRect = function(boxShape){
     var graphics = new PIXI.Graphics();
     var color = 0xff0000, fillAlpha =0.4;
     graphics.lineStyle(2, color);
@@ -8423,7 +8424,7 @@ alex.game.GameObject.prototype.graphicsRect = function(boxShape){
  * creates a single graphics rect for singe shape items
  * @method debugRect
  */
-alex.game.GameObject.prototype.debugRect = function(shape){
+cc.core.game.GameObject.prototype.debugRect = function(shape){
     if(!shape) shape = this.shape;
     var gfx = this.graphicsRect(shape);
     gfx.x = -(this.body.position[0] * this.scaling);
@@ -8432,8 +8433,8 @@ alex.game.GameObject.prototype.debugRect = function(shape){
     return gfx;
 };
 
-alex.game.GameObject.prototype.debugFrame = function(){
-    var q = new alex.display.Quad();
+cc.core.game.GameObject.prototype.debugFrame = function(){
+    var q = new cc.core.display.Quad();
     q.fromRect(this.frame);
     q.alpha = 0.5;
     return q;
@@ -8442,20 +8443,20 @@ alex.game.GameObject.prototype.debugFrame = function(){
  * @class DragSprite
  * @constructor
  */
-alex.game.DragSprite = function(){
+cc.core.game.DragSprite = function(){
     this.useClickAndStick = false;
     this.minSize = 60;//TODO - configure this with devicePixelRatio?
     this.y = 0;
     this.x = 0;
     this.autoEnable = true;
 };
-alex.game.DragSprite.prototype = Object.create(alex.utils.EventDispatcher.prototype);
+cc.core.game.DragSprite.prototype = Object.create(cc.core.utils.EventDispatcher.prototype);
 
 /**
  *
  * @param config
  */
-alex.game.DragSprite.prototype.init = function(config){
+cc.core.game.DragSprite.prototype.init = function(config){
 
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 
@@ -8492,7 +8493,7 @@ alex.game.DragSprite.prototype.init = function(config){
 /**
  * this is where it all happens
  */
-alex.game.DragSprite.prototype.initDrag = function(){
+cc.core.game.DragSprite.prototype.initDrag = function(){
     var pt = new PIXI.Point(), global = new PIXI.Point(), dragOffset = new PIXI.Point();
     var root = this.root, self = this, modeDefault = 1, modeClick = 2;//dragging = 0,
     var pressTime = 0, useClickAndStick = this.useClickAndStick;
@@ -8571,14 +8572,14 @@ alex.game.DragSprite.prototype.initDrag = function(){
  *
  * @param bool
  */
-alex.game.DragSprite.prototype.enable = function(bool){
+cc.core.game.DragSprite.prototype.enable = function(bool){
     this.root.interactive = bool;
     this.root.buttonMode = bool;
 };
 /**
  *
  */
-alex.game.DragSprite.prototype.updateRect = function(){
+cc.core.game.DragSprite.prototype.updateRect = function(){
     this.rect.x = this.root.x - (this.rect.width * 0.5);
     this.rect.y = this.root.y - (this.rect.height * 0.5);
 };
@@ -8586,7 +8587,7 @@ alex.game.DragSprite.prototype.updateRect = function(){
 /**
  *
  */
-alex.game.DragSprite.prototype.dropped = function(){
+cc.core.game.DragSprite.prototype.dropped = function(){
     this.updateRect();
     this.emit({type: 'dropped', rect: this.rect});
 };
@@ -8594,7 +8595,7 @@ alex.game.DragSprite.prototype.dropped = function(){
 /**
  *
  */
-alex.game.DragSprite.prototype.toFront = function(){
+cc.core.game.DragSprite.prototype.toFront = function(){
     var p = this.root.parent;
     this.root.removeFromParent();
     p.addChild(this.root);
@@ -8604,7 +8605,7 @@ alex.game.DragSprite.prototype.toFront = function(){
  *
  * @param pt
  */
-alex.game.DragSprite.prototype.setStart = function(pt){
+cc.core.game.DragSprite.prototype.setStart = function(pt){
     this.startPt.x = pt.x;
     this.startPt.y = pt.y;
     this.root.x = pt.x;
@@ -8615,7 +8616,7 @@ alex.game.DragSprite.prototype.setStart = function(pt){
  * @class ParticleBase
  * @constructor
  */
-alex.game.ParticleBase = function(){
+cc.core.game.ParticleBase = function(){
     this.root = null;
     this.texture = null;
     this.life = 3;
@@ -8630,7 +8631,7 @@ alex.game.ParticleBase = function(){
  *
  * @param config
  */
-alex.game.ParticleBase.prototype.init = function(config){
+cc.core.game.ParticleBase.prototype.init = function(config){
     for(var s in config) if(config.hasOwnProperty(s)) this[s] = config[s];
 
     this.emitter = this.createEmitter();
@@ -8648,7 +8649,7 @@ alex.game.ParticleBase.prototype.init = function(config){
 /**
  *
  */
-alex.game.ParticleBase.prototype.dispose = function(){
+cc.core.game.ParticleBase.prototype.dispose = function(){
     if(this.proton) this.proton.destroy();
     this.proton = null;
 };
@@ -8659,7 +8660,7 @@ alex.game.ParticleBase.prototype.dispose = function(){
  * @param py
  * @param duration
  */
-alex.game.ParticleBase.prototype.fire = function(px, py, duration){
+cc.core.game.ParticleBase.prototype.fire = function(px, py, duration){
     var time = duration || 0.5;
     this.move(px,py);
     this.emit(time);
@@ -8670,7 +8671,7 @@ alex.game.ParticleBase.prototype.fire = function(px, py, duration){
  * @param px
  * @param py
  */
-alex.game.ParticleBase.prototype.move = function(px,py){
+cc.core.game.ParticleBase.prototype.move = function(px,py){
     this.emitter.p.x = px || 0;
     this.emitter.p.y = py || 0;
 };
@@ -8679,7 +8680,7 @@ alex.game.ParticleBase.prototype.move = function(px,py){
  *
  * @param p_time
  */
-alex.game.ParticleBase.prototype.update = function(p_time){
+cc.core.game.ParticleBase.prototype.update = function(p_time){
     this.proton.update(p_time);
 };
 
@@ -8687,7 +8688,7 @@ alex.game.ParticleBase.prototype.update = function(p_time){
  *
  * @param p_secs
  */
-alex.game.ParticleBase.prototype.emit = function(p_secs){
+cc.core.game.ParticleBase.prototype.emit = function(p_secs){
     var secs = p_secs || Infinity;
     this.emitter.emit(secs);
 };
@@ -8696,7 +8697,7 @@ alex.game.ParticleBase.prototype.emit = function(p_secs){
  *
  * @param andRemove
  */
-alex.game.ParticleBase.prototype.stop = function(andRemove){
+cc.core.game.ParticleBase.prototype.stop = function(andRemove){
     this.emitter.stopEmit();
     if(andRemove){
         this.emitter.removeAllParticles();
@@ -8706,7 +8707,7 @@ alex.game.ParticleBase.prototype.stop = function(andRemove){
 /**
  * a single emission burst
  */
-alex.game.ParticleBase.prototype.burst = function(){
+cc.core.game.ParticleBase.prototype.burst = function(){
     this.emitter.emit(0.2);
 };
 
@@ -8714,7 +8715,7 @@ alex.game.ParticleBase.prototype.burst = function(){
  *
  * @param radians
  */
-alex.game.ParticleBase.prototype.rotate = function(radians){
+cc.core.game.ParticleBase.prototype.rotate = function(radians){
     var degrees = ((radians * this.deg) % 360) - 180;
     this.emitter.velocity.thaPan.a = degrees;
 };
@@ -8723,7 +8724,7 @@ alex.game.ParticleBase.prototype.rotate = function(radians){
  *
  * @returns {Proton.BehaviourEmitter}
  */
-alex.game.ParticleBase.prototype.createEmitter = function() {
+cc.core.game.ParticleBase.prototype.createEmitter = function() {
     var texture = this.texture;
     //
     var vx = (this.life * 0.5), vy = this.life;
@@ -8753,7 +8754,7 @@ alex.game.ParticleBase.prototype.createEmitter = function() {
  * @param particleSprite
  * @param particle
  */
-alex.game.ParticleBase.prototype.transformSprite = function(particleSprite, particle) {
+cc.core.game.ParticleBase.prototype.transformSprite = function(particleSprite, particle) {
     particleSprite.x = particle.p.x;
     particleSprite.y = particle.p.y;
     particleSprite.scale.x = particle.scale;
@@ -8768,7 +8769,7 @@ alex.game.ParticleBase.prototype.transformSprite = function(particleSprite, part
  * @returns {Array}
  * @private
  */
-alex.game.ParticleBase.prototype._createPool = function(size) {
+cc.core.game.ParticleBase.prototype._createPool = function(size) {
     var _spritePool = [];
     var sp, tx = this.texture;
     while (size > 0) {
@@ -8785,7 +8786,7 @@ alex.game.ParticleBase.prototype._createPool = function(size) {
 /**
  *
  */
-alex.game.ParticleBase.prototype.createRenderer = function() {
+cc.core.game.ParticleBase.prototype.createRenderer = function() {
     var renderer = new Proton.Renderer('other', this.proton);
     //renderer.onProtonUpdate = function() { };
     var self = this;
@@ -8806,7 +8807,7 @@ alex.game.ParticleBase.prototype.createRenderer = function() {
  *
  * @returns {Pixi.Sprite}
  */
-alex.game.ParticleBase.prototype.nextSprite = function() {
+cc.core.game.ParticleBase.prototype.nextSprite = function() {
     var sp = this._spritePool.shift();
     this._spritePool[this._spritePool.length] = sp;
     return sp;
@@ -8816,7 +8817,7 @@ alex.game.ParticleBase.prototype.nextSprite = function() {
  *
  * @constructor
  */
-alex.game.NullParticles = function(){
+cc.core.game.NullParticles = function(){
     //************************************************
     this.dispose = function(){ };
     //
@@ -8832,57 +8833,57 @@ alex.game.NullParticles = function(){
  * mixin to handle generic game init
  * @constructor
  */
-alex.GenericGame = function () {
+cc.core.GenericGame = function () {
 
     //*************************************
     //set div color
     //*************************************
-    this.gameDiv = alex.GenericGame.prototype.setGameDiv.call(this, 'game');
+    this.gameDiv = cc.core.GenericGame.prototype.setGameDiv.call(this, 'game');
     //*************************************
     // system analysis
     //*************************************
-    this.system = alex.GenericGame.prototype.createSystemInfo.call(this);
+    this.system = cc.core.GenericGame.prototype.createSystemInfo.call(this);
     //*************************************
     //create a central event queue
-    this.eventQueue = alex.GenericGame.prototype.createEventQueue.call(this);
+    this.eventQueue = cc.core.GenericGame.prototype.createEventQueue.call(this);
     //*************************************
-    this.resolutionController = alex.GenericGame.prototype.initResolution.call(this);//<- do this before creating viewport!
+    this.resolutionController = cc.core.GenericGame.prototype.initResolution.call(this);//<- do this before creating viewport!
     //*************************************
-    this.viewport = alex.GenericGame.prototype.createViewport.call(this);
+    this.viewport = cc.core.GenericGame.prototype.createViewport.call(this);
     //*************************************
     // create pixi stage instance
     //*************************************
-    this.stage = alex.GenericGame.prototype.createStage.call(this, alex.settings);
+    this.stage = cc.core.GenericGame.prototype.createStage.call(this, cc.core.settings);
     //*************************************
     //instantiate sound manager
-    this.snd = alex.GenericGame.prototype.createSoundManager.call(this);
+    this.snd = cc.core.GenericGame.prototype.createSoundManager.call(this);
     //*************************************
     // create screen manager
     //*************************************
-    this.screenMgr = alex.GenericGame.prototype.createScreenManager.call(this);
+    this.screenMgr = cc.core.GenericGame.prototype.createScreenManager.call(this);
     //*************************************
     // create the render loop
     //*************************************
-    this.renderLoop = alex.GenericGame.prototype.createRenderLoop.call(this);
+    this.renderLoop = cc.core.GenericGame.prototype.createRenderLoop.call(this);
     //*************************************
     //have a global updateList instance for things that need to run independently of screens
-    this.updateList = new alex.utils.UpdateList();
+    this.updateList = new cc.core.utils.UpdateList();
     //have a global timeout
-    this.timeout = new alex.utils.DelayedAction();
+    this.timeout = new cc.core.utils.DelayedAction();
     this.updateList.add(this.timeout);
     //*************************************
-    this.updateLoop = alex.GenericGame.prototype.createUpdateLoop.call(this);
+    this.updateLoop = cc.core.GenericGame.prototype.createUpdateLoop.call(this);
     //*************************************
     // game pause handling
     //*************************************
-    this.pauseController = alex.GenericGame.prototype.createPauseController.call(this);
+    this.pauseController = cc.core.GenericGame.prototype.createPauseController.call(this);
     //*************************************
     // full screen handling
     //*************************************
-    this.fullscreen = alex.GenericGame.prototype.createFullscreenManager.call(this);
+    this.fullscreen = cc.core.GenericGame.prototype.createFullscreenManager.call(this);
     //*************************************
     //create loader
-    this.loader = alex.GenericGame.prototype.createLoader.call(this);
+    this.loader = cc.core.GenericGame.prototype.createLoader.call(this);
     //*************************************
     //invoke callback - for customisation
     if (typeof this.onReady === "function") this.onReady();
@@ -8890,7 +8891,7 @@ alex.GenericGame = function () {
     //invoke resize
     this.viewport.resize();
     //*************************************
-    alex.GenericGame.prototype.begin.call(this);
+    cc.core.GenericGame.prototype.begin.call(this);
     //************************************************
     this.getURL = function (id) {
         return this.loader.urls.getURL(id);
@@ -8899,17 +8900,17 @@ alex.GenericGame = function () {
 
 /**
  *
- * @returns {alex.load.BulkLoader}
+ * @returns {cc.core.load.BulkLoader}
  */
-alex.GenericGame.prototype.createLoader = function () {
-    var loader = new alex.load.BulkLoader();
+cc.core.GenericGame.prototype.createLoader = function () {
+    var loader = new cc.core.load.BulkLoader();
     loader.init({
         resolution: this.resolution,
         system: this.system,
-        settings: alex.settings,
+        settings: cc.core.settings,
         jsonCache: this.json,
         audioType: this.system.audioType,
-        audioFolder: alex.settings.SND_DIR
+        audioFolder: cc.core.settings.SND_DIR
     });
     return loader;
 };
@@ -8918,7 +8919,7 @@ alex.GenericGame.prototype.createLoader = function () {
  * @method updateGame
  * @param delta
  */
-alex.GenericGame.prototype.updateGame = function (delta) {
+cc.core.GenericGame.prototype.updateGame = function (delta) {
     //update tweens
     TWEEN.update(this.updateLoop.currentTime);
     //the global update list
@@ -8938,7 +8939,7 @@ alex.GenericGame.prototype.updateGame = function (delta) {
 /**
  * @method start
  */
-alex.GenericGame.prototype.begin = function () {
+cc.core.GenericGame.prototype.begin = function () {
     this.updateLoop.start();
     //kick off the render loop
     this.renderLoop.start();
@@ -8949,57 +8950,57 @@ alex.GenericGame.prototype.begin = function () {
  * @param name
  * @returns {Element}
  */
-alex.GenericGame.prototype.setGameDiv = function (name) {
+cc.core.GenericGame.prototype.setGameDiv = function (name) {
     var gameDiv = document.getElementById(name);
-    gameDiv.style.backgroundColor = alex.settings.BG_COLOR;
+    gameDiv.style.backgroundColor = cc.core.settings.BG_COLOR;
     return gameDiv;
 };
 
 /**
  * @method createEventQueue
- * @returns {alex.utils.EventQueue}
+ * @returns {cc.core.utils.EventQueue}
  */
-alex.GenericGame.prototype.createEventQueue = function () {
-    var eventQueue = new alex.utils.EventQueue();
+cc.core.GenericGame.prototype.createEventQueue = function () {
+    var eventQueue = new cc.core.utils.EventQueue();
     eventQueue.on("game_event", this.onGameEvent.bind(this));
     return eventQueue;
 };
 
 /**
  * @method createScreenManager
- * @returns {alex.screens.ScreenMgr}
+ * @returns {cc.core.screens.ScreenMgr}
  */
-alex.GenericGame.prototype.createScreenManager = function () {
-    var screenMgr = new alex.screens.ScreenMgr();//
+cc.core.GenericGame.prototype.createScreenManager = function () {
+    var screenMgr = new cc.core.screens.ScreenMgr();//
     screenMgr.init({
         stage: this.stage, 
         snd: this.snd, 
         eventQueue: this.eventQueue, 
         resolution: this.resolution, 
-        settings: alex.settings
+        settings: cc.core.settings
     });
     return screenMgr;
 };
 
 /**
  * @method createSystemInfo
- * @returns {alex.utils.SystemInfo}
+ * @returns {cc.core.utils.SystemInfo}
  */
-alex.GenericGame.prototype.createSystemInfo = function () {
-    var system = new alex.utils.SystemInfo();
+cc.core.GenericGame.prototype.createSystemInfo = function () {
+    var system = new cc.core.utils.SystemInfo();
     system.run(true);
     //allow overriding the audio type with mp3
-    if (alex.settings.AUDIO_TYPE) system.audioType = alex.settings.AUDIO_TYPE;
-    alex.utils.system = system;//for legacy reasons, store here too
+    if (cc.core.settings.AUDIO_TYPE) system.audioType = cc.core.settings.AUDIO_TYPE;
+    cc.core.utils.system = system;//for legacy reasons, store here too
     return system;
 };
 
 /**
  * @method createPauseGame
- * @returns {alex.utils.PauseController}
+ * @returns {cc.core.utils.PauseController}
  */
-alex.GenericGame.prototype.createPauseController = function () {
-    var pauseController = new alex.utils.PauseController();
+cc.core.GenericGame.prototype.createPauseController = function () {
+    var pauseController = new cc.core.utils.PauseController();
     pauseController.init({
         updateLoop: this.updateLoop,
         renderLoop: this.renderLoop,
@@ -9010,20 +9011,20 @@ alex.GenericGame.prototype.createPauseController = function () {
 
 /**
  * @method createFullscreenManager
- * @returns {alex.utils.FullscreenMgr}
+ * @returns {cc.core.utils.FullscreenMgr}
  */
-alex.GenericGame.prototype.createFullscreenManager = function () {
+cc.core.GenericGame.prototype.createFullscreenManager = function () {
     var fullscreenMgr = null;
-    if (alex.utils.system.isMobile) {
+    if (cc.core.utils.system.isMobile) {
         window.scrollTo(0, 1); //can't use fullscreen API here, only on user interaction!
     }
-    if (alex.settings.FULLSCREEN_ENABLED) {
-        var disabledOnDesktop = alex.utils.system.isDesktop && !alex.settings.DESKTOP_FULLSCREEN;
+    if (cc.core.settings.FULLSCREEN_ENABLED) {
+        var disabledOnDesktop = cc.core.utils.system.isDesktop && !cc.core.settings.DESKTOP_FULLSCREEN;
         if (!disabledOnDesktop) {
-            fullscreenMgr = new alex.utils.FullscreenMgr();
+            fullscreenMgr = new cc.core.utils.FullscreenMgr();
             fullscreenMgr.init({
                 canvas: this.stage.renderer.view,
-                isMobile: alex.utils.system.isMobile
+                isMobile: cc.core.utils.system.isMobile
             });
         }
     }
@@ -9032,10 +9033,10 @@ alex.GenericGame.prototype.createFullscreenManager = function () {
 
 /**
  * @method createRenderLoop
- * @returns {alex.utils.RenderLoop}
+ * @returns {cc.core.utils.RenderLoop}
  */
-alex.GenericGame.prototype.createRenderLoop = function () {
-    var renderLoop = new alex.utils.RenderLoop();
+cc.core.GenericGame.prototype.createRenderLoop = function () {
+    var renderLoop = new cc.core.utils.RenderLoop();
     renderLoop.init({
         stage: this.stage,
         screenMgr: this.screenMgr,
@@ -9047,10 +9048,10 @@ alex.GenericGame.prototype.createRenderLoop = function () {
 /**
  * @method createStage
  * @param config
- * @returns {alex.display.Stage}
+ * @returns {cc.core.display.Stage}
  */
-alex.GenericGame.prototype.createStage = function (config) {
-    var stage = new alex.display.Stage();
+cc.core.GenericGame.prototype.createStage = function (config) {
+    var stage = new cc.core.display.Stage();
     stage.init({
         width: config.STAGE_W,
         height: config.STAGE_H,
@@ -9065,32 +9066,32 @@ alex.GenericGame.prototype.createStage = function (config) {
 
 /**
  * @method createUpdateLoop
- * @returns {alex.utils.UpdateLoop}
+ * @returns {cc.core.utils.UpdateLoop}
  */
-alex.GenericGame.prototype.createUpdateLoop = function () {
+cc.core.GenericGame.prototype.createUpdateLoop = function () {
     //run loop controller component that uses setInterval to run an update loop
-    var updateLoop = new alex.utils.UpdateLoop();
-    updateLoop.updateGame = alex.GenericGame.prototype.updateGame.bind(this);
+    var updateLoop = new cc.core.utils.UpdateLoop();
+    updateLoop.updateGame = cc.core.GenericGame.prototype.updateGame.bind(this);
     return updateLoop;
 };
 
 /**
  * @method initResolution
- * @returns {alex.utils.Resolution}
+ * @returns {cc.core.utils.Resolution}
  */
-alex.GenericGame.prototype.initResolution = function () {
-    var resolutionController = new alex.utils.Resolution();
-    var forceResolution = alex.GenericGame.prototype.checkForceResolution(this.config);
+cc.core.GenericGame.prototype.initResolution = function () {
+    var resolutionController = new cc.core.utils.Resolution();
+    var forceResolution = cc.core.GenericGame.prototype.checkForceResolution(this.config);
     resolutionController.init({
         forceResolution: forceResolution
     });
-    if (alex.settings.SCALE_MODE === 2) {
+    if (cc.core.settings.SCALE_MODE === 2) {
         //match width
-        alex.settings.setIpad();
+        cc.core.settings.setIpad();
         resolutionController.setByWidth();
     } else {
         //match height
-        alex.settings.setIphone();
+        cc.core.settings.setIphone();
         resolutionController.setByHeight();
     }
     return resolutionController;
@@ -9099,9 +9100,9 @@ alex.GenericGame.prototype.initResolution = function () {
 /**
  * under some conditions a specific resolution may be forced
  */
-alex.GenericGame.prototype.checkForceResolution = function(config){
+cc.core.GenericGame.prototype.checkForceResolution = function(config){
     var forceResolution = config.RESOLUTION || -1;
-    var system = alex.utils.system, version = system.osVersion;
+    var system = cc.core.utils.system, version = system.osVersion;
     if (system.isAndroid && version < 4 ||
         system.isAndroidStock) {
         //always force resolution 1 for these older systems
@@ -9112,11 +9113,11 @@ alex.GenericGame.prototype.checkForceResolution = function(config){
 
 /**
  * @method createSoundManager
- * @returns {alex.audio.SndMgr}
+ * @returns {cc.core.audio.SndMgr}
  */
-alex.GenericGame.prototype.createSoundManager = function () {
-    var sndMgr = new alex.audio.SndMgr();
-    var sndConfig = alex.GenericGame.prototype.getSoundConfig();
+cc.core.GenericGame.prototype.createSoundManager = function () {
+    var sndMgr = new cc.core.audio.SndMgr();
+    var sndConfig = cc.core.GenericGame.prototype.getSoundConfig();
     sndMgr.init(sndConfig);
     return sndMgr;
 };
@@ -9125,9 +9126,9 @@ alex.GenericGame.prototype.createSoundManager = function () {
  *
  * @returns {Object}
  */
-alex.GenericGame.prototype.getSoundConfig = function(){
-    var settings = alex.settings,
-        system = alex.utils.system;
+cc.core.GenericGame.prototype.getSoundConfig = function(){
+    var settings = cc.core.settings,
+        system = cc.core.utils.system;
     return {
         isIOS: system.isIOS,
         audioType: system.audioType,
@@ -9139,14 +9140,14 @@ alex.GenericGame.prototype.getSoundConfig = function(){
 
 /**
  * @method createViewport
- * @returns {alex.utils.Viewport}
+ * @returns {cc.core.utils.Viewport}
  */
-alex.GenericGame.prototype.createViewport = function () {
-    var settings = alex.settings;
+cc.core.GenericGame.prototype.createViewport = function () {
+    var settings = cc.core.settings;
     //scaleMode
     var scaleMode = settings.SCALE_MODE || 1;
-    var isMobile = alex.utils.system.isMobile;
-    var viewport = new alex.utils.Viewport();
+    var isMobile = cc.core.utils.system.isMobile;
+    var viewport = new cc.core.utils.Viewport();
     viewport.init({
         //don't bother showing please rotate screen on desktop!
         CHECK_ORIENTATION: settings.CHECK_ORIENTATION && isMobile,
@@ -9178,12 +9179,12 @@ alex.GenericGame.prototype.createViewport = function () {
 
     return viewport;
 };
-alex.utils.TweenGroup = function(){
-	alex.utils.UpdateList.call(this);
+cc.core.utils.TweenGroup = function(){
+	cc.core.utils.UpdateList.call(this);
 };
-alex.utils.TweenGroup.prototype = Object.create(alex.utils.UpdateList.prototype);
+cc.core.utils.TweenGroup.prototype = Object.create(cc.core.utils.UpdateList.prototype);
 
-alex.utils.TweenGroup.prototype.update = function(p_delta){
+cc.core.utils.TweenGroup.prototype.update = function(p_delta){
     var n = this.updateItems.length;
     var item, isComplete;
     for(var i = n-1; i > -1; i--){
@@ -9508,7 +9509,7 @@ TWEEN.Tween = function ( object ) {
 	};
 
 	//************************************
-	//alex - added this to support pausing
+	//cc.core.- added this to support pausing
 	this.restart = function(pause_duration){
 		_startTime += pause_duration;
 	};

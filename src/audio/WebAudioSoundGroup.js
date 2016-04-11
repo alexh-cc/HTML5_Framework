@@ -4,7 +4,7 @@
  * @param gainNode
  * @constructor
  */
-alex.audio.WebAudioSoundGroup = function(name, gainNode){
+cc.core.audio.WebAudioSoundGroup = function(name, gainNode){
     this.id = name;
     this.node = gainNode;
     this.isMuted = false;
@@ -13,7 +13,7 @@ alex.audio.WebAudioSoundGroup = function(name, gainNode){
     };
 };
 
-Object.defineProperty(alex.audio.WebAudioSoundGroup.prototype,'volume', {
+Object.defineProperty(cc.core.audio.WebAudioSoundGroup.prototype,'volume', {
     get: function() {
         return this.node.gain.value;
     },

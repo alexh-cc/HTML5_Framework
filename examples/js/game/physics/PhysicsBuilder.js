@@ -142,10 +142,10 @@ game_shell.physics.PhysicsBuilder.prototype.createWorld = function() {
 
 /**
  *
- * @returns {alex.game.GameLoop}
+ * @returns {cc.core.game.GameLoop}
  */
 game_shell.physics.PhysicsBuilder.prototype.createGameLoop = function() {
-    var gameLoop = new alex.game.GameLoop();
+    var gameLoop = new cc.core.game.GameLoop();
     this.scene.updateList.add(gameLoop);
     gameLoop.init({
         cameraCulling: false,

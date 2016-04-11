@@ -3,9 +3,9 @@
  * @param config
  * @constructor
  */
-alex.audio.WebAudioMgr = function(config){
+cc.core.audio.WebAudioMgr = function(config){
     //************************************
-    this.type = alex.audio.AudioModes.WEB_AUDIO;
+    this.type = cc.core.audio.AudioModes.WEB_AUDIO;
     //************************************
     this.context = config.context || this.createContext();
     //************************************
@@ -16,7 +16,7 @@ alex.audio.WebAudioMgr = function(config){
     //************************************
     // Global Mute
     //************************************
-    this.globalMute = new alex.audio.WebAudioSoundGroup('master', this.createGainNode());
+    this.globalMute = new cc.core.audio.WebAudioSoundGroup('master', this.createGainNode());
     this.globalMute.connect(this.context.destination);
     //************************************
     // default group keys
@@ -40,7 +40,7 @@ alex.audio.WebAudioMgr = function(config){
  *
  * @returns {*}
  */
-alex.audio.WebAudioMgr.prototype.createContext = function(){
+cc.core.audio.WebAudioMgr.prototype.createContext = function(){
     var ctx;
     if (window.AudioContext) {
         ctx = new AudioContext();
@@ -54,7 +54,7 @@ alex.audio.WebAudioMgr.prototype.createContext = function(){
  *
  * @returns {*}
  */
-alex.audio.WebAudioMgr.prototype.createGainNode = function(){
+cc.core.audio.WebAudioMgr.prototype.createGainNode = function(){
     if(this.context.createGainNode){
         return this.context.createGainNode();
     } else if(this.context.createGain){
@@ -73,7 +73,7 @@ alex.audio.WebAudioMgr.prototype.createGainNode = function(){
  * @param p_loop
  * @returns {*}
  */
-alex.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
+cc.core.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
 
     // - need to be able to reference sprites, not just files!
     //need a new lookup called catalog or something that references sprites with start times
@@ -101,7 +101,7 @@ alex.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
             duration: duration,
             volume: vol
         };
-        channel = new alex.audio.Channel(config);
+        channel = new cc.core.audio.Channel(config);
         var self = this;
         channel.on("complete", function(event){
             self.stopChannel(event.target);
@@ -121,7 +121,7 @@ alex.audio.WebAudioMgr.prototype.play = function(id, p_vol, p_loop){
  * @param id
  * @returns {boolean}
  */
-alex.audio.WebAudioMgr.prototype.isPlaying = function(id){
+cc.core.audio.WebAudioMgr.prototype.isPlaying = function(id){
     return this.channels.hasOwnProperty(id);
 };
 
@@ -129,7 +129,7 @@ alex.audio.WebAudioMgr.prototype.isPlaying = function(id){
  * stop sound by id
  * @param id
  */
-alex.audio.WebAudioMgr.prototype.stop = function(id){
+cc.core.audio.WebAudioMgr.prototype.stop = function(id){
     if(this.channels.hasOwnProperty(id)){
         var channel = this.channels[id];
         this.stopChannel(channel);
@@ -138,7 +138,7 @@ alex.audio.WebAudioMgr.prototype.stop = function(id){
 /*
  * stop ALL sounds...!
  */
-alex.audio.WebAudioMgr.prototype.stopAll = function(){
+cc.core.audio.WebAudioMgr.prototype.stopAll = function(){
     var id, channel;
     for(id in this.channels){
         if(this.channels.hasOwnProperty(id)){
@@ -152,7 +152,7 @@ alex.audio.WebAudioMgr.prototype.stopAll = function(){
  *
  * @param channel
  */
-alex.audio.WebAudioMgr.prototype.stopChannel = function(channel){
+cc.core.audio.WebAudioMgr.prototype.stopChannel = function(channel){
     var id = channel.id;
     //only delete the channel if it is a reference to the same channel object!
     //otherwise can get orphaned channel issues...
@@ -168,7 +168,7 @@ alex.audio.WebAudioMgr.prototype.stopChannel = function(channel){
 // Fade
 ///****************************************************
 //fade out
-alex.audio.WebAudioMgr.prototype.fadeOut = function(id, p_time){
+cc.core.audio.WebAudioMgr.prototype.fadeOut = function(id, p_time){
     //console.log("* WebAudioMgr - fadeOut " + id);
     if(this.channels.hasOwnProperty(id)){
         var channel = this.channels[id];
@@ -177,7 +177,7 @@ alex.audio.WebAudioMgr.prototype.fadeOut = function(id, p_time){
     }
 };
 //fade in
-alex.audio.WebAudioMgr.prototype.fadeIn = function(id, p_vol, p_time){
+cc.core.audio.WebAudioMgr.prototype.fadeIn = function(id, p_vol, p_time){
     if(this.channels.hasOwnProperty(id)){
         var channel = this.channels[id];
         if(channel){
@@ -192,7 +192,7 @@ alex.audio.WebAudioMgr.prototype.fadeIn = function(id, p_vol, p_time){
 ///****************************************************
 // Populate
 ///****************************************************
-alex.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
+cc.core.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
     var audioData, jsonData, id;//String
     //changed this, the assets dictionary now holds data objects, the sound buffer is a property of that object
 
@@ -203,7 +203,7 @@ alex.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
                 jsonData = p_assets[id];
                 //only register ones that loaded succesfully
                 if(jsonData.soundData !== null) {
-                    audioData = new alex.audio.WebAudioData(jsonData);
+                    audioData = new cc.core.audio.WebAudioData(jsonData);
                     this.sounds[id] = audioData;
                     this.addToCatalog(audioData);
                 }
@@ -216,7 +216,7 @@ alex.audio.WebAudioMgr.prototype.addSounds = function(p_assets){
  *
  * @param webAudioManifest
  */
-alex.audio.WebAudioMgr.prototype.removeSounds = function(webAudioManifest){
+cc.core.audio.WebAudioMgr.prototype.removeSounds = function(webAudioManifest){
     var i, n = webAudioManifest.length, data;
     for(i = 0; i < n; i++){
         data = webAudioManifest[i];
@@ -229,7 +229,7 @@ alex.audio.WebAudioMgr.prototype.removeSounds = function(webAudioManifest){
 /**
  *
  */
-alex.audio.WebAudioMgr.prototype.purge = function(){
+cc.core.audio.WebAudioMgr.prototype.purge = function(){
     for(var s in this.sounds){
         if(this.sounds.hasOwnProperty(s)){
             delete this.sounds[s];
@@ -241,7 +241,7 @@ alex.audio.WebAudioMgr.prototype.purge = function(){
  *
  * @param audioData
  */
-alex.audio.WebAudioMgr.prototype.addToCatalog = function(audioData){
+cc.core.audio.WebAudioMgr.prototype.addToCatalog = function(audioData){
     if(!audioData.sprites){
         this.catalog[audioData.id] = audioData;
     } else {
@@ -259,7 +259,7 @@ alex.audio.WebAudioMgr.prototype.addToCatalog = function(audioData){
  * @param config
  * @constructor
  */
-alex.audio.WebAudioData = function(config){
+cc.core.audio.WebAudioData = function(config){
     this.src = config.src;
     this.soundData = config.soundData;
     this.id = config.id;
@@ -312,15 +312,15 @@ alex.audio.WebAudioData = function(config){
 // Sound Group handling
 ///****************************************************
 
-alex.audio.WebAudioMgr.prototype.addSoundGroup = function(p_id){
+cc.core.audio.WebAudioMgr.prototype.addSoundGroup = function(p_id){
     var gainNode = this.createGainNode();
-    var group = new alex.audio.WebAudioSoundGroup(p_id, gainNode);
+    var group = new cc.core.audio.WebAudioSoundGroup(p_id, gainNode);
     group.connect(this.globalMute.node);
     this.soundGroups[p_id] = group;
     return group;
 };
 
-alex.audio.WebAudioMgr.prototype.isGroupMuted = function(groupId){
+cc.core.audio.WebAudioMgr.prototype.isGroupMuted = function(groupId){
     var group = this.soundGroups[groupId];
     //validate
     return (group === undefined)? false : group.isMuted;
@@ -333,19 +333,19 @@ alex.audio.WebAudioMgr.prototype.isGroupMuted = function(groupId){
 //************************************
 
 //
-alex.audio.WebAudioMgr.prototype.mute = function(b){
+cc.core.audio.WebAudioMgr.prototype.mute = function(b){
     this.globalMute.isMuted = b;
     //muteNode.gain.value = b? 0 : 1.0;
     this.globalMute.volume = b? 0 : 1.0;
 };
 
-alex.audio.WebAudioMgr.prototype.muteGroup = function(grp,b){
+cc.core.audio.WebAudioMgr.prototype.muteGroup = function(grp,b){
     var grpNode = this.soundGroups[grp];  //TODO - validate?
     grpNode.volume = b? 0 : 1.0;
     grpNode.isMuted = b;
 };
 
-alex.audio.WebAudioMgr.prototype.muteAllGroups = function(b){
+cc.core.audio.WebAudioMgr.prototype.muteAllGroups = function(b){
     for(var s in this.soundGroups){
         if(this.soundGroups.hasOwnProperty(s)){
             this.muteGroup(s, b);
@@ -354,7 +354,7 @@ alex.audio.WebAudioMgr.prototype.muteAllGroups = function(b){
 };
 
 //bit of a cheat... mute instead of pause
-alex.audio.WebAudioMgr.prototype.pause = function(bool){
+cc.core.audio.WebAudioMgr.prototype.pause = function(bool){
     if(bool){
         this.globalMute.volume = 0;
     } else {
@@ -364,14 +364,14 @@ alex.audio.WebAudioMgr.prototype.pause = function(bool){
     }
 };
 
-alex.audio.WebAudioMgr.prototype.update = function(delta){
+cc.core.audio.WebAudioMgr.prototype.update = function(delta){
     //nothing for now...
 };
 ///****************************************************
 /*
  * call this in response to a touch event to wake the audio system on iOS!
  */
-alex.audio.WebAudioMgr.prototype.wakeAudioSystem = function(){
+cc.core.audio.WebAudioMgr.prototype.wakeAudioSystem = function(){
     // create empty buffer
     var buffer = this.context.createBuffer(1, 1, 22050);
     var source = this.context.createBufferSource();
