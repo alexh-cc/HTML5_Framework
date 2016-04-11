@@ -30,5 +30,16 @@ alex.game.HitTest = {
         var distX = Math.abs(pt2.x - pt1.x),
             distY = Math.abs(pt2.y - pt1.y);
         return Math.sqrt((distX * distX) + (distY * distY));
+    },
+    containsPoint: function(point, rect){
+        var left = rect.x;
+        var right = left + rect.width;
+        var inX = (x > left && x < right);
+        if (!inX) return false;
+        //y axis points down
+        var bottom = rect.y;
+        var top = bottom + rect.height;
+        var inY = (y > bottom && y < top);
+        return inY;
     }
 };
